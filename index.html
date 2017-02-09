@@ -51,7 +51,7 @@
         if (h < w) {
           numVertices = (w*h) / (10000*h/w);
         } else {
-          numVertices = (w*h) / (40000);
+          numVertices = (w*h) / (100000);
         }
     
     var vertices = d3.range(numVertices).map(function(i) {
@@ -93,7 +93,7 @@
             .call(zoom);
 
     var force = d3.layout.force()
-            .charge(-300)
+            .charge(-(w>h?300:300))
             .size([w*(w>h?0.3:0.9), h])
             .on("tick", update);
 
