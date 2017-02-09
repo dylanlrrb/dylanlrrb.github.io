@@ -46,9 +46,14 @@
         simulate = true,
         zoomToAdd = true,
         // https://github.com/mbostock/d3/blob/master/lib/colorbrewer/colorbrewer.js#L105
-        color = d3.scale.quantize().domain([10000, 7250]).range(["#2aff00", "#183900", "#000", "#000"])
-
-    var numVertices = (w*h) / (8000*h/w);
+        color = d3.scale.quantize().domain([10000, 7250]).range(["#000", "#2aff00", "#183900", "#000", "#000"])
+        var numVertices 
+        if (h < w) {
+          numVertices = (w*h) / (10000*h/w);
+        } else {
+          numVertices = (w*h) / (40000);
+        }
+    
     var vertices = d3.range(numVertices).map(function(i) {
         angle = radius * (i+10);
         return {x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)};
@@ -80,6 +85,7 @@
         zoomToAdd = true
       })
 
+
     var svg = d3.select("#chart")
             .append("svg")
             .attr("width", w)
@@ -87,8 +93,8 @@
             .call(zoom);
 
     var force = d3.layout.force()
-            .charge(-300)
-            .size([w-800, h])
+            .charge(-303)
+            .size([w*(w>h?0.3:0.85), h])
             .on("tick", update);
 
     force.nodes(vertices).start();
@@ -144,6 +150,14 @@
 
         if(!simulate) force.stop()
     }
+
+    setInterval(function(){
+      force.start();
+    }, 2500);
+
+  //draw to canvas and speed up render, otherwise render fewer cells on mobile
+  //separate code into separate files
+
 </script>
 </body>
 </html>
