@@ -93,8 +93,8 @@
             .call(zoom);
 
     var force = d3.layout.force()
-            .charge(-303)
-            .size([w*(w>h?0.3:0.85), h])
+            .charge(-300)
+            .size([w*(w>h?0.3:0.9), h])
             .on("tick", update);
 
     force.nodes(vertices).start();
