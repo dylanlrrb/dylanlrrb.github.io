@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dylan Larrabee</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -37,17 +37,79 @@
           margin-bottom: 20px;
         }
         #cover {
-          color: #fff;
+          color: #EFEDF5;
+          text-align: right;
+          font-family: "Arial Black", Gadget, sans-serif;
           position: absolute;
-          font-size: 2em;
-          background-color: rgba(255, 0, 0, 0.3);
+          font-size: 2.5em;
+          background-color: rgba(255, 0, 0, 0.0);
           height: 100%;
           width: 100%;
+        }
+        .name {
+          font-size: 1.5em;
+          position: absolute;
+          top: 15%;
+          right: 5%;
+          text-shadow: 5px 2px 8px #000;
+          background-color: rgba(0, 0, 0, 0.9);
+          border-radius: 10%;
+        }
+        .icons {
+          position: absolute;
+          top: 315%;
+          right: 5%;
+          background-color: rgba(0, 0, 0, 0.9);
+          border-radius: 10%;
+        }
+        .icon {
+          display: inline-block;
+        }
+        .labels {
+          color: #2aff00;
+          position: absolute;
+          top: 50%;
+          right: 5%;
+          text-shadow: 5px 2px 8px #000;
+          background-color: rgba(0, 0, 0, 0.9);
+          border-radius: 10%;
+          margin-left: 2px;
+        }
+        .f {
+          margin-bottom: -3%; 
+          margin-left: 10px;
+        }
+        .s {
+          margin-bottom: 10%; 
+          margin-left: 10px;
+        }
+        .m {
+          margin-bottom: 2%; 
+          margin-left: 10px;
+        }
+        .arrow {
+          position: absolute;
+          top: 85%;
+          right: 5%;
         }
     </style>
 </head>
 <body>
-<div id="cover">test</div>
+<div id="cover">
+  <div class="name">Dylan Larrabee</div>
+  <div class="icons">
+    <div class="icon">*</div>
+    <div class="icon">*</div>
+    <div class="icon">*</div>
+    <div class="icon">*</div>
+  </div>
+  <div class="labels">
+    <div class="f">full-stack</div>
+    <div class="s">software engineer</div>
+    <div class="m">+ mad scientist</div>
+  </div>
+  <div class="arrow">V</div>
+</div>
 <div id="chart"></div>
 <div>
   <span>.</span><br>
