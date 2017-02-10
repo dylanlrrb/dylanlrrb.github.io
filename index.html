@@ -33,10 +33,56 @@
             stroke: #2aff00;
             stroke-width: 4px;
         }
+        #chart {
+          margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-<div id="chart">
+<div id="chart"></div>
+<div>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
+  <span>.</span><br>
 </div>
 <script type="text/javascript">
     var w = window.innerWidth //> 960 ? 960 : (window.innerWidth || 960),
@@ -94,7 +140,7 @@
 
     var force = d3.layout.force()
             .charge(-(w>h?300:300))
-            .size([w*(w>h?0.3:0.9), h])
+            .size([w*(w>h?0.32:0.9), h])
             .on("tick", update);
 
     force.nodes(vertices).start();
