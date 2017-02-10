@@ -43,8 +43,8 @@
           position: absolute;
           font-size: 3.5vmax;
           background-color: rgba(255, 0, 0, 0.0);
-          height: 90%;
-          width: 90%;
+          height: 100%;
+          width: 100%;
         }
         .name {
           font-size: 5vmax;
@@ -59,11 +59,16 @@
           position: absolute;
           top: 22%;
           right: 5%;
-          background-color: rgba(0, 0, 0, 0.9);
+          /*background-color: rgba(0, 0, 0, 0.9);*/
           border-radius: 10%;
+          width: 100%;
         }
         .icon {
           display: inline-block;
+          height: 7vmax;
+          width: 7vmax;
+          margin-right: 4%;
+          /*margin-left: 1%;*/
         }
         .labels {
           color: #2aff00;
@@ -98,15 +103,14 @@
 <div id="cover">
   <div class="name">Dylan Larrabee</div>
   <div class="icons">
-    <div class="icon">*</div>
-    <div class="icon">*</div>
-    <div class="icon">*</div>
-    <div class="icon">*</div>
+    <img src="mail.png" class="icon"></img>
+    <img src="linkedin.png" class="icon"></img>
+    <img src="gh1.png" class="icon" style="margin-right: 0%"></img>
   </div>
   <div class="labels">
     <div class="f">full-stack</div>
     <div class="s">software engineer</div>
-    <div class="m">+ mad scientist</div>
+    <div class="m">(and mad scientist)</div>
   </div>
   <div class="arrow">V</div>
 </div>
@@ -211,7 +215,7 @@
 
     var force = d3.layout.force()
             .charge(-(w>h?300:300))
-            .size([w*(w>h?0.32:0.9), h])
+            .size([w*(w>h?0.32:0.85), h])
             .on("tick", update);
 
     force.nodes(vertices).start();
