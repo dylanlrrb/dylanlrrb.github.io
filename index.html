@@ -73,14 +73,15 @@
           right: 5%;
           text-shadow: 5px 2px 8px #000;
           background-color: rgba(0, 0, 0, 0.9);
-          border-radius: 10%;
+          border-radius: 15px;
+          padding-left: 10px;
+          padding-right: 10px;
         
         }
         .icons {
           position: absolute;
           top: 22%;
           right: 5%;
-          border-radius: 10%;
           width: 100%;
         
         }
@@ -98,7 +99,7 @@
           right: 5%;
           text-shadow: 5px 2px 8px #000;
           background-color: rgba(0, 0, 0, 0.8);
-          border-radius: 10%;
+          border-radius: 15px;
           margin-left: 2px;
 
         }
@@ -369,7 +370,7 @@
         if (h < w) {
           numVertices = (w*h) / (17000*h/w);
         } else {
-          numVertices = (w*h*7.3984) / (40000);
+          numVertices = (w*h*9) / (40000);
         }
     
     var vertices = d3.range(numVertices).map(function(i) {
@@ -412,7 +413,7 @@
 
     var force = d3.layout.force()
             .charge(-(w>h?300:300))
-            .size([w*(w>h?0.32:0.85), h*(w>h?1:0.9)])
+            .size([w*(w>h?0.32:0.0), h*(w>h?1:0.9)])
             .on("tick", update);
 
     force.nodes(vertices).start();
