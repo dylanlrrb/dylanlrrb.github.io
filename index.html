@@ -50,7 +50,7 @@
           position: absolute;
           font-size: 7.2vmin;
           top: 0px;
-          background-color: rgba(255, 0, 0, 0.);
+          background-color: rgba(255, 0, 0, 0);
           height: 100%;
           width: 100%;
           -webkit-animation-name: example;
@@ -129,7 +129,7 @@
           font-size: 6vmin;
         }
         .bod {
-          font-size: 5.5vmin;
+          font-size: 5.0vmin;
           font-family: "Arial", Gadget, sans-serif;
           margin: 4%;
         }
@@ -165,28 +165,6 @@
         .portfolio {
           background-color: #EFEDF5;
         }
-        .photo {
-          /*background-color: red;*/
-          text-align: center;
-          /*height: 100%;*/
-        }
-        .pic {
-          width: 80vmin;
-          padding: 2%;
-        }
-        .description {
-          padding-left: 20px;
-          text-align: left;
-          padding: 2%;
-        }
-        .tag {
-          background-color: blue;
-          text-align: center;
-        }
-        #chart {
-          width: 100%;
-          height: 100%;
-        }
         .container {
           margin-right: 0px;
           margin-left: 0px;
@@ -196,7 +174,47 @@
           margin-top: 6%;
           margin-bottom: 6%;
         }
-
+        .title {
+          font-size: 8vmin;
+          padding-left: 2%;
+          margin: 2%;
+          margin-top: 8vmin;
+        }
+        .photo {
+          text-align: center;
+        }
+        .pic {
+          width: 80vmin;
+          padding: 2%;
+        }
+        .project {
+          font-size: 6vmin;
+          margin-bottom: 15px;
+          font-family: "Arial Black", Gadget, sans-serif;
+        }
+        .description {
+          font-size: 4.5vmin;
+          text-align: left;
+          padding: 2%;
+          padding-left: 8vmin;
+          padding-right: 2vmin;
+          font-family: "Arial", Gadget, sans-serif;
+        }
+        .tagholder {
+          margin-top: 2vmin;
+        }
+        .tag {
+          background-color: #0099ff;
+          text-align: center;
+          display: inline-block;
+          padding: 4px 15px 4px 15px;
+          border-radius: 4.5vmin;
+          margin: 5px 2px 5px 2px;
+        }
+        #chart {
+          width: 100%;
+          height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -234,33 +252,50 @@
 </div>
 <div class="portfolio container">
 
+  <div class="title">Portfolio</div>
+
   <div class="row">
-    <div class='photo col-sm-5'>
+    <div class='photo col-lg-5'>
       <img src="assets/shots/LF/lf.gif" class="pic"></img>
     </div>
     <div>
-      <div class='description col-sm-7'>
+      <div class='description col-lg-7'>
+        <div class="project">Lava Flow</div>
+
         Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
-        <div class="tag">
-          Javascript
+        <div class="tagholder">
+          <div class="tag">
+            Javascript
+          </div>
+          <div class="tag">
+            React
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class='photo col-sm-5'>
+    <div class='photo col-lg-5'>
       <img src="assets/shots/DockerCurr/docker.svg" class="pic"></img>
     </div>
     <div>
-      <div class='description col-sm-7'>
+      <div class='description col-lg-7'>
+        <div class="project">Original Docker Curriculum</div>
+
         Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
-        <div class="tag">
-          Javascript
+        <div class="tagholder">
+          <div class="tag">
+            Javascript
+          </div>
+          <div class="tag">
+            Docker
+          </div>
         </div>
       </div>
     </div>
   </div>
+
 
 </div>
 <script type="text/javascript">
