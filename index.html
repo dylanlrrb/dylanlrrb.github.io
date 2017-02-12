@@ -3,7 +3,7 @@
 <head>
 
     <title>Dylan Larrabee</title>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -328,7 +328,7 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
-    $(".name").text("Width: " + window.innerWidth + " Height: " + window.innerHeight);
+    // $(".name").text("Width: " + window.innerWidth + " Height: " + window.innerHeight);
 
 
     $("a").on('click', function(event) {
@@ -369,7 +369,7 @@
         if (h < w) {
           numVertices = (w*h) / (17000*h/w);
         } else {
-          numVertices = (w*h) / (40000);
+          numVertices = (w*h*7.3984) / (40000);
         }
     
     var vertices = d3.range(numVertices).map(function(i) {
