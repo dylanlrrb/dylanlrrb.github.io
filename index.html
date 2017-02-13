@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
 
     <title>Dylan Larrabee</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,535 +8,174 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/style/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/style/main.css">
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
       ga('create', 'UA-91814196-1', 'auto');
       ga('send', 'pageview');
-
     </script>
-    <style type="text/css">
-        html {
-          margin: 0px;
-          padding: 0px;
-        }
-        body {
-          margin: 0px;
-          padding: 0px;
-          background-color: #000;
-          font-family: "Arial Black", Gadget, sans-serif;
-        }
-        span {
-          color: #fff;
-        }
-        svg {
-          margin: 0px;
-          padding: 0px;
-        }
-        circle {
-            stroke: none;
-            fill: none;
-            pointer-events: none;
-        }
-        line {
-            pointer-events: none;
-            stroke: #EFEDF5;
-            stroke-width: 2px;
-            opacity: .05;
-        }
-        path{
-            stroke: #2aff00;
-            stroke-width: 4px;
-        }
-        #chart {
-          margin-bottom: 20px;
-        }
-        #cover {
-          color: #EFEDF5;
-          text-align: right;
-          position: absolute;
-          font-size: 7.2vmin;
-          top: 0px;
-          background-color: rgba(255, 0, 0, 0);
-          height: 100%;
-          width: 100%;
-          -webkit-animation-name: example;
-          -webkit-animation-duration: 3.5s; 
-        }
-        @-webkit-keyframes example {
-          from {opacity: 0;}
-          to{opacity: 1;}
-        }
-        @-webkit-keyframes pulse {
-          0%   {opacity: 0.2}
-          50%  {opacity: 1}
-          100%  {opacity: 0.2}
-        }
-        .name {
-          font-size: 10vmin;
-          position: absolute;
-          top: 8%;
-          right: 5%;
-          text-shadow: 5px 2px 8px #000;
-          background-color: rgba(0, 0, 0, 0.9);
-          border-radius: 15px;
-          padding-left: 10px;
-          padding-right: 10px;
-        }
-        .icons {
-          position: absolute;
-          top: 22%;
-          right: 5%;
-          width: 100%;
-        }
-        .icon {
-          display: inline-block;
-          height: 14vmin;
-          width: 14vmin;
-          margin-right: 4%;
-        }
-        .labels {
-          color: #2aff00;
-          position: absolute;
-          bottom: 20%;
-          right: 5%;
-          text-shadow: 5px 2px 8px #000;
-          background-color: rgba(0, 0, 0, 0.8);
-          border-radius: 15px;
-          margin-left: 2px;
-        }
-        .f {
-          margin-bottom: -3%; 
-          margin-left: 10px;
-        }
-        .s {
-          margin-bottom: 9%; 
-          margin-left: 10px;
-        }
-        .m {
-          margin-bottom: 2%; 
-          margin-left: 10px;
-        }
-        .arrow {
-          position: absolute;
-          bottom: 5%;
-          right: 7%;
-          height: 14%;
-          -webkit-animation-name: pulse;
-          -webkit-animation-duration: 1.5s;
-          -webkit-animation-iteration-count: infinite; 
-        }
-        .about {
-          margin-top: 9%;
-          width: 80%;
-        }
-        .head {
-          margin: 5%;
-          color: #2aff00;
-          font-size: 6vmin;
-        }
-        .bod {
-          font-size: 5.0vmin;
-          font-family: "Arial", Gadget, sans-serif;
-          margin: 4%;
-        }
-        .sig {
-          width: 54vmin;
-          margin: 5%;
-          margin-top: -1%;
-          margin-bottom: -1%;
-        }
-        .res {
-          background-color: #000;
-          border-style: solid;
-          border-color: #2aff00;
-          border-width: 15px;
-          width:80vmin;
-          border-radius: 5px;
-          text-align: center;
-          font-size: 6vmin;
-          color: #EFEDF5;
-          padding-top: 4vmin;
-          padding-bottom: 4vmin;
-          box-shadow: 5px 5px 20px rgba(100, 100, 100, 0.8);
 
-          margin: 5%;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          
-        }
-        a {
-          text-decoration: none;
-        }
-        .portfolio {
-          background-color: #EFEDF5;
-        }
-        .container {
-          margin-right: 0px;
-          margin-left: 0px;
-          width: 100%;
-        }
-        .row {
-          margin-top: 6%;
-          margin-bottom: 6%;
-        }
-        .title {
-          font-size: 8vmin;
-          padding-left: 2%;
-          margin: 2%;
-          margin-top: 8vmin;
-        }
-        .photo {
-          margin-top: 50px;
-          text-align: center;
-        }
-        .pic {
-          width: 80vmin;
-          padding: 2%;
-        }
-        .project {
-          font-size: 7vmin;
-          margin-bottom: 15px;
-          margin-top: 20px;
-          font-family: "Arial Black", Gadget, sans-serif;
-        }
-        .description {
-          font-size: 4.5vmin;
-          text-align: left;
-          padding: 2%;
-          padding-left: 8vmin;
-          padding-right: 2vmin;
-          font-family: "Arial", Gadget, sans-serif;
-        }
-        .tagholder {
-          margin-top: 2vmin;
-        }
-        .description.a {
-          color: #0000ff;
-          text-decoration: underline;
-        }
-        .tag {
-          background-color: #0099ff;
-          text-align: center;
-          display: inline-block;
-          padding: 4px 15px 4px 15px;
-          border-radius: 4.5vmin;
-          margin: 5px 2px 5px 2px;
-        }
-        #chart {
-          width: 100%;
-          height: 100%;
-        }
-    </style>
-</head>
-<body>
-<div id="chart"></div>
-<div id="cover">
-  <div class="name">Dylan Larrabee</div>
-  <div class="icons">
-    <a href="mailto:dylan.r.larrabee@gmail.com"><img src="assets/icons/mail.png" class="icon"></img></a>
-    <a href="http://www.linkedin.com/in/dylan-larrabee/"><img src="assets/icons/linkedin.png" class="icon"></img></a>
-    <a href="http://www.github.com/dylanlrrb/"><img src="assets/icons/gh1.png" class="icon" style="margin-right: 0%"></img></a>
-  </div>
-  <div class="labels">
-    <div class="f">full-stack</div>
-    <div class="s">software engineer</div>
-    <div class="m">(and mad scientist)</div>
-  </div>
-  <a href="#sec2"><img src="assets/icons/down.png" class="arrow" style="margin-right: 0%"></img></a>
-</div>
-
-<div id="sec2" class="about">
-  <div>
-    <span class="head">About me...</span><br>
-  </div>
-  <div class="bod">
-    <span >Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.</span><br>
-  </div>
-</div>
-<div>
-  <img class="sig" src="assets/icons/sig.png"></img>
-  <div>
-    <a href="assets/files/Dylan_Larrabee_Resume.pdf" download><div class="res">
-      Download Resume
-    </div></a>
-  </div>
-</div>
-<div class="portfolio container">
-
-  <div class="title">Portfolio</div>
-
-  <div class="row">
-    <div class='photo col-lg-5'>
-      <img src="assets/shots/LF/lf.gif" class="pic"></img>
-    </div>
-    <div>
-      <div class='description col-lg-7'>
-        <div class="project">Lava Flow</div>
-
-        Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
-        <br><a href="https://github.com/dylanlrrb/LavaFlow">View it on Github</a>
-        <div class="tagholder">
-          <div class="tag">
-            Swift
-          </div>
-          <div class="tag">
-            SpriteKit
-          </div>
-          <div class="tag">
-            iOS 9
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class='photo col-lg-5'>
-      <img src="assets/shots/DockerCurr/docker.svg" class="pic"></img>
-    </div>
-    <div>
-      <div class='description col-lg-7'>
-        <div class="project">Original Docker Curriculum</div>
-
-        Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
-        <br><a href="https://github.com/dylanlrrb/">View it on Github</a>
-        <div class="tagholder">
-          <div class="tag">
-            Javascript
-          </div>
-          <div class="tag">
-            Docker
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class='photo col-lg-5'>
-      <img src="assets/shots/Shakle/Shakle.png" class="pic" style="border-radius: 50px;"></img>
-    </div>
-    <div>
-      <div class='description col-lg-7'>
-        <div class="project">Shakle Promise Library</div>
-
-        Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
-        <br><a href="https://github.com/dylanlrrb/Shakle">View it on Github</a>
-        <div class="tagholder">
-          <div class="tag">
-            Javascript
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class='photo col-lg-5'>
-      <img src="assets/shots/Ripple/Ripple.gif" class="pic" style="border-radius: 10px;"></img>
-    </div>
-    <div>
-      <div class='description col-lg-7'>
-        <div class="project">Ripple</div>
-
-        Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
-        <br><a href="https://github.com/dylanlrrb/Ripple">View it on Github</a>
-        <div class="tagholder">
-          <div class="tag">
-            Javascript
-          </div>
-          <div class="tag">
-            FitBit API
-          </div>
-          <div class="tag">
-            Passport
-          </div>
-          <div class="tag">
-            React
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class='photo col-lg-5'>
-      <img src="assets/shots/Markable/markable2.png" class="pic" style="border-radius: 10px;"></img>
-    </div>
-    <div>
-      <div class='description col-lg-7'>
-        <div class="project">Markable</div>
-
-        Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
-        <br><a href="https://github.com/dylanlrrb/Markable">View it on Github</a>
-        <div class="tagholder">
-          <div class="tag">
-            Javascript
-          </div>
-          <div class="tag">
-            Angular
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-</div>
-<script type="text/javascript">
-
-  $(document).ready(function() {
-    // $(".name").text("Width: " + window.innerWidth + " Height: " + window.innerHeight);
-
-    $("a").on('click', function(event) {
-
-      // Make sure this.hash has a value before overriding default behavior
-      if (this.hash !== "") {
-        // Prevent default anchor click behavior
-        event.preventDefault();
-
-        // Store hash
-        var hash = this.hash;
-
-        // Using jQuery's animate() method to add smooth page scroll
-        // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-        $('html, body').animate({
-          scrollTop: $(hash).offset().top
-        }, 800, function(){
-     
-          // Add hash (#) to URL when done scrolling (default click behavior)
-          window.location.hash = hash;
-        });
-      } // End if
-    });
-
-  });
-
+  </head>
   
-    var w = window.innerWidth //> 960 ? 960 : (window.innerWidth || 960),
-        h = window.innerHeight //> 500 ? 500 : (window.innerHeight || 500),
-        radius = 5.7,
-        links = [],
-        simulate = true,
-        zoomToAdd = true,
-        // https://github.com/mbostock/d3/blob/master/lib/colorbrewer/colorbrewer.js#L105
-        color = d3.scale.quantize().domain([10000, 7250]).range(["#000", "#2aff00", "#183900", "#000", "#000"])
-        var numVertices 
-        if (h < w) {
-          numVertices = (w*h) / (17000*h/w);
-        } else {
-          numVertices = (w*h*9) / (40000);
-        }
-    
-    var vertices = d3.range(numVertices).map(function(i) {
-        angle = radius * (i+10);
-        return {x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)};
-    });
-    var d3_geom_voronoi = d3.geom.voronoi().x(function(d) { return d.x; }).y(function(d) { return d.y; })
-    var prevEventScale = 1;
-    var zoom = d3.behavior.drag().on("drag", function(d,i) {
-      force.nodes(vertices).start()
-    });
+  <body>
+    <div id="chart"></div>
+    <div id="cover">
+      <div class="name">Dylan Larrabee</div>
+      <div class="icons">
+        <a href="mailto:dylan.r.larrabee@gmail.com"><img src="assets/icons/mail.png" class="icon"></img></a>
+        <a href="http://www.linkedin.com/in/dylan-larrabee/"><img src="assets/icons/linkedin.png" class="icon"></img></a>
+        <a href="http://www.github.com/dylanlrrb/"><img src="assets/icons/gh1.png" class="icon" style="margin-right: 0%"></img></a>
+      </div>
+      <div class="labels">
+        <div class="f">full-stack</div>
+        <div class="s">software engineer</div>
+        <div class="m">(and mad scientist)</div>
+      </div>
+      <a href="#sec2"><img src="assets/icons/down.png" class="arrow" style="margin-right: 0%"></img></a>
+    </div>
 
-    d3.select(window)
-      .on("keydown", function() {
-        // shift
-        if(d3.event.keyCode == 16) {
-          zoomToAdd = false
-        }
+    <div id="sec2" class="about">
+      <div>
+        <span class="head">About me...</span><br>
+      </div>
+      <div class="bod">
+        <span >Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.</span><br>
+      </div>
+    </div>
+    <div>
+      <img class="sig" src="assets/icons/sig.png"></img>
+      <div>
+        <a href="assets/files/Dylan_Larrabee_Resume.pdf" download><div class="res">
+          Download Resume
+        </div></a>
+      </div>
+    </div>
+    <div class="portfolio container">
 
-        // s
-        if(d3.event.keyCode == 83) {
-          simulate = !simulate
-          if(simulate) {
-            force.start()
-          } else {
-            force.stop()
-          }
-        }
-      })
-      .on("keyup", function() {
-        zoomToAdd = true
-      })
+      <div class="title">Portfolio</div>
 
+      <div class="row">
+        <div class='photo col-lg-5'>
+          <img src="assets/shots/LF/lf.gif" class="pic"></img>
+        </div>
+        <div>
+          <div class='description col-lg-7'>
+            <div class="project">Lava Flow Notes</div>
 
-    var svg = d3.select("#chart")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h)
-            .call(zoom);
+            Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
+            <br><a href="https://github.com/dylanlrrb/LavaFlow">View it on Github</a>
+            <div class="tagholder">
+              <div class="tag">
+                Swift
+              </div>
+              <div class="tag">
+                SpriteKit
+              </div>
+              <div class="tag">
+                iOS 9
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    var force = d3.layout.force()
-            .charge(-(w>h?300:300))
-            .size([w*(w>h?0.32:0.0), h*(w>h?1:0.9)])
-            .on("tick", update);
+      <div class="row">
+        <div class='photo col-lg-5'>
+          <img src="assets/shots/DockerCurr/docker.svg" class="pic"></img>
+        </div>
+        <div>
+          <div class='description col-lg-7'>
+            <div class="project">Original Docker Curriculum</div>
 
-    force.nodes(vertices).start();
+            Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
+            <br><a href="https://github.com/dylanlrrb/">View it on Github</a>
+            <div class="tagholder">
+              <div class="tag">
+                Javascript
+              </div>
+              <div class="tag">
+                Docker
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    var circle = svg.selectAll("circle");
-    var path = svg.selectAll("path");
-    var link = svg.selectAll("line");
+      <div class="row">
+        <div class='photo col-lg-5'>
+          <img src="assets/shots/Shakle/Shakle.png" class="pic" style="border-radius: 50px;"></img>
+        </div>
+        <div>
+          <div class='description col-lg-7'>
+            <div class="project">Shakle Promise Library</div>
 
-    function update(e) {
-        path = path.data(d3_geom_voronoi(vertices))
-        path.enter().append("path")
-            // drag node by dragging cell
-            .call(d3.behavior.drag()
-              .on("drag", function(d, i) {
-                  vertices[i] = {x: vertices[i].x + d3.event.dx, y: vertices[i].y + d3.event.dy}
-              })
-            )
+            Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
+            <br><a href="https://github.com/dylanlrrb/Shakle">View it on Github</a>
+            <br><a>View it on npm</a>
+            <div class="tagholder">
+              <div class="tag">
+                Javascript
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            .on("mouseover", function() {
-              console.log('hey');
-              if (d3.event.scale > prevEventScale) {
-                  angle = radius * vertices.length;
-                  vertices.pop();
-                  //vertices.push({x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)})
-              } else if (vertices.length > 2 && d3.event.scale != prevEventScale) {
-                  vertices.pop();
-              }
-              force.nodes(vertices).start()
-              prevEventScale = d3.event.scale;
-            })
+      <div class="row">
+        <div class='photo col-lg-5'>
+          <img src="assets/shots/Ripple/Ripple.gif" class="pic" style="border-radius: 10px;"></img>
+        </div>
+        <div>
+          <div class='description col-lg-7'>
+            <div class="project">Ripple</div>
 
-            .style("fill", function(d, i) { return color(0) })
-        path.attr("d", function(d) { return "M" + d.join("L") + "Z"; })
-            .transition().duration(150).style("fill", function(d, i) { return color(d3.geom.polygon(d).area()) })
-        path.exit().remove();
+            Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
+            <br><a href="https://github.com/dylanlrrb/Ripple">View it on Github</a>
+            <div class="tagholder">
+              <div class="tag">
+                Javascript
+              </div>
+              <div class="tag">
+                FitBit API
+              </div>
+              <div class="tag">
+                Passport
+              </div>
+              <div class="tag">
+                React
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        circle = circle.data(vertices)
-        circle.enter().append("circle")
-              .attr("r", 0)
-              .transition().duration(1000).attr("r", 5);
-        circle.attr("cx", function(d) { return d.x; })
-              .attr("cy", function(d) { return d.y; });
-        circle.exit().transition().attr("r", 0).remove();
+      <div class="row">
+        <div class='photo col-lg-5'>
+          <img src="assets/shots/Markable/markable2.png" class="pic" style="border-radius: 10px;"></img>
+        </div>
+        <div>
+          <div class='description col-lg-7'>
+            <div class="project">Markable</div>
 
-        link = link.data(d3_geom_voronoi.links(vertices))
-        link.enter().append("line")
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; })
+            Etsy drinking vinegar lyft glossier lumbersexual. Yuccie forage tousled sustainable cronut, keffiyeh occupy crucifix hell of. Raclette vaporware forage, banh mi hexagon blue bottle irony portland mustache stumptown fashion axe. Umami fam ennui man braid. Gentrify street art yr, craft beer hot chicken kitsch cronut vape pok pok irony marfa. 3 wolf moon kombucha etsy, live-edge biodiesel fam unicorn pok pok DIY selfies subway tile affogato.
+            <br><a href="https://github.com/dylanlrrb/Markable">View it on Github</a>
+            <div class="tagholder">
+              <div class="tag">
+                Javascript
+              </div>
+              <div class="tag">
+                Angular
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        link.exit().remove()
+    <script src="assets/scripts/script.js"></script>
 
-        if(!simulate) force.stop()
-    }
-
-    setInterval(function(){
-      force.start();
-    }, 2500);
-
-  //draw to canvas and speed up render, otherwise render fewer cells on mobile
-  //separate code into separate files
-
-</script>
-</body>
+  </body>
 </html>
