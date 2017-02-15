@@ -113,7 +113,7 @@ path{
   width: 80%;
 }
 .head {
-  margin: 5%;
+  margin: 4%;
   color: #2aff00;
   font-size: 6vmin;
 }
@@ -121,6 +121,7 @@ path{
   font-size: 4.0vmin;
   font-family: "Arial", Gadget, sans-serif;
   margin: 4%;
+  margin-top: 5px;
 }
 .sig {
   width: 54vmin;
