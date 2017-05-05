@@ -43,11 +43,11 @@ var frame = document.querySelector('#pic')
 function getPhoto(lon, lat) {
     var uri = `https://api.flickr.com/services/rest/?method=flickr.photos.search& \
   api_key=9edf145e07ba220c42ade82e1759810d&lat=${lat}&lon=${lon} \  
-  &accuracy=1&sort=interestingness-desc&extras=url_l&format=json&nojsoncallback=1`
+  &accuracy=1&sort=interestingness-desc&extras=url_l&format=json&nojsoncallback=1`;
 
   fetch(uri)
     .then(res => {
-        return res.json()
+        return res.json();
     })
     .then(data => {
         var photoArray = data.photos.photo[Math.floor(Math.random()*data.photos.photo.length)] || {"url_l":""}
@@ -60,10 +60,6 @@ function getPhoto(lon, lat) {
 
 }
 
-
-
-//getPhoto('-122.958', '66.445')
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGxhcnJhYmVlIiwiYSI6ImNqMmIyZm5kZDAwcWcyd3M2ajNweWdlYTIifQ.bkwEq-z6kmsc7Jw7CDDr1w';
 var map = new mapboxgl.Map({
     container: 'map',
@@ -72,18 +68,19 @@ var map = new mapboxgl.Map({
     zoom: 12
 });
 
-var throttled = false
+var throttled = false;
+
 map.on('mousemove', function (e) {
     var features = map.queryRenderedFeatures(e.point);
     if(!throttled && features[0]) {
 
-        var coordinates = features[0].geometry.coordinates[0][Math.floor(Math.random()*features[0].geometry.coordinates[0].length)]
+        var coordinates = features[0].geometry.coordinates[0][Math.floor(Math.random()*features[0].geometry.coordinates[0].length)];
         
         if (coordinates && Array.isArray(coordinates) && coordinates.length === 2) {
-            getPhoto(coordinates[0], coordinates[1])
-            console.log(coordinates)
-            throttled = true
-            setTimeout(() => throttled = false, 1000)
+            getPhoto(coordinates[0], coordinates[1]);
+            console.log(coordinates);
+            throttled = true;
+            setTimeout(() => throttled = false, 1000);
         }
     }
 });
