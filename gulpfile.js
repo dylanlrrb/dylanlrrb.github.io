@@ -6,7 +6,7 @@ gulp.task('compress', function () {
   pump([
     gulp.src('src/js/*.js'),
     plugins.uglify(),
-    gulp.dest('./dist/')
+    gulp.dest('./dist/js/')
   ]);
 });
 
@@ -26,7 +26,9 @@ gulp.task('css', function () {
 
 gulp.task('watch', function () {
   gulp.watch(['./src/**/*.jade'], ['html']);
+  gulp.watch(['./src/templates/**'], ['html']);
   gulp.watch(['./src/**/*.scss'], ['css']);
+  gulp.watch(['./src/**/*.js'], ['compress']);
 });
 
 gulp.task('default', ['compress', 'html', 'css', 'watch'], function () { });
