@@ -2,37 +2,45 @@ html {
   margin: 0px;
   padding: 0px;
 }
+
 body {
   margin: 0px;
   padding: 0px;
   background-color: #000;
   font-family: "Arial Black", Gadget, sans-serif;
 }
+
 span {
   color: #fff;
 }
+
 svg {
   margin: 0px;
   padding: 0px;
 }
+
 circle {
-    stroke: none;
-    fill: none;
-    pointer-events: none;
+  stroke: none;
+  fill: none;
+  pointer-events: none;
 }
+
 line {
-    pointer-events: none;
-    stroke: #EFEDF5;
-    stroke-width: 2px;
-    opacity: .05;
+  pointer-events: none;
+  stroke: #EFEDF5;
+  stroke-width: 2px;
+  opacity: .05;
 }
-path{
-    stroke: #2aff00;
-    stroke-width: 4px;
+
+path {
+  stroke: #2aff00;
+  stroke-width: 4px;
 }
+
 #chart {
   margin-bottom: 20px;
 }
+
 #cover {
   color: #EFEDF5;
   text-align: right;
@@ -43,17 +51,35 @@ path{
   height: 100%;
   width: 100%;
   -webkit-animation-name: example;
-  -webkit-animation-duration: 3.5s; 
+  -webkit-animation-duration: 3.5s;
 }
+
 @-webkit-keyframes example {
-  from {opacity: 0;}
-  to{opacity: 1;}
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
+
+
 @-webkit-keyframes pulse {
-  0%   {opacity: 0.2}
-  50%  {opacity: 1}
-  100%  {opacity: 0.2}
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
 }
+
+
 .name {
   font-size: 10vmin;
   position: absolute;
@@ -65,18 +91,21 @@ path{
   padding-left: 10px;
   padding-right: 10px;
 }
+
 .icons {
   position: absolute;
   top: 22%;
   right: 5%;
   width: 100%;
 }
+
 .icon {
   display: inline-block;
   height: 14vmin;
   width: 14vmin;
   margin-right: 4%;
 }
+
 .labels {
   color: #2aff00;
   position: absolute;
@@ -87,18 +116,22 @@ path{
   border-radius: 15px;
   margin-left: 2px;
 }
+
 .f {
-  margin-bottom: -3%; 
+  margin-bottom: -3%;
   margin-left: 10px;
 }
+
 .s {
-  margin-bottom: 9%; 
+  margin-bottom: 9%;
   margin-left: 10px;
 }
+
 .m {
-  margin-bottom: 2%; 
+  margin-bottom: 2%;
   margin-left: 10px;
 }
+
 .arrow {
   position: absolute;
   bottom: 5%;
@@ -106,35 +139,40 @@ path{
   height: 14%;
   -webkit-animation-name: pulse;
   -webkit-animation-duration: 1.5s;
-  -webkit-animation-iteration-count: infinite; 
+  -webkit-animation-iteration-count: infinite;
 }
+
 .about {
   margin-top: 9%;
   width: 80%;
 }
+
 .head {
   margin: 4%;
   color: #2aff00;
   font-size: 6vmin;
 }
+
 .bod {
   font-size: 4.0vmin;
   font-family: "Arial", Gadget, sans-serif;
   margin: 4%;
   margin-top: 5px;
 }
+
 .sig {
   width: 54vmin;
   margin: 5%;
   margin-top: -1%;
   margin-bottom: -1%;
 }
+
 .res {
   background-color: #000;
   border-style: solid;
   border-color: #2aff00;
   border-width: 15px;
-  width:80vmin;
+  width: 80vmin;
   border-radius: 5px;
   text-align: center;
   font-size: 6vmin;
@@ -142,48 +180,55 @@ path{
   padding-top: 4vmin;
   padding-bottom: 4vmin;
   box-shadow: 5px 5px 20px rgba(100, 100, 100, 0.8);
-
   margin: 5%;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  
 }
+
 a {
   text-decoration: none;
 }
+
 .portfolio {
   background-color: #EFEDF5;
 }
+
 .container {
   margin-right: 0px;
   margin-left: 0px;
   width: 100%;
 }
+
 .row {
   margin-top: 6%;
   margin-bottom: 6%;
 }
+
 .title {
   font-size: 8vmin;
   padding-left: 2%;
   margin: 2%;
   margin-top: 8vmin;
 }
+
 .photo {
   margin-top: 50px;
   text-align: center;
 }
+
 .pic {
   width: 80vmin;
   padding: 2%;
 }
+
 .project {
   font-size: 7vmin;
   margin-bottom: 15px;
   margin-top: 20px;
   font-family: "Arial Black", Gadget, sans-serif;
 }
+
 .description {
   font-size: 3.5vmin;
   text-align: left;
@@ -192,13 +237,16 @@ a {
   padding-right: 2vmin;
   font-family: "Arial", Gadget, sans-serif;
 }
+
 .tagholder {
   margin-top: 2vmin;
 }
+
 .description.a {
   color: #0000ff;
   text-decoration: underline;
 }
+
 .tag {
   background-color: #0099ff;
   text-align: center;
@@ -207,6 +255,7 @@ a {
   border-radius: 4.5vmin;
   margin: 5px 2px 5px 2px;
 }
+
 #chart {
   width: 100%;
   height: 100%;
