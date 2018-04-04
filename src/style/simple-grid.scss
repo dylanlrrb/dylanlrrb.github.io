@@ -3,7 +3,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
 
 // fonts
-$font-family: 'Lato', Helvetica, sans-serif;
+$font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-heavy: 700;
@@ -28,7 +28,6 @@ body {
 
 * {
   font-family: $font-family;
-  color: $dark-grey;
   line-height: $font-height;
 }
 
@@ -109,17 +108,17 @@ $breakpoint-med: 45em; // 720px
 $breakpoint-large: 60em; // 960px
 
 .container {
-  width: 90%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
 
   @media only screen and (min-width: $breakpoint-small) {
-    width: 80%;
+    width: 90%;
   }
 
   @media only screen and (min-width: $breakpoint-large) {
-    width: 75%;
-    max-width: 60rem;
+    width: 90%;
+    max-width: 1600px;
   }
 }
 

@@ -1,0 +1,40 @@
+section.about {
+  color: #ccc;
+
+  .biography {
+    font-size: 1.5em;
+  }
+
+  .signiture {
+    width: 54vmin;
+    margin-left: 5%;
+  }
+
+  a {
+    color: #ccc;
+  }
+
+  .resume-button {
+    background-color: #000;
+    border-style: solid;
+    border-color: #2aff00;
+    border-width: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 2em;
+    color: #EFEDF5;
+    padding: 15px 0;
+    box-shadow: 5px 5px 20px rgba(100, 100, 100, 0.8);
+    margin: 5%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    @media only screen and (min-width: 45em) {
+      width: 40%;
+      padding: 15px;
+    }
+
+  }
+}
+

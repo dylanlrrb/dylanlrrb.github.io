@@ -49,7 +49,7 @@ var vertices = d3.range(numVertices).map(function (i) {
 var d3_geom_voronoi = d3.geom.voronoi().x(function (d) { return d.x; }).y(function (d) { return d.y; })
 var prevEventScale = 1;
 var zoom = d3.behavior.drag().on("drag", function (d, i) {
-  force.nodes(vertices).start()
+  force.nodes(vertices).start();
 });
 
 d3.select(window)
@@ -71,7 +71,7 @@ d3.select(window)
   })
   .on("keyup", function () {
     zoomToAdd = true;
-  })
+  });
 
 
 var svg = d3.select("#chart")
@@ -110,11 +110,11 @@ function update(e) {
       } else if (vertices.length > 2 && d3.event.scale != prevEventScale) {
         vertices.pop();
       }
-      force.nodes(vertices).start()
+      force.nodes(vertices).start();
       prevEventScale = d3.event.scale;
     })
 
-    .style("fill", function (d, i) { return color(0) })
+    .style("fill", function (d, i) { return color(0); });
   path.attr("d", function (d) { return "M" + d.join("L") + "Z"; })
     .transition().duration(150).style("fill", function (d, i) { return color(d3.geom.polygon(d).area()) })
   path.exit().remove();
@@ -128,15 +128,15 @@ function update(e) {
   circle.exit().transition().attr("r", 0).remove();
 
   link = link.data(d3_geom_voronoi.links(vertices))
-  link.enter().append("line")
+  link.enter().append("line");
   link.attr("x1", function (d) { return d.source.x; })
     .attr("y1", function (d) { return d.source.y; })
     .attr("x2", function (d) { return d.target.x; })
     .attr("y2", function (d) { return d.target.y; })
 
-  link.exit().remove()
+  link.exit().remove();
 
-  if (!simulate) force.stop()
+  if (!simulate) force.stop();
 }
 
 setInterval(function () {

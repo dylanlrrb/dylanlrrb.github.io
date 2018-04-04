@@ -1,17 +1,6 @@
-html {
-  margin: 0px;
-  padding: 0px;
-}
-
-body {
-  margin: 0px;
-  padding: 0px;
-  background-color: #000;
-  font-family: "Arial Black", Gadget, sans-serif;
-}
-
-span {
-  color: #fff;
+#chart {
+  width: 100%;
+  height: 100%;
 }
 
 svg {
@@ -47,14 +36,16 @@ path {
   position: absolute;
   font-size: 7.2vmin;
   top: 0px;
-  background-color: rgba(255, 0, 0, 0);
+  background: linear-gradient(to bottom, transparent, black);
   height: 100%;
   width: 100%;
-  -webkit-animation-name: example;
+  -webkit-animation-name: fade;
   -webkit-animation-duration: 3.5s;
+  animation-name: fade;
+  animation-duration: 3.5s;
 }
 
-@-webkit-keyframes example {
+@-webkit-keyframes fade {
   from {
     opacity: 0;
   }
@@ -66,6 +57,31 @@ path {
 
 
 @-webkit-keyframes pulse {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes pulse {
   0% {
     opacity: 0.2;
   }
@@ -101,12 +117,14 @@ path {
 
 .icon {
   display: inline-block;
-  height: 14vmin;
-  width: 14vmin;
-  margin-right: 4%;
+  width: 10vmin;
+  height: auto;
+  margin-top: 2%;
+  margin-right: 5%;
 }
 
 .labels {
+  font-size: 1em;
   color: #2aff00;
   position: absolute;
   bottom: 20%;
@@ -115,21 +133,7 @@ path {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 15px;
   margin-left: 2px;
-}
-
-.f {
-  margin-bottom: -3%;
-  margin-left: 10px;
-}
-
-.s {
-  margin-bottom: 9%;
-  margin-left: 10px;
-}
-
-.m {
-  margin-bottom: 2%;
-  margin-left: 10px;
+  padding: 0;
 }
 
 .arrow {
@@ -138,125 +142,9 @@ path {
   right: 7%;
   height: 14%;
   -webkit-animation-name: pulse;
-  -webkit-animation-duration: 1.5s;
+  -webkit-animation-duration: 2.5s;
   -webkit-animation-iteration-count: infinite;
-}
-
-.about {
-  margin-top: 9%;
-  width: 80%;
-}
-
-.head {
-  margin: 4%;
-  color: #2aff00;
-  font-size: 6vmin;
-}
-
-.bod {
-  font-size: 4.0vmin;
-  font-family: "Arial", Gadget, sans-serif;
-  margin: 4%;
-  margin-top: 5px;
-}
-
-.sig {
-  width: 54vmin;
-  margin: 5%;
-  margin-top: -1%;
-  margin-bottom: -1%;
-}
-
-.res {
-  background-color: #000;
-  border-style: solid;
-  border-color: #2aff00;
-  border-width: 15px;
-  width: 80vmin;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 6vmin;
-  color: #EFEDF5;
-  padding-top: 4vmin;
-  padding-bottom: 4vmin;
-  box-shadow: 5px 5px 20px rgba(100, 100, 100, 0.8);
-  margin: 5%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-a {
-  text-decoration: none;
-}
-
-.portfolio {
-  background-color: #EFEDF5;
-}
-
-.container {
-  margin-right: 0px;
-  margin-left: 0px;
-  width: 100%;
-}
-
-.row {
-  margin-top: 6%;
-  margin-bottom: 6%;
-}
-
-.title {
-  font-size: 8vmin;
-  padding-left: 2%;
-  margin: 2%;
-  margin-top: 8vmin;
-}
-
-.photo {
-  margin-top: 50px;
-  text-align: center;
-}
-
-.pic {
-  width: 80vmin;
-  padding: 2%;
-}
-
-.project {
-  font-size: 7vmin;
-  margin-bottom: 15px;
-  margin-top: 20px;
-  font-family: "Arial Black", Gadget, sans-serif;
-}
-
-.description {
-  font-size: 3.5vmin;
-  text-align: left;
-  padding: 2%;
-  padding-left: 8vmin;
-  padding-right: 2vmin;
-  font-family: "Arial", Gadget, sans-serif;
-}
-
-.tagholder {
-  margin-top: 2vmin;
-}
-
-.description.a {
-  color: #0000ff;
-  text-decoration: underline;
-}
-
-.tag {
-  background-color: #0099ff;
-  text-align: center;
-  display: inline-block;
-  padding: 4px 15px 4px 15px;
-  border-radius: 4.5vmin;
-  margin: 5px 2px 5px 2px;
-}
-
-#chart {
-  width: 100%;
-  height: 100%;
+  animation-name: pulse;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
 }

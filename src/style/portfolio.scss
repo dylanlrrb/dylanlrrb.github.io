@@ -1,0 +1,44 @@
+section.portfolio {
+  background-color: #ddd;
+  color: #555;
+  padding: 10px 0;
+  
+  .row {
+    margin-top: 50px;
+  }
+
+  .app-screenshot {
+    width: 70%;
+    display: block;
+    margin: auto;
+    max-width: 400px;
+
+    @media only screen and (min-width: 45em) {
+      margin-top: 40px;
+      width: 95%;
+    }
+  }
+
+  .project {
+    font-size: 1em;
+  }
+
+  .tagholder {
+    margin-top: 2vmin;
+  }
+
+  .description.a {
+    color: #0000ff;
+    text-decoration: underline;
+  }
+
+  .tag {
+    background-color: #0099ff;
+    text-align: center;
+    display: inline-block;
+    padding: 4px 15px 4px 15px;
+    border-radius: 4.5vmin;
+    margin: 5px 2px 5px 2px;
+  }
+
+}
