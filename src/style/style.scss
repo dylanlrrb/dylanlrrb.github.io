@@ -2,8 +2,12 @@
 @import 'hero';
 @import 'about';
 @import 'portfolio';
+@import 'experiance';
+@import 'todo_list';
 
 body {
-  background-color: #000;
-  font-family: "Arial Black", Gadget, sans-serif;
+  background-color: #fff;
+  h1 {
+    text-align: center;
+  }
 }
