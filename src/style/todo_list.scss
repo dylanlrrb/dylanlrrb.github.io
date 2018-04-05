@@ -9,6 +9,7 @@ section.todos {
   h4 {
     text-align: center;
     font-weight: 500;
+    color: #333447;
   }
 
   .issue-container {
@@ -41,6 +42,19 @@ section.todos {
     font-weight: bold;
   }
 
+  .closed {
+    line-height: 35px;
+    color: #586068;
+    margin: 0 15px;
+  }
+
+  .sort {
+    line-height: 35px;
+    float: right;
+    color: #586068;
+    margin: 0 15px;
+  }
+
   .issue-list-item {
     border-style: solid;
     border-radius: 0;
@@ -56,6 +70,8 @@ section.todos {
     font-size: 1.1em;
     line-height: 25px;
     font-weight: bold;
+    color: #000;
+    text-decoration: none;
     &:hover {
       color: #532BE3;
     }

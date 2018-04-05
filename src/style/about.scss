@@ -14,17 +14,19 @@ section.about {
 
   a {
     color: #ccc;
+    text-decoration: none;
   }
 
   .resume-button {
-    background-color: #000;
+    background-color: #2aff00;
     border-style: solid;
     border-color: #2aff00;
     border-width: 10px;
     border-radius: 5px;
     text-align: center;
     font-size: 2em;
-    color: #EFEDF5;
+    color: #000;
+    text-decoration: none;
     padding: 15px 0;
     box-shadow: 5px 5px 20px rgba(100, 100, 100, 0.8);
     margin: 5%;
