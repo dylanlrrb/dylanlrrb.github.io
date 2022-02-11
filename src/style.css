@@ -1,0 +1,281 @@
+html {
+  color: black;
+  background-color: white;
+  scroll-behavior: smooth;
+  font-family: "Segoe UI",Arial,sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+a, a:visited {
+  color: inherit;
+  text-decoration: none;
+ }
+ a:hover {
+  color: rgb(0, 94, 255);
+ }
+ a:active {
+   color: rgb(0, 144, 206);
+ }
+
+header.desktop {
+  visibility: visible;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  z-index: 1;
+  box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.407);
+}
+header.mobile {
+  display: none;
+}
+
+
+.name {
+  font-size: 50px;
+  font-weight: 300;
+  padding: 20px 50px;
+}
+
+.nav {
+  padding: 20px 50px;
+  font-size: 18px;
+}
+
+.nav-button-regular {
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.nav-button-special {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(0, 94, 255);
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: inherit;
+  cursor: pointer;
+  color: rgb(0, 94, 255);
+}
+.nav-button-special:hover {
+  background-image: linear-gradient(to right, white , white);
+  color: black;
+  border-color: black
+}
+
+
+section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  scroll-margin-top: 150px;
+  border: none;
+}
+
+.title {
+  position: absolute;
+  top: 0px;
+  text-align: center;
+}
+.title h1 {
+  font-size: xx-large;
+  margin: 0px 0px 10px 0px;
+}
+.title h2 {
+  font-size: medium;
+  font-weight: 100;
+  margin: 0px;
+}
+
+.content {
+  width: 90%;
+  margin: 50px 0;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.selfie {
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  margin: 40px 20px;
+  box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.407);
+  position: relative;
+  height: 80vw;
+  width: 80vw;
+  max-height: 400px;
+  max-width: 350px;
+}
+.selfie .low {
+  height: 80vw;
+  width: 80vw;
+  max-height: 400px;
+  max-width: 350px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../public/images/selfie_x_low_res.jpeg);
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  position: absolute;
+}
+.selfie .high {
+  height: 80vw;
+  width: 80vw;
+  max-height: 400px;
+  max-width: 350px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../public/images/selfie.jpeg);
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+}
+
+.home-p1 {
+  font-size: xx-large;
+  margin: 0px;
+  padding-bottom: 10px;
+}
+
+.home-p2 {
+  font-size: xxx-large;
+  margin: 0px;
+  padding-bottom: 20px;
+}
+
+.home-p3 {
+  margin: 0px;
+  padding-bottom: 20px;
+}
+
+.home-button {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin-right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  background-image: linear-gradient(to right, rgb(0, 94, 255) , rgb(0, 136, 255));
+  color: white;
+  border-color: transparent;
+}
+.home-button:hover {
+  background-image: linear-gradient(to right, white , white);
+  color: black;
+  border-color: black;
+}
+
+.interest {
+  width: 250px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.interest-icon {
+  height: 50px;
+  width: auto;
+}
+
+@media screen and (max-width: 1050px) {
+  header.mobile {
+    visibility: visible;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    z-index: 1;
+    box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.407);
+  }
+  header.desktop {
+    display: none;
+  }
+
+  .name {
+    font-size: 30px;
+  }
+
+  .nav {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    top: 0px;
+    height: 100vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    left: 0px;
+    transition: 0.3s;
+    border-right-style: solid;
+    border-right-color: rgba(0, 0, 0, 0.5);
+    border-right-width: 0.5px;
+  }
+
+  .nav a {
+    margin: 15px 40px;
+  }
+
+  .nav.closed {
+    left: -50vw;
+  }
+
+  .hamburger-icon {
+    height: 30px;
+    width: 30px;
+    padding: 20px
+  }
+
+  .x-icon {
+    height: 25px;
+    width: 25px;
+    padding: 30px;
+  }
+
+  section {
+    scroll-margin-top: 80px; /* update to actual size of mobile header */
+  }
+
+  .content {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .title {
+    position: relative;
+    top: auto;
+  }
+}
+
+
+.transparent {
+  opacity: 0;
+}

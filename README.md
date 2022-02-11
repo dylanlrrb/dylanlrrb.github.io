@@ -1,10 +1,2 @@
 # dylanlrrb.github.io
-Where my website lives
-
-`npm install`
-then
-`gulp`
-
-// TODO:
-add favicon
-add cueweb to portfolio
+Where my [website](https://dylanlarrabee.me) lives
