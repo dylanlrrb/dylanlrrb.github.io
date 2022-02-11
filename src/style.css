@@ -148,7 +148,7 @@ section {
   background-size: cover;
   background-position: center;
   background-image: url(../public/images/selfie.jpeg);
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
   position: absolute;
 }
 
