@@ -17,6 +17,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
   setTimeout(() => {
     selfie.appendChild(node)
   }, 200)
-  setTimeout(() => node.classList.toggle('transparent'), 250)
+  setTimeout(() => node.classList.toggle('transparent'), 300)
   
 });
