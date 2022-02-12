@@ -38,7 +38,7 @@ header.mobile {
 
 
 .name {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 300;
   padding: 20px 50px;
 }
@@ -74,7 +74,7 @@ header.mobile {
 
 
 section {
-  min-height: 100vh;
+  min-height: 90vh;
   position: relative;
   display: flex;
   justify-content: center;
@@ -202,6 +202,54 @@ section {
   width: auto;
 }
 
+#projects {
+  margin-top: 150px;
+}
+
+.tile {
+  margin: 20px;
+  width: 250px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.tile-image {
+  height: 250px;
+  width: 250px;
+  background-size: cover;
+  background-position: center;
+}
+
+.tile-title {
+  font-weight: bold;
+  font-size: large;
+  overflow: hidden;
+}
+.modal-scrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.626);
+}
+
+.modal-content {
+  position: fixed;
+  background-color: white;
+  z-index: 3;
+  padding: 20px 10px;
+  top: 15%;
+  left: 25%;
+  width: 50%;
+  height: 70%;
+  max-width: 700px;
+  overflow-y: scroll;
+}
+
 @media screen and (max-width: 1050px) {
   header.mobile {
     visibility: visible;
@@ -220,7 +268,7 @@ section {
   }
 
   .name {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   .nav {
@@ -273,9 +321,28 @@ section {
     position: relative;
     top: auto;
   }
+
+  #projects {
+    margin-top: 50px;
+  }
+
+  .modal-content {
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+  }
 }
 
 
 .transparent {
   opacity: 0;
+}
+
+.display-none {
+  display: none;
+}
+
+.disable-scroll{
+  overflow-y: hidden;
 }
