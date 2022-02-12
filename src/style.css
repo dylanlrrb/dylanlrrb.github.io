@@ -60,6 +60,7 @@ header.mobile {
   border-style: solid;
   border-width: 1px;
   border-color: rgb(0, 94, 255);
+  background-color: white;
   border-radius: 20px;
   padding: 5px 15px;
   font-size: inherit;
@@ -116,8 +117,8 @@ section {
 .selfie {
   background-size: cover;
   background-position: center;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
   margin: 40px 20px;
   box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.407);
   position: relative;
@@ -131,7 +132,7 @@ section {
   width: 80vw;
   max-height: 400px;
   max-width: 350px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-size: cover;
   background-position: center;
   background-image: url(../public/images/selfie_x_low_res.jpeg);
@@ -144,7 +145,7 @@ section {
   width: 80vw;
   max-height: 400px;
   max-width: 350px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-size: cover;
   background-position: center;
   background-image: url(../public/images/selfie.jpeg);
@@ -241,16 +242,68 @@ section {
   position: fixed;
   background-color: white;
   z-index: 3;
-  padding: 20px 10px;
+  padding: 0px 10px;
   top: 15%;
-  left: 25%;
-  width: 50%;
+  left: 15%;
+  width: 70%;
   height: 70%;
-  max-width: 700px;
+  max-width: 900px;
   overflow-y: scroll;
+  border-radius: 10px; 
 }
 
-@media screen and (max-width: 1050px) {
+.modal-header {
+  position: absolute;
+  height: 5%;
+  top: 0;
+  width: 100%;
+  margin-left: -10px;
+  background: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modal-inner {
+  margin-top: 4%;
+  overflow-y: scroll;
+  height: 85%;
+}
+
+.modal-controls {
+  position: absolute;
+  height: 10%;
+  bottom: 0;
+  width: 100%;
+  margin-left: -10px;
+  background: white;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media screen and (max-width: 700px) {
+  .modal-controls {
+    margin-left: -1%;
+  }
+  .modal-content {
+    top: 8%;
+    left: 0;
+    width: 98%;
+    height: 90%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+
+  .modal-inner {
+    margin-top: 10%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
   header.mobile {
     visibility: visible;
     position: fixed;
@@ -313,8 +366,12 @@ section {
   }
 
   .content {
-    flex-direction: column-reverse;
+    flex-direction: column;
     text-align: center;
+  }
+
+  #home .content {
+    flex-direction: column-reverse;
   }
 
   .title {
@@ -324,13 +381,6 @@ section {
 
   #projects {
     margin-top: 50px;
-  }
-
-  .modal-content {
-    top: 5%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
   }
 }
 
@@ -345,4 +395,47 @@ section {
 
 .disable-scroll{
   overflow-y: hidden;
+}
+
+.exit-button {
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.primary-action-button {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin-right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  background-image: linear-gradient(to right, rgb(0, 94, 255) , rgb(0, 136, 255));
+  color: white;
+  border-color: transparent;
+  margin-right: 10px;
+}
+.primary-action-button:hover {
+  background-image: linear-gradient(to right, white , white);
+  color: black;
+  border-color: black;
+}
+
+.secondary-action-button {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(0, 94, 255);
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: inherit;
+  cursor: pointer;
+  color: rgb(0, 94, 255);
+  margin-right: 10px;
+}
+.secondary-action-button:hover {
+  background-image: linear-gradient(to right, white , white);
+  color: black;
+  border-color: black
 }
