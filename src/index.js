@@ -1,11 +1,30 @@
-projects = ["./src/projects/mnist-demo.html",
-            "./src/projects/supervised_learning.html",
-            "./src/projects/supervised_learning.html",
-            "./src/projects/supervised_learning.html",
-            "./src/projects/supervised_learning.html",
-            "./src/projects/supervised_learning.html"]
+projects = ["./src/projects/mnist-demo.js",
+            "./src/projects/supervised_learning.js",
+            "./src/projects/mnist-demo.js",
+            "./src/projects/supervised_learning.js",
+            "./src/projects/supervised_learning.js",
+            "./src/projects/mnist-demo.js",
+            "./src/projects/supervised_learning.js"]
 
-window.addEventListener('DOMContentLoaded', (event) => {
+function loadScript(src) {
+  return () => {
+    const script = document.createElement('script')
+    script.src = src
+    document.body.append(script)
+    return new Promise((res, rej) => {
+      script.onload = res
+      script.onerror = rej
+    })
+  }
+}
+
+function sequential(p) {
+  i = 0
+  recurse = () =>  {p[i]().then(() => {i++;if (i >= p.length) {return} else {recurse()}})}
+  recurse()
+}
+
+window.addEventListener('DOMContentLoaded', () => {
   const hamburger_icon = document.querySelector('header.mobile .hamburger-icon')
   const mobile_nav = document.querySelector('header.mobile .nav')
   const selfie = document.querySelector('div.selfie')
@@ -16,6 +35,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
       mobile_nav.classList.toggle('closed')
     }
   })
+  Array.from(document.querySelectorAll('section')).forEach((section) => {
+    section.addEventListener('click', () => mobile_nav.classList.add('closed'))
+  })
 
   const node = document.createElement('div')
   node.classList.add('transparent')
@@ -25,31 +47,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }, 100)
   setTimeout(() => node.classList.toggle('transparent'), 300)
 
-  Promise.all(projects.map(p => fetch(p).then(r => r.text())))
-    .then(data => {
-      data.forEach(d =>  document.querySelector("#projects").innerHTML += d)
-    })
+  loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
     .then(() => {
-      document.querySelectorAll('#projects .project')
-        .forEach(project => {
-          const tile = project.querySelector('.tile')
-          const modal = project.querySelector('.modal')
-          const exit = modal.querySelector('.exit')
-          const scrim = modal.querySelector('.modal-scrim')
-          tile.addEventListener('click', () => {
-            modal.classList.toggle('display-none')
-            document.documentElement.classList.toggle('disable-scroll')
-          })
-          exit.addEventListener('click', () => {
-            modal.classList.toggle('display-none')
-            document.documentElement.classList.toggle('disable-scroll')
-          })
-          scrim.addEventListener('click', () => {
-            modal.classList.toggle('display-none')
-            document.documentElement.classList.toggle('disable-scroll')
-          })
-        })
-    })
-
+      sequential(projects.map(loadScript))
+  })
+  .catch(() => console.log('error loading script'))
   
 });
+
+// h3 is small centered header under h1
+// fade the bottom of the modal

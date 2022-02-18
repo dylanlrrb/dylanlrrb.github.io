@@ -30,7 +30,7 @@ header.desktop {
   align-items: center;
   background-color: white;
   z-index: 1;
-  box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.407);
+  box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.407);
 }
 header.mobile {
   display: none;
@@ -120,7 +120,7 @@ section {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   margin: 40px 20px;
-  box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.407);
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.407);
   position: relative;
   height: 80vw;
   width: 80vw;
@@ -210,10 +210,10 @@ section {
 .tile {
   margin: 20px;
   width: 250px;
-  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  cursor: pointer;
 }
 
 .tile-image {
@@ -270,11 +270,18 @@ section {
 
 .modal-inner {
   margin: 0;
-  height: 60vh;
+  height: 80vh;
   overflow-y: scroll;
-  padding: 0px 10px;
+  padding: 0px 50px;
+  display: flex;
+  flex-direction: column;
 }
-
+.modal-fade {
+  height: 20px;
+  width: 100%;
+  background-image: linear-gradient(to bottom, transparent, #c6c6c6);
+  margin-top: -20px;
+}
 .modal-controls {
   position: relative;
   background: white;
@@ -286,13 +293,42 @@ section {
   align-items: center;
   padding: 10px 10px;
 }
+.modal-inner hr {
+  width: 100%;
+}
+.modal-inner code {
+  background-color: gainsboro;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
+  display: inline-flex;
+}
+.modal-inner a {
+  color: blue;
+}
+.modal-inner img {
+  max-width: 100%;
+  align-self: center;
+}
+.modal-inner p {
+  text-align: left;
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.modal-inner h1 {
+  text-align: center;
+}
 
 @media screen and (max-width: 700px) {
   .modal-content {
     width: 100%;
   }
   .modal-inner {
-    height: 75vh;
+    height: 80vh;
+    padding: 0px 10px;
   }
 }
 
@@ -307,7 +343,7 @@ section {
     align-items: center;
     background-color: white;
     z-index: 1;
-    box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.407);
+    box-shadow: 0px -5px 20px 5px rgba(0, 0, 0, 0.407);
   }
   header.desktop {
     display: none;
