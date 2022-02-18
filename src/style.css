@@ -228,36 +228,40 @@ section {
   font-size: large;
   overflow: hidden;
 }
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%
+}
 .modal-scrim {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 2;
+  z-index: 3;
   background-color: rgba(0, 0, 0, 0.626);
 }
 
 .modal-content {
-  position: fixed;
+  position: relative;
   background-color: white;
-  z-index: 3;
-  padding: 0px 10px;
-  top: 15%;
-  left: 15%;
+  z-index: 4;
+  padding: 0;
   width: 70%;
-  height: 70%;
   max-width: 900px;
   overflow-y: scroll;
   border-radius: 10px; 
 }
 
 .modal-header {
-  position: absolute;
-  height: 5%;
-  top: 0;
-  width: 100%;
-  margin-left: -10px;
+  position: relative;
   background: white;
   display: flex;
   justify-content: flex-end;
@@ -265,17 +269,14 @@ section {
 }
 
 .modal-inner {
-  margin-top: 4%;
+  margin: 0;
+  height: 60vh;
   overflow-y: scroll;
-  height: 85%;
+  padding: 0px 10px;
 }
 
 .modal-controls {
-  position: absolute;
-  height: 10%;
-  bottom: 0;
-  width: 100%;
-  margin-left: -10px;
+  position: relative;
   background: white;
   border-top-style: solid;
   border-top-width: 1px;
@@ -283,23 +284,15 @@ section {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding: 10px 10px;
 }
 
 @media screen and (max-width: 700px) {
-  .modal-controls {
-    margin-left: -1%;
-  }
   .modal-content {
-    top: 8%;
-    left: 0;
-    width: 98%;
-    height: 90%;
-    padding-left: 1%;
-    padding-right: 1%;
+    width: 100%;
   }
-
   .modal-inner {
-    margin-top: 10%;
+    height: 75vh;
   }
 }
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="data/data_qcost_0l_0stop.json"></script>
+    <script type="text/javascript" src="data/data_qcost_1l_0stop.json"></script>
+    <script type="text/javascript" src="data/data_qcost_2l_0stop.json"></script>
+    <script type="text/javascript" src="data/data_qcost_0l_1stop.json"></script>
+    <script type="text/javascript" src="data/data_qcost_1l_1stop.json"></script> 
+    <script type="text/javascript" src="data/data_qcost_2l_1stop.json"></script>
+    <script type="text/javascript" src="data/data_xcost_0l_0stop.json"></script>
+    <script type="text/javascript" src="data/data_xcost_1l_0stop.json"></script>
+    <script type="text/javascript" src="data/data_xcost_2l_0stop.json"></script>
+    <script type="text/javascript" src="data/data_xcost_0l_1stop.json"></script>
+    <script type="text/javascript" src="data/data_xcost_1l_1stop.json"></script> 
+    <script type="text/javascript" src="data/data_xcost_2l_1stop.json"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <h1>Real Time Activation Visualization of Hidden Layers</h1>
+    <div id="container">
+      <aside class="left">
+        <form id="cost_function_selector">
+          <div>
+            <p>Cost Function</p>
+            <input checked type="radio" id="xcost" name="cost-function" value="xcost">
+            <label for="xcost">Cross Entropy</label><br>
+            <input type="radio" id="qcost" name="cost-function" value="qcost">
+            <label for="qcost">Quadratic Cost</label><br>
+          </div>
+        </form>
+        <form id="regularization_selector">
+          <div>
+            <p>Weight Decay</p>
+            <input type="radio" id="0l" name="weight-decay" value="0l">
+            <label for="0l">None</label><br>
+            <input type="radio" id="1l" name="weight-decay" value="1l">
+            <label for="1l">L1</label><br>
+            <input checked type="radio" id="2l" name="weight-decay" value="2l">
+            <label for="2l">L2</label>
+          </div>
+          <div>
+            <p>Early Stopping</p>
+            <input type="radio" id="stop-disabled" name="early-stopping" value="0stop">
+           <label for="stop-disabled">Disabled</label><br>
+           <input checked type="radio" id="stop-enabled" name="early-stopping" value="1stop">
+           <label for="stop-enabled">Enabled</label>
+          </div>
+        </form>
+        <h4 style="text-align: center;">Legend for interpreting how colors relate to weights between nerons</h4>
+        <div id="legend">
+          <span>Large<br>Positive Weight</span>
+          <span style="text-align: right;">Large Negative<br>Weight</span>
+        </div>
+        <br>
+        <p>This visualization is inspired by a demo I encounterd while working through the <a href="https://brilliant.org/courses/intro-neural-networks" target="_blank" >Briliant.org Neural Network Course</a></p>
+        <p>The neural network was built from scratch through the direction of the book <a href="http://neuralnetworksanddeeplearning.com/index.html" target="_blank" >Neural Networks and Deep Learning</a> by Michael Nielsen</p>
+        <p>This visualization demonstrates the the feedforward activation of a network while classifying handwritten digits.</p>
+        <p>The network uses the <a href="data/data_xcost_2l_1stop.json" target="_blank" >real weights and biases</a> generated from training the network on the MNIST dataset.</p>
+        <p>To see the how the network was implemented, including stochastic gradient descent and backpropogation, see the jupyter notebook <a href="https://github.com/dylanlrrb/neural-networks-from-scratch/blob/main/network2.ipynb" target="_blank">here</a></p>
+        <p>Resources that helped me a lot with understanding the backpropogation algorithm: <br> <a href="https://ml-cheatsheet.readthedocs.io/en/latest/backpropagation.html" target="_blank" >ML Glossary</a> <br> <a href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/" target="_blank" >A Step by Step Backpropagation Example</a> <br> <a href="https://docs.google.com/drawings/d/1IyoAKGw2gTE2wbssTsL5hH-kFYqbyF9ZSx9p4JVydV4/edit?usp=sharing" target="_blank" >Diagram for visualizing Backprop</a></p>       
+      </aside>
+      <div id="app" class="center">
+        <div>
+          <div id="feature-lables">
+            <img src="assets/0.svg">
+            <img src="assets/1.svg">
+            <img src="assets/2.svg">
+            <img src="assets/3.svg">
+            <img src="assets/4.svg">
+            <img src="assets/5.svg">
+            <img src="assets/6.svg">
+            <img src="assets/7.svg">
+            <img src="assets/8.svg">
+            <img src="assets/9.svg">
+          </div>
+          <div id="neuron-activations" width="600" height="400"></div>
+          <canvas id="neuron-weights" width="600" height="400"></canvas>
+          <div id="target-box"></div>
+          <div id="input-layer"></div>
+          <button id="clear-button">Reset</button>
+        </div>
+      </div>
+      <aside class="right">
+        <hr class="spacer" style="height: 89px;border: none;">
+        <span class="tooltip output-layer-tooltip">Output Layer<br>The percentage each neuron is filled in this layer represents how likely the input is classified as that digit</span>
+        <span class="tooltip second-hidden-layer-tooltip">Second Hidden Layer<br>The percentage each neuron is filled represents how active it is, between 0 (incative) to 1 (fully active), which is fed forward to the next layer</span>
+        <span class="tooltip first-hidden-layer-tooltip">First Hidden Layer<br>Click on a neuron in this layer to see how each connection from the input layer is weighed as it is fed forward into the neuron</span>
+        <span class="tooltip input-layer-tooltip">Input Layer<br>Use cursor to draw a digit within the red square you would like the network to classify</span>
+        <span class="tooltip input-layer-tooltip2">Draw a number on the input grid.<br>After clicking on a hidden neuron in the first layer to overlay the input layer's weights, what differences do you notice between strongly activated neurons and non-active neurons?</span>
+      </aside>
+    </div>
+     
+  </body>
+</html>

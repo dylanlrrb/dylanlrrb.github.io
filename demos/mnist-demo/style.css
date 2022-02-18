@@ -1,0 +1,257 @@
+html {
+  background-color: white;
+  font-family: "Segoe UI",Arial,sans-serif;
+}
+
+h1{
+  text-align: center;
+}
+
+#container {
+  display: flex;
+  justify-content: space-between;
+}
+
+p {
+  font-size: larger;
+}
+
+aside {
+  padding: 0 20px;
+  width: 30vw;
+}
+
+#legend {
+  height: 40px;
+  width: 90%;
+  border-radius: 25px;
+  background-image: linear-gradient(to right, blue, white, red);
+  border-color: black;
+  border-style: solid;
+  border-width: 2px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 8px;
+  color: white;
+}
+
+#regularization_selector, #cost_function_selector {
+  display: flex;
+}
+
+#regularization_selector > div, #cost_function_selector > div {
+  padding: 0 15px;
+}
+
+#app {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+#feature-lables {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+#feature-lables > img {
+  height: 50px;
+  width: 50px;
+}
+
+#neuron-activations {
+  height: 290px;
+  width: 600px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.activation-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hidden-layer-node {
+  height: 20px;
+  width: 20px;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.hidden-layer-node.highlighted {
+  border-color: #ff00ce;
+}
+
+.output-layer-node {
+  height: 50px;
+  width: 50px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+#neuron-weights {
+  margin-bottom: -100px;
+}
+
+#target-box {
+  height:260px;
+  width: 260px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(255, 0, 0, 0.4);
+  position: absolute;
+  margin: 52px 169px;
+  user-select: none;
+  cursor: crosshair;
+}
+
+#input-layer {
+  cursor: crosshair;
+}
+
+.input-row {
+  display: flex;
+  justify-content: center;
+}
+
+.input-node {
+  height: 8px;
+  width: 8px;
+  margin: 0.5px;
+  border-style: solid;
+  border-width: 2px;
+  user-select: none;
+  cursor: crosshair;
+}
+
+#clear-button {
+  margin-top: 10px;
+  margin-left: 120px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: black;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/* Tooltip */
+.tooltip {
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 20px;
+  z-index: 1;
+  content: "";
+  position: absolute;
+  border-width: 5px 10px;
+  border-style: solid;
+  border-color: black;
+  max-width: 25vw;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: -20px;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+.input-layer-tooltip2 {
+  margin-top: 500px;
+    margin-left: -90px;
+}
+
+.input-layer-tooltip {
+  margin-top: 390px;
+    margin-left: -90px;
+}
+
+.first-hidden-layer-tooltip {
+ margin-top: 260px;
+}
+
+.second-hidden-layer-tooltip {
+  margin-top: 140px;
+}
+
+.output-layer-tooltip {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  html {
+    background-color: white;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  body {
+    height: 100%;
+    position: fixed;
+    /* prevent overscroll bounce*/
+    background-color: white;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    /* iOS velocity scrolling */
+  }
+  h1 {
+    font-size: 50px;
+  }
+  #container {
+    flex-direction: column;
+    width: 95%;
+  }
+  .left {
+    order: 2;
+  }
+  .center {
+    order: 1
+  }
+  .right{
+    display: none;
+  }
+  .input-node {
+    height: 16px;
+    width: 16px;
+  }
+  #target-box {
+    height: 415px;
+    width: 415px;
+    margin: 88px 0 0 92px;
+  }
+  #clear-button {
+    margin-left: 10px;
+    font-size: 30px;
+  }
+  #regularization_selector, #cost_function_selector {
+    justify-content: center;
+  }
+  aside {
+    width: 100%;
+  }
+}
+
+.disable-scroll{
+  overflow-y: hidden;
+}
