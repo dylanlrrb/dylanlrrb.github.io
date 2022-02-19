@@ -224,7 +224,7 @@ section {
 }
 .signiture {
   width: 260px;
-  margin-right: 20px;
+  margin-right: 35px;
   float: right;
 }
 
@@ -422,6 +422,12 @@ section {
 .modal-inner h1 {
   text-align: center;
 }
+.modal-inner h3 {
+  text-align: center;
+  font-size: medium;
+  font-weight: 100;
+  margin-top: -5px;
+}
 
 .tile-list {
   width: 100%;
@@ -495,7 +501,7 @@ section {
           align-items: center;
   margin-top: 150px;
 }
-.contact-method {
+.contact-method a {
   margin: 10px 50px;
   display: -webkit-box;
   display: -ms-flexbox;

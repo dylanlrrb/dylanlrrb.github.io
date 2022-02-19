@@ -1,9 +1,9 @@
-projects = ["./src/projects/mnist-demo.js",
+projects = ["./src/projects/mnist_demo.js",
             "./src/projects/supervised_learning.js",
-            "./src/projects/mnist-demo.js",
+            "./src/projects/backprop_painting.js",
             "./src/projects/supervised_learning.js",
             "./src/projects/supervised_learning.js",
-            "./src/projects/mnist-demo.js"]
+            "./src/projects/backprop_painting.js"]
 
 function loadScript(src) {
   return () => {
