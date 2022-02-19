@@ -75,8 +75,8 @@ header.mobile {
   color: rgb(0, 94, 255);
 }
 .nav-button-special:hover {
-  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: -o-linear-gradient(left, white , white);
+  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: linear-gradient(to right, white , white);
   color: black;
   border-color: black
@@ -209,15 +209,15 @@ section {
   margin-right: 10px;
   font-size: 18px;
   cursor: pointer;
-  background-image: -webkit-gradient(linear, left top, right top, from(rgb(0, 94, 255)) , to(rgb(0, 136, 255)));
   background-image: -o-linear-gradient(left, rgb(0, 94, 255) , rgb(0, 136, 255));
+  background-image: -webkit-gradient(linear, left top, right top, from(rgb(0, 94, 255)) , to(rgb(0, 136, 255)));
   background-image: linear-gradient(to right, rgb(0, 94, 255) , rgb(0, 136, 255));
   color: white;
   border-color: transparent;
 }
 .home-button:hover {
-  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: -o-linear-gradient(left, white , white);
+  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: linear-gradient(to right, white , white);
   color: black;
   border-color: black;
@@ -356,8 +356,8 @@ section {
 .modal-fade {
   height: 20px;
   width: 100%;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(#c6c6c6));
   background-image: -o-linear-gradient(top, transparent, #c6c6c6);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(#c6c6c6));
   background-image: linear-gradient(to bottom, transparent, #c6c6c6);
   margin-top: -20px;
 }
@@ -391,6 +391,13 @@ section {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+}
+.modal-inner blockquote {
+  border-left-style: solid;
+  margin-left: 0.5em;
+  padding-left: 0.5em;
+  border-left-width: 3px;
+  border-left-color: rgb(200, 200, 200);
 }
 .modal-inner a {
   color: blue;
@@ -489,7 +496,17 @@ section {
   margin-top: 150px;
 }
 .contact-method {
-  margin: 0 20px;
+  margin: 10px 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .contact-method p{
   text-align: center;
@@ -604,7 +621,6 @@ section {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    text-align: center;
   }
 
   #home .content {
@@ -655,16 +671,16 @@ section {
   margin-right: 10px;
   font-size: 18px;
   cursor: pointer;
-  background-image: -webkit-gradient(linear, left top, right top, from(rgb(0, 94, 255)) , to(rgb(0, 136, 255)));
   background-image: -o-linear-gradient(left, rgb(0, 94, 255) , rgb(0, 136, 255));
+  background-image: -webkit-gradient(linear, left top, right top, from(rgb(0, 94, 255)) , to(rgb(0, 136, 255)));
   background-image: linear-gradient(to right, rgb(0, 94, 255) , rgb(0, 136, 255));
   color: white;
   border-color: transparent;
   margin-right: 10px;
 }
 .primary-action-button:hover {
-  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: -o-linear-gradient(left, white , white);
+  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: linear-gradient(to right, white , white);
   color: black;
   border-color: black;
@@ -683,8 +699,8 @@ section {
   margin-right: 10px;
 }
 .secondary-action-button:hover {
-  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: -o-linear-gradient(left, white , white);
+  background-image: -webkit-gradient(linear, left top, right top, from(white) , to(white));
   background-image: linear-gradient(to right, white , white);
   color: black;
   border-color: black

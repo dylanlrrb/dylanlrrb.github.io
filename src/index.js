@@ -3,8 +3,7 @@ projects = ["./src/projects/mnist-demo.js",
             "./src/projects/mnist-demo.js",
             "./src/projects/supervised_learning.js",
             "./src/projects/supervised_learning.js",
-            "./src/projects/mnist-demo.js",
-            "./src/projects/supervised_learning.js"]
+            "./src/projects/mnist-demo.js"]
 
 function loadScript(src) {
   return () => {

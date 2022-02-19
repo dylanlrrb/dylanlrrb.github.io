@@ -12,15 +12,13 @@
         <div class="modal-header">
           <img class="exit exit-button" src="public/icons/x_icon.svg" alt="Open menu">
         </div>
-        <div class="modal-inner">
-         
-        </div>
+        <div class="modal-inner"></div>
         <div class="modal-fade"></div>
         <div class="modal-controls">
           ${controls.join('')}
         </div>
       </div>
-     
+
     </div>
   </div>`
   
