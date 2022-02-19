@@ -391,6 +391,8 @@ section {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  max-width: 90%;
+  white-space: break-spaces;
 }
 .modal-inner blockquote {
   border-left-style: solid;
@@ -403,10 +405,11 @@ section {
   color: blue;
 }
 .modal-inner img {
-  max-width: 100%;
+  max-width: 90%;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  z-index: -1;
 }
 .modal-inner p {
   text-align: left;
@@ -523,7 +526,7 @@ section {
     width: 100%;
   }
   .modal-inner {
-    height: 80vh;
+    height: 75vh;
     padding: 0px 10px;
   }
   .demo-tile {
