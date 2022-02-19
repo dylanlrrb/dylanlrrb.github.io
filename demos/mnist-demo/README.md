@@ -2,4 +2,4 @@
 
 [View demo here](https://dylanlarrabee.me/demos/mnist-demo/index.html)
 
-![Demo](https://dylanlarrabee.me/demos/mnist-demo/assets/demo.gif)
+![Demo](https://github.com/dylanlrrb/dylanlrrb.github.io/blob/master/demos/mnist-demo/assets/demo.gif)
