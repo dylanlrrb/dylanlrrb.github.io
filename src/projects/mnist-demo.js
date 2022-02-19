@@ -1,12 +1,4 @@
-(() => {
-  const tileImage = './public/images/mnist-demo2.gif'
-  const tileTitle = 'Real Time Activation and Weight Visualization of Neural Network Trained on MNIST Datase'
-
-  const markdownUrl = 'https://raw.githubusercontent.com/dylanlrrb/cat_dog_classifier/main/README.md'
-  
-  const controls = [
-    '<a href=" https://colab.research.google.com/github/dylanlrrb/neural-networks-from-scratch/blob/main/network2.ipynb" target="_blank"><button class="secondary-action-button">Notebook</button></a>',
-    '<a href="./demos/mnist-demo/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>']
+(({tileImage, tileTitle, markdownUrl, controls}) => {
   
   const html = `<div class="project">
     <div class="tile">
@@ -60,7 +52,12 @@
       inner.innerHTML = converter.makeHtml(text)
       
     })
-  })()
-  
-  // style links 
-  // h3 is small centered header under h1
+  })({
+    tileImage: './public/images/mnist-demo2.gif',
+    tileTitle: 'Real Time Activation and Weight Visualization of Neural Network Trained on MNIST Datase',
+    markdownUrl: 'https://raw.githubusercontent.com/dylanlrrb/cat_dog_classifier/main/README.md',
+    controls: [
+      '<a href="https://colab.research.google.com/github/dylanlrrb/neural-networks-from-scratch/blob/main/network2.ipynb" target="_blank"><button class="secondary-action-button">Notebook</button></a>',
+      '<a href="./demos/mnist-demo/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>'
+    ],
+  })

@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   })
   Array.from(document.querySelectorAll('section')).forEach((section) => {
-    section.addEventListener('click', () => mobile_nav.classList.add('closed'))
+    section.addEventListener('touchstart', () => mobile_nav.classList.add('closed'))
   })
 
   const node = document.createElement('div')
@@ -51,9 +51,10 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(() => {
       sequential(projects.map(loadScript))
   })
-  .catch(() => console.log('error loading script'))
+  .catch(() => console.log('error loading showdown script'))
+
+  loadScript('./src/projects/00_demos.js')()
   
 });
 
 // h3 is small centered header under h1
-// fade the bottom of the modal
