@@ -44,7 +44,7 @@
 
   document.querySelector("#projects").append(node)
   
-  const converter = new showdown.Converter()
+  const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
   fetch(markdownUrl).then(res => res.text())
     .then(text => {
       inner.innerHTML = converter.makeHtml(text)

@@ -2,9 +2,9 @@
   const fragment = ({demoImage, demoDescription, demoLink}) => `
     <a href="${demoLink}" target="_blank" class="demo-tile">
       <div class="demo-image" style="
-        background-image:linear-gradient(to right, transparent, transparent, whitesmoke), url(${demoImage});
-        background-image:-o-linear-gradient(to right, transparent, transparent, whitesmoke), url(${demoImage});
-        background-image:-webkit-gradient(to right, transparent, transparent, whitesmoke), url(${demoImage});">
+        background-image:linear-gradient(to right, transparent, transparent, white), url(${demoImage});
+        background-image:-o-linear-gradient(to right, transparent, transparent, white), url(${demoImage});
+        background-image:-webkit-gradient(to right, transparent, transparent, white), url(${demoImage});">
       </div>
       <div class="demo-description">${demoDescription}</div>
     </a>
