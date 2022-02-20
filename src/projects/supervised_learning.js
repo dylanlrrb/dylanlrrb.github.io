@@ -56,7 +56,7 @@
   tileTitle: 'Supervised Learning Comparison',
   markdownUrl: 'https://raw.githubusercontent.com/dylanlrrb/Please-Contain-Yourself/master/README.md',
   controls: [
-    '<a href=" https://colab.research.google.com/github/dylanlrrb/portfolio/blob/main/backprop_painting/backprop_painting.ipynb" target="_blank"><button class="secondary-action-button">Notebook</button></a>',
+    '<a href=" https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/backprop_painting/backprop_painting.ipynb" target="_blank"><button class="secondary-action-button">Notebook</button></a>',
     '<a href="" target="_blank"><button class="primary-action-button">Demo</button></a>'
   ],
 })
