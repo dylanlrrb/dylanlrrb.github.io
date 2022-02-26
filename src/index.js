@@ -1,9 +1,19 @@
-projects = ["./src/projects/mnist_demo.js",
+projects = ["./src/projects/mnist_nn.js",
+            // style transfer notebook, slow backprop method
             "./src/projects/backprop_painting.js",
             "./src/projects/supervised_learning.js",
-            "./src/projects/supervised_learning.js",
-            "./src/projects/backprop_painting.js",
-            "./src/projects/mnist_demo.js",]
+            // docker (DEMO)
+            // unsupervised learning final
+            // siganl separation
+            // background removal
+            // CFIAR classification final
+            // tSNE on penultimate layer of landmark classifier
+            // cat/dog classifier in tensorflow (DEMO)
+            // De-noising an image and or sound
+            // TV script (one to many, just a decoder?)
+            // Word to vector (negative sampling explored) 1, 2
+            // Sentiment analysis of movie reviews (many to one, just an encoder?) 1
+          ]
             
 
 function loadScript(src) {

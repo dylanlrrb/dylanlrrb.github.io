@@ -16,23 +16,8 @@
   document.querySelector("#demo-list").append(node)
 })([
   {
-    demoLink: './demos/mnist-demo/index.html',
-    demoImage: 'public/images/mnist.png',
+    demoLink: './demos/mnist_nn/index.html',
+    demoImage: './demos/mnist_nn/assets/mnist_nn_demo_tile.png',
     demoDescription: 'MNIST Demo: See what a Neural Network is thinkning as it guesses what number you\'re drawing',
-  },
-  {
-    demoLink: './demos/mnist-demo/index.html',
-    demoImage: 'public/images/selfie.jpeg',
-    demoDescription: 'this is a demo description',
-  },
-  {
-    demoLink: './demos/mnist-demo/index.html',
-    demoImage: 'public/icons/test_icon.png',
-    demoDescription: 'this is a demo description',
-  },
-  {
-    demoLink: './demos/mnist-demo/index.html',
-    demoImage: 'public/icons/test_icon.png',
-    demoDescription: 'this is a demo description',
   },
 ])
