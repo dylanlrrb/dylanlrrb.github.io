@@ -14,6 +14,10 @@ projects = ["./src/projects/mnist_nn.js",
             // Word to vector (negative sampling explored) 1, 2
             // Sentiment analysis of movie reviews (many to one, just an encoder?) 1
           ]
+demos = [
+  "./src/demos/mnist_nn.js",
+  "./src/demos/docker_tutorial.js",
+]
             
 
 function loadScript(src) {
@@ -58,12 +62,9 @@ window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => node.classList.toggle('transparent'), 300)
 
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
-    .then(() => {
-      sequential(projects.map(loadScript))
-  })
-  .catch(() => console.log('error loading showdown script'))
-
-  loadScript('./src/projects/00_demos.js')()
+    .then(() => loadScript('./src/helpers/render_tiles.js')())
+    .then(() => sequential([...projects, ...demos].map(loadScript)))
+    .catch(() => console.log('error loading showdown script'))
   
 });
 
