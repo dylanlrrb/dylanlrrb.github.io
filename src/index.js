@@ -3,8 +3,8 @@ projects = ["./src/projects/mnist_nn.js",
             "./src/projects/backprop_painting.js",
             "./src/projects/supervised_learning.js",
             "./src/projects/docker_tutorial.js",
-            // unsupervised learning final
-            // siganl separation
+            "./src/projects/unsupervised_learning.js",
+            "./src/projects/signal_separation.js",
             // background removal
             // CFIAR classification final
             // tSNE on penultimate layer of landmark classifier

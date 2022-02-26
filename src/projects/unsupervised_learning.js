@@ -52,10 +52,10 @@
       document.querySelector("#projects").append(node)
     })
 })({
-  tileImage: './portfolio/docker_tutorial/assets/portfolio_tile.png',
-  tileTitle: 'Project Based Docker Tutorial by Me',
-  markdownUrl: './portfolio/docker_tutorial/README.md',
+  tileImage: './portfolio/unsupervised_learning/assets/portfolio_tile.png',
+  tileTitle: 'Identifying Customer Segments with Unsupervised Learning',
+  markdownUrl: './portfolio/unsupervised_learning/README.md',
   controls: [
-    '<a href="https://github.com/dylanlrrb/Please-Contain-Yourself" target="_blank"><button class="primary-action-button">Tutorial</button></a>',
+    '<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/unsupervised_learning/notebook.ipynb" target="_blank"><button class="primary-action-button">Notebook</button></a>',
   ],
 })
