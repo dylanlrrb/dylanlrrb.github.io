@@ -52,7 +52,7 @@
       document.querySelector("#projects").append(node)
     })
 })({
-  tileImage: './portfolio/backprop_painting/assets/portfolio_tile.jpeg',
+  tileImage: './portfolio/backprop_painting/assets/portfolio_tile.png',
   tileTitle: 'Visualizing Convolutional Layers in a Trained VGG Network',
   markdownUrl: './portfolio/backprop_painting/README.md',
   controls: [

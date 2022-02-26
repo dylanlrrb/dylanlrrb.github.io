@@ -56,6 +56,6 @@
   tileTitle: 'Supervised Learning Comparison',
   markdownUrl: './portfolio/supervised_learning/README.md',
   controls: [
-    '<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/supervised_learning/nodebook.ipynb" target="_blank"><button class="primary-action-button">Notebook</button></a>',
+    '<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/supervised_learning/notebook.ipynb" target="_blank"><button class="primary-action-button">Notebook</button></a>',
   ],
 })

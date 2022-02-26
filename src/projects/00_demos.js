@@ -20,4 +20,9 @@
     demoImage: './portfolio/mnist_nn/assets/demo_tile.png',
     demoDescription: 'MNIST Demo: See what a Neural Network is thinkning as it guesses what number you\'re drawing',
   },
+  {
+    demoLink: 'https://github.com/dylanlrrb/Please-Contain-Yourself',
+    demoImage: './portfolio/docker_tutorial/assets/demo_tile.png',
+    demoDescription: 'Learn to Use Docker with Hands-on Projects',
+  },
 ])

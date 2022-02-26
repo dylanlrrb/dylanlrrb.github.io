@@ -2,7 +2,7 @@ projects = ["./src/projects/mnist_nn.js",
             "./src/projects/style_transfer_1.js",
             "./src/projects/backprop_painting.js",
             "./src/projects/supervised_learning.js",
-            // docker (DEMO)
+            "./src/projects/docker_tutorial.js",
             // unsupervised learning final
             // siganl separation
             // background removal
