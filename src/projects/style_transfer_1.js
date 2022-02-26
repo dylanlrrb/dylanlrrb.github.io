@@ -52,10 +52,10 @@
       document.querySelector("#projects").append(node)
     })
 })({
-  tileImage: './portfolio/style_transfer_1/assets/style_transfer_1_portfolio_tile.gif',
-  tileTitle: 'Supervised Learning Comparison',
-  markdownUrl: 'https://raw.githubusercontent.com/dylanlrrb/Please-Contain-Yourself/master/README.md',
+  tileImage: './portfolio/style_transfer_1/assets/portfolio_tile.gif',
+  tileTitle: 'Style Transfer Through Backpropogation',
+  markdownUrl: './portfolio/style_transfer_1/README.md',
   controls: [
-    '<a href=" https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/style_transfer_1/style_transfer_1.ipynb" target="_blank"><button class="primary-action-button">Notebook</button></a>',
+    '<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/style_transfer_1/nodebook.ipynb" target="_blank"><button class="primary-action-button">Notebook</button></a>',
   ],
 })

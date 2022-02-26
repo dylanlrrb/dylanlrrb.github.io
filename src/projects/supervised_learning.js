@@ -52,11 +52,10 @@
       document.querySelector("#projects").append(node)
     })
 })({
-  tileImage: './public/images/octo_style.gif',
+  tileImage: './portfolio/supervised_learning/assets/portfolio_tile.png',
   tileTitle: 'Supervised Learning Comparison',
-  markdownUrl: 'https://raw.githubusercontent.com/dylanlrrb/Please-Contain-Yourself/master/README.md',
+  markdownUrl: './portfolio/supervised_learning/README.md',
   controls: [
-    '<a href=" https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/backprop_painting/backprop_painting.ipynb" target="_blank"><button class="secondary-action-button">Notebook</button></a>',
-    '<a href="" target="_blank"><button class="primary-action-button">Demo</button></a>'
+    '<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/supervised_learning/nodebook.ipynb" target="_blank"><button class="primary-action-button">Notebook</button></a>',
   ],
 })

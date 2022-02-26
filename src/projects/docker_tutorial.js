@@ -1,3 +1,4 @@
+
 (({tileImage, tileTitle, markdownUrl, controls}) => {
   
   const html = `<div class="project">
@@ -18,12 +19,12 @@
           ${controls.join('')}
         </div>
       </div>
-
+      
     </div>
   </div>`
-  
+
   const node = document.createRange().createContextualFragment(html);
-  
+
   const tile = node.querySelector('.tile')
   const modal = node.querySelector('.modal')
   const exit = modal.querySelector('.exit')
@@ -43,19 +44,18 @@
   })
 
   document.querySelector("#projects").append(node)
-  
+
   const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
   fetch(markdownUrl).then(res => res.text())
     .then(text => {
       inner.innerHTML = converter.makeHtml(text)
-      
+      document.querySelector("#projects").append(node)
     })
-  })({
-    tileImage: './portfolio/mnist_nn/assets/portfolio_tile.gif',
-    tileTitle: 'Real Time Activation and Weight Visualization of Neural Network Trained on MNIST Datase',
-    markdownUrl: './portfolio/mnist_nn/README.md',
-    controls: [
-      '<a href="https://colab.research.google.com/github/dylanlrrb/neural-networks-from-scratch/blob/main/network2.ipynb" target="_blank"><button class="secondary-action-button">Notebook</button></a>',
-      '<a href="./portfolio/mnist_nn/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>'
-    ],
-  })
+})({
+  tileImage: '',
+  tileTitle: 'Docker Tutorial',
+  markdownUrl: 'https://raw.githubusercontent.com/dylanlrrb/Please-Contain-Yourself/master/README.md',
+  controls: [
+    '<a href="" target="_blank"><button class="primary-action-button">Notebook</button></a>',
+  ],
+})

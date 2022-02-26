@@ -1,5 +1,5 @@
 projects = ["./src/projects/mnist_nn.js",
-            // style transfer notebook, slow backprop method
+            "./src/projects/style_transfer_1.js",
             "./src/projects/backprop_painting.js",
             "./src/projects/supervised_learning.js",
             // docker (DEMO)
