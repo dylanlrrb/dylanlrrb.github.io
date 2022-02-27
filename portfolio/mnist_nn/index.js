@@ -206,6 +206,10 @@ function draw(e) {
     const target = e instanceof TouchEvent ? document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY) : e.target
     const row = parseInt(target.dataset.row, 10)
     const col = parseInt(target.dataset.col, 10)
+    
+    if (row < 4 || row > 23 || col < 4 || col > 23) {
+      return
+    }
 
     const centerNode = inputLayerElements[row][col]
     const upNode = (inputLayerElements[row-1] || [])[col]

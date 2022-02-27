@@ -1,4 +1,11 @@
 const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
+
+  if (!tileImage) {
+    const node = document.createRange().createContextualFragment(`<div class="tile-placeholder"></div>`);
+    document.querySelector("#projects").append(node)
+    return
+  }
+
   const html = `<div class="project">
     <div class="tile">
       <div class="tile-image" style="background-image:url(${tileImage})"></div>
@@ -30,16 +37,15 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
   const inner = modal.querySelector('.modal-inner')
   tile.addEventListener('click', () => {
     modal.classList.toggle('display-none')
-    document.documentElement.classList.toggle('disable-scroll')
+    document.documentElement.classList.add('disable-scroll')
+    window.history.pushState({modal: 'open'}, '', window.location)
   })
-  exit.addEventListener('click', () => {
-    modal.classList.toggle('display-none')
-    document.documentElement.classList.toggle('disable-scroll')
-  })
-  scrim.addEventListener('click', () => {
-    modal.classList.toggle('display-none')
-    document.documentElement.classList.toggle('disable-scroll')
-  })
+  window.addEventListener("popstate", function () {
+    modal.classList.add('display-none')
+    document.documentElement.classList.remove('disable-scroll')
+  }, true)
+  exit.addEventListener('click', () => window.history.back())
+  scrim.addEventListener('click', () => window.history.back())
 
   document.querySelector("#projects").append(node)
 

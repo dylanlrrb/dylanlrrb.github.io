@@ -199,6 +199,10 @@ aside {
   margin-top: 10px;
 }
 
+.mobile-instructions {
+  display: none;
+}
+
 @media screen and (max-width: 1000px) {
   html {
     background-color: white;
@@ -247,8 +251,15 @@ aside {
   #regularization_selector, #cost_function_selector {
     justify-content: center;
   }
+  #cost_function_selector {
+    float: right;
+    margin-right: 20%;
+  }
   aside {
     width: 100%;
+  }
+  .mobile-instructions {
+    display: initial;
   }
 }
 

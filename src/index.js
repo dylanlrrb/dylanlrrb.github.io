@@ -1,23 +1,49 @@
-projects = ["./src/projects/mnist_nn.js",
-            "./src/projects/style_transfer_1.js",
-            "./src/projects/backprop_painting.js",
-            "./src/projects/supervised_learning.js",
-            "./src/projects/docker_tutorial.js",
-            "./src/projects/unsupervised_learning.js",
-            "./src/projects/signal_separation.js",
-            // background removal
-            // CFIAR classification final
-            // tSNE on penultimate layer of landmark classifier
-            // cat/dog classifier in tensorflow (DEMO)
-            // De-noising an image and or sound
-            // TV script (one to many, just a decoder?)
-            // Word to vector (negative sampling explored) 1, 2
-            // Sentiment analysis of movie reviews (many to one, just an encoder?) 1
-          ]
+projects = [
+  "mnist_nn.js",
+  "style_transfer_1.js",
+  "backprop_painting.js",
+  "supervised_learning.js",
+  "docker_tutorial.js",
+  "unsupervised_learning.js",
+  "signal_separation.js",
+  "background_removal.js",
+  "cifar10_classification.js",
+  "landmark_classification.js",
+  "denoise_autoencoder.js",
+  "lstm_scripts.js",
+  "word2vec.js",
+  "movie_sentiment.js",
+  "cat_dog_classifier.js",
+  // genomics PCA
+  // Class activation Map/ Saliency Map/ Attribution Maps
+  // View feature maps in a real time web app 
+  // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
+  // Deep dream clone
+  // tyle transfer pt 2, model per style to transfer 1
+  // style transfter pt 3, arbitrary style transfer in browser (DEMO)
+  // project with seq2seq without attention (translation in order to compare to w/ attention?)
+  // Translation with Attention project (seq2seq w/ attention) + class activation map of attention matrix as sentence is translated 1, 2, 3, 4
+  // Image captioning with attention, visualizing focused parts of image attention is given to 1
+  // Create images from text
+  // Add color to a BW image
+  // Image super resolution auto encoder
+  // Compare dimensionality reduction with autoencoders vs PCA
+].map((x) => `./src/projects/${x}`)
+
 demos = [
-  "./src/demos/mnist_nn.js",
-  "./src/demos/docker_tutorial.js",
-]
+  "mnist_nn.js",
+  "docker_tutorial.js",
+  "cat_dog_classifier.js",
+  // View feature maps in a real time web app
+  // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
+  // style transfter pt 3, arbitrary style transfer in browser (DEMO) 
+].map((x) => `./src/demos/${x}`)
+
+placeholders = [
+  "00_tile_placeholder.js",
+  "00_tile_placeholder.js",
+  "00_tile_placeholder.js",
+].map((x) => `./src/projects/${x}`)
             
 
 function loadScript(src) {
@@ -43,14 +69,21 @@ window.addEventListener('DOMContentLoaded', () => {
   const mobile_nav = document.querySelector('header.mobile .nav')
   const selfie = document.querySelector('div.selfie')
 
-  hamburger_icon.addEventListener('click', () => mobile_nav.classList.toggle('closed'))
+  hamburger_icon.addEventListener('click', () => {
+    mobile_nav.classList.toggle('closed')
+    document.documentElement.classList.toggle('disable-scroll')
+  })
   mobile_nav.addEventListener('click', (e) => {
     if (!e.target.classList.contains('nav')) {
       mobile_nav.classList.toggle('closed')
+      document.documentElement.classList.toggle('disable-scroll')
     }
   })
   Array.from(document.querySelectorAll('section')).forEach((section) => {
-    section.addEventListener('touchstart', () => mobile_nav.classList.add('closed'))
+    section.addEventListener('touchstart', () => {
+      mobile_nav.classList.add('closed')
+      document.documentElement.classList.remove('disable-scroll')
+    })
   })
 
   const node = document.createElement('div')
@@ -63,9 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
     .then(() => loadScript('./src/helpers/render_tiles.js')())
-    .then(() => sequential([...projects, ...demos].map(loadScript)))
+    .then(() => sequential([...projects, ...placeholders, ...demos].map(loadScript)))
     .catch(() => console.log('error loading showdown script'))
   
 });
-
-// h3 is small centered header under h1

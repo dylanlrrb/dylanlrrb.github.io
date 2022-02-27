@@ -3,6 +3,7 @@ renderProject({
   tileTitle: 'Blind Source Signal Separation',
   markdownUrl: './portfolio/signal_separation/README.md',
   controls: [
-    '<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/signal_separation/notebook.ipynb" target="_blank"><button class="primary-action-button">Notebook</button></a>',
+    `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/signal_separation/notebook.ipynb" target="_blank">
+      <button class="primary-action-button">Notebook</button></a>`,
   ],
 })
