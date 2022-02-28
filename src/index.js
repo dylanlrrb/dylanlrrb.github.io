@@ -28,6 +28,7 @@ projects = [
   // Add color to a BW image
   // Image super resolution auto encoder
   // Compare dimensionality reduction with autoencoders vs PCA
+  // brainwave signal separation and deep learning 
 ].map((x) => `./src/projects/${x}`)
 
 demos = [
