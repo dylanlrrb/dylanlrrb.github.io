@@ -1,4 +1,4 @@
-<img src="./portfolio/mnist_nn/assets/readme.gif" alt="app_image" width="250"/>
+<img src="./portfolio/mnist_nn/assets/readme.gif" alt="app_image" width="300"/>
 
 # Real Time Activation Visualization of Hidden Layers in a Network that Classifies Handwritten Digits
 
