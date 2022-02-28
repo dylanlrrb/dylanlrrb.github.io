@@ -50,5 +50,9 @@ I can also see what resemble animal eyes in the 116th feature map of the Conv5-1
 
 
 You can also observe blank and noisy squares generated for some feature maps, which appear to be more frequent in higher layers.
-At first I thought that it might mean that feature map did not actually learn anything useful during training, but i think the reality is that this method of backpropogation used to sensitive to starting conditions. I suspect that higher layers have a harder time finding the complex pattern that excites thim in the noisy starting tensor and never converge to anything meaningful. 
+At first I thought that it might mean that feature map did not actually learn anything useful during training, but i think the reality is that this method of backpropogation used to sensitive to starting conditions. I suspect that higher layers have a harder time finding a complex pattern that excites thm in the noisy starting tensor, backprop can't get a 'footing', and never converge to anything meaningful.
 
+
+
+
+.

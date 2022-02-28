@@ -27,3 +27,7 @@ The same dataset was triained with vaious regualrization methods and cost functi
 
 For example, comparing L1 vs. L2 regualrization and observing the difference in input layer weights really drives home the differnce in weight sparsity between the two method sin a very visual an intuitive way
 
+
+
+
+.

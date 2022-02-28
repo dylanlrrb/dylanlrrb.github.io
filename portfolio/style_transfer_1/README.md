@@ -45,3 +45,8 @@ While this method creates some amazing looking results, it is unfortunately rath
 Because it relies on backpropogation, many iterations of calculating the loss and backpropogating the error need to be preformed to get a good looking result. The speed also depends on the size of the image and if you have access to a GPU
 
 Experimenting with some hyperparameters I found that cranking the learning rate up had a positive effect on how fast the target image converged to a good looking result. Additionally, I found that increasing how significantly the lower 'style' layers contribute to the loss calculation caused a more dramatic style transfer that required fewer interations to converge on a good looking result. And lastly, resizing the target to be a smaller tensor has a big impact on how fast the style can be transfered.
+
+
+
+
+.
