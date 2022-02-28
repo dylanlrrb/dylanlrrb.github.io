@@ -28,11 +28,11 @@ The paper mentioned above explores the idea that content representations reside 
 
 This makes intuitive sense as lower levels of a CNN learn to identify simple shapes, colors, edges, and so on while higher levels combime these simple features into more complex features (e.g. eyes, faces, dogs, houses, etc.) These complex features can be used to represent the content of an image while the lower level features can be used to represent style (e.g. colors, brushstrokes, motifs, etc.)
 
-<img src="./portfolio/style_transfer_1/assets/readme2.png" width="700"/>
+<img src="./portfolio/style_transfer_1/assets/readme2.png" width="600"/>
 
 However, there is a bit more to 'style' that the paper explores. Style can be further described as low level features that are activated consistently together between the filter maps of a single low level layer in a CNN. In this way the 'style' of an image can be represented numerically by creating a gram matrix of a low level layer activations of a trianed CNN as an image is fed forward through it.
 
-With these pieces defined, we can create a loss function that takes into account how different a target tensor's style is from a style image's, and how different a target tensor's content is from a content image's
+With these pieces defined, we can create a loss function that takes into account how different a target tensor's content layer activations are from a content image's activations, and how different a target tensor's style gram matrix is from a style image's style gram matrix.
 
 Using this loss we can backpropogate the error through a network which has had it's parameters frozen to update the target tensor wich represents the final image!
 
