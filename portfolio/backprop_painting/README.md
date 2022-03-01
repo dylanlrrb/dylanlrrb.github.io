@@ -40,7 +40,7 @@ I then display the tensor as an image for an idea of what that particualr featur
 Overall the results are quite impressive. You can obseve that in lower levels such as Conv1_1 feature maps are activated by relitivly solid colors and simple lines and shapes. I can deduce that this layer's feature maps have, over the course of training on the images dataset, learned to become simple color and edge detectors.
 
 This is in contrast to the highest layers which are activated by complicated and abstract patterns. These generated images are neat to look at, but some have enough form to actually guess what high level feature they are detecting!
-For exapmle, I found the 25th feature map of the Conv5_1 layer to be excited specifically by patterns that resemble human eyes! do you see any eyes staring back at you grom this generated image?
+For exapmle, I found the 25th feature map of the Conv5_1 layer to be excited specifically by patterns that resemble human eyes! do you see any eyes staring back at you from this generated image?
 
 <img src="./portfolio/backprop_painting/assets/output1.png" width="250"/>
 
@@ -50,7 +50,7 @@ I can also see what resemble animal eyes in the 116th feature map of the Conv5-1
 
 
 You can also observe blank and noisy squares generated for some feature maps, which appear to be more frequent in higher layers.
-At first I thought that it might mean that feature map did not actually learn anything useful during training, but i think the reality is that this method of backpropogation used to sensitive to starting conditions. I suspect that higher layers have a harder time finding a complex pattern that excites thm in the noisy starting tensor, backprop can't get a 'footing', and never converge to anything meaningful.
+At first I thought that it might mean that feature map did not actually learn anything useful during training, but i think the reality is that this method of backpropogation used is sensitive to starting conditions. I suspect that higher layers have a harder time finding a complex pattern that excites thm in the noisy starting tensor, backprop can't get a 'footing', and never converge to anything meaningful.
 
 
 

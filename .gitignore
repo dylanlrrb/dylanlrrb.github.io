@@ -3,3 +3,10 @@ node_modules/
 .sass-cache
 .DS_Store
 gif/
+
+# datasets
+animals/
+Udacity_AZDIAS_Subset.csv
+Udacity_CUSTOMERS_Subset.csv
+landmark_images/
+flower_photos/

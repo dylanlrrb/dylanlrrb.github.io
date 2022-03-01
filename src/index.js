@@ -2,22 +2,22 @@ projects = [
   "mnist_nn.js",
   "style_transfer_1.js",
   "backprop_painting.js",
-  "supervised_learning.js",
   "docker_tutorial.js",
+  "supervised_learning.js",
   "unsupervised_learning.js",
   "signal_separation.js",
   "background_removal.js",
   "cifar10_classification.js",
   "landmark_classification.js",
-  "denoise_autoencoder.js",
   "lstm_scripts.js",
-  "word2vec.js",
   "movie_sentiment.js",
+  "denoise_autoencoder.js",
+  "word2vec.js",
   "cat_dog_classifier.js",
   // genomics PCA
-  // Class activation Map/ Saliency Map/ Attribution Maps
   // View feature maps in a real time web app 
   // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
+  // Class activation Map/ Saliency Map/ Attribution Maps
   // Deep dream clone
   // tyle transfer pt 2, model per style to transfer 1
   // style transfter pt 3, arbitrary style transfer in browser (DEMO)
