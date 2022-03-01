@@ -100,7 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(() => {
       setTimeout(() => {
         sequential([...projects, ...placeholders, ...demos].map(loadScript))
-      }, 3000)
+      }, 100)
     })
     .catch(() => console.log('error loading showdown script'))
   
