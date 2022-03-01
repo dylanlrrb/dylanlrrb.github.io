@@ -49,15 +49,13 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
   exit.addEventListener('click', () => window.history.back())
   scrim.addEventListener('click', () => window.history.back())
 
-  setTimeout(() => {
-    tileIm.style['background-image'] = `url(${tileImage})`
-    const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
-    fetch(markdownUrl).then(res => res.text())
-      .then(text => {
-        inner.innerHTML = converter.makeHtml(text)
-        document.querySelector("#projects").append(node)
-      })
-  }, 1000)
+  tileIm.style['background-image'] = `url(${tileImage})`
+  const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
+  fetch(markdownUrl).then(res => res.text())
+    .then(text => {
+      inner.innerHTML = converter.makeHtml(text)
+      document.querySelector("#projects").append(node)
+    })
 }
 
 const renderDemo = (demo) => {

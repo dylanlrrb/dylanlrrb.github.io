@@ -1,0 +1,1 @@
+document.querySelector('.loading-scrim').style['display'] = 'none'
