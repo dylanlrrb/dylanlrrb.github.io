@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
   node.classList.add('high')
   setTimeout(() => {
     selfie.appendChild(node)
-  }, 100)
+  }, 500)
   setTimeout(() => node.classList.toggle('transparent'), 300)
 
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
