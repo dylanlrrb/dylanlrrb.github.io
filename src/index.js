@@ -92,17 +92,12 @@ window.addEventListener('DOMContentLoaded', () => {
   node.classList.add('high')
   setTimeout(() => {
     selfie.appendChild(node)
-  }, 500)
+  }, 100)
   setTimeout(() => node.classList.toggle('transparent'), 300)
 
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
     .then(() => loadScript('./src/helpers/render_tiles.js')())
-    .then(() => sequential([...projects, ...placeholders, ...demos].map(loadScript)))
-    // .then(() => {
-    //   setTimeout(() => {
-    //     sequential([...projects, ...placeholders, ...demos].map(loadScript))
-    //   }, 1000)
-    // })
+    .then(() => sequential([...projects, ...placeholders, ...demos, './src/projects/00_remove_loader.js'].map(loadScript)))
     .catch(() => console.log('error loading showdown script'))
   
 });
