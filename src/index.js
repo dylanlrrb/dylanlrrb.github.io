@@ -97,11 +97,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
     .then(() => loadScript('./src/helpers/render_tiles.js')())
-    .then(() => {
-      setTimeout(() => {
-        sequential([...projects, ...placeholders, ...demos].map(loadScript))
-      }, 1000)
-    })
+    .then(() => sequential([...projects, ...placeholders, ...demos].map(loadScript)))
+    // .then(() => {
+    //   setTimeout(() => {
+    //     sequential([...projects, ...placeholders, ...demos].map(loadScript))
+    //   }, 1000)
+    // })
     .catch(() => console.log('error loading showdown script'))
   
 });

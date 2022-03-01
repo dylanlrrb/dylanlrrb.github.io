@@ -57,23 +57,25 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
         inner.innerHTML = converter.makeHtml(text)
         document.querySelector("#projects").append(node)
       })
-  }, 100)
+  }, 500)
 }
 
 const renderDemo = (demo) => {
+  const {demoImage} = demo
   const fragment = ({demoImage, demoDescription, demoLink}) => `
     <a href="${demoLink}" target="_blank" class="demo-tile">
-      <div class="demo-image" style="
-        background-image:linear-gradient(to right, transparent, transparent, white), url(${demoImage});
-        background-image:-o-linear-gradient(to right, transparent, transparent, white), url(${demoImage});
-        background-image:-webkit-gradient(to right, transparent, transparent, white), url(${demoImage});">
-      </div>
+      <div class="demo-image"></div>
       <div class="demo-description">${demoDescription}</div>
     </a>
   `
   node = document.createRange()
           .createContextualFragment(fragment(demo))
-  
+  const demoIm = node.querySelector('.demo-image')
 
   document.querySelector("#demo-list").append(node)
+  setTimeout(() => {
+    demoIm.style.cssText = `background-image:linear-gradient(to right, transparent, transparent, white), url(${demoImage});
+      background-image:-o-linear-gradient(to right, transparent, transparent, white), url(${demoImage});
+      background-image:-webkit-gradient(to right, transparent, transparent, white), url(${demoImage});`
+  }, 500)
 }
