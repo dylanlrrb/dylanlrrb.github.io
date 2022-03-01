@@ -16,7 +16,7 @@ projects = [
   "cat_dog_classifier.js",
   // genomics PCA
   // View feature maps in a real time web app 
-  // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
+  // Multi box detector using mobile net + demo app (first expor`ation in pytorch then implementationin a web app)
   // Class activation Map/ Saliency Map/ Attribution Maps
   // Deep dream clone
   // tyle transfer pt 2, model per style to transfer 1
