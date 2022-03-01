@@ -8,7 +8,7 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
 
   const html = `<div class="project">
     <div class="tile">
-      <div class="tile-image" style="background-image:url(${tileImage})"></div>
+      <div class="tile-image"></div>
       <p class="tile-title">${tileTitle}</p>
     </div>
     
@@ -29,12 +29,14 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
   </div>`
 
   const node = document.createRange().createContextualFragment(html);
-
   const tile = node.querySelector('.tile')
+  const tileIm = node.querySelector('.tile-image')
   const modal = node.querySelector('.modal')
   const exit = modal.querySelector('.exit')
   const scrim = modal.querySelector('.modal-scrim')
   const inner = modal.querySelector('.modal-inner')
+  document.querySelector("#projects").append(node)
+
   tile.addEventListener('click', () => {
     modal.classList.toggle('display-none')
     document.documentElement.classList.add('disable-scroll')
@@ -47,14 +49,15 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
   exit.addEventListener('click', () => window.history.back())
   scrim.addEventListener('click', () => window.history.back())
 
-  document.querySelector("#projects").append(node)
-
-  const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
-  fetch(markdownUrl).then(res => res.text())
-    .then(text => {
-      inner.innerHTML = converter.makeHtml(text)
-      document.querySelector("#projects").append(node)
-    })
+  setTimeout(() => {
+    tileIm.style['background-image'] = `url(${tileImage})`
+    const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
+    fetch(markdownUrl).then(res => res.text())
+      .then(text => {
+        inner.innerHTML = converter.makeHtml(text)
+        document.querySelector("#projects").append(node)
+      })
+  }, 1000)
 }
 
 const renderDemo = (demo) => {
