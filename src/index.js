@@ -1,7 +1,7 @@
 project_ordered_list = [
   "mnist_nn",
-  "style_transfer_1",
   "backprop_painting",
+  "style_transfer_1",
   "docker_tutorial",
   "supervised_learning",
   "unsupervised_learning",
@@ -59,16 +59,24 @@ function loadScript(src) {
   }
 }
 
-function sequential(p) {
-  i = 0
-  recurse = () =>  {p[i]().finally(() => {i++;if (i >= p.length) {return} else {recurse()}})}
-  recurse()
+function getYearsSince(start) {
+  const startDate = new Date(start);
+  // One year in milliseconds
+  const oneYear = 1000 * 60 * 60 * 24 * 365;
+  // Calculating the time difference between two dates
+  const diffInTime = Date.now() - startDate.getTime();
+  // Calculating the no. of days between two dates
+  const diffInYears = Math.round(diffInTime / oneYear);
+  return diffInYears;
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   const hamburger_icon = document.querySelector('header.mobile .hamburger-icon')
   const mobile_nav = document.querySelector('header.mobile .nav')
   const selfie = document.querySelector('div.selfie')
+  const years_exp = document.querySelector('.years-exp')
+
+  years_exp.innerHTML = getYearsSince('9/15/2016', )
 
   hamburger_icon.addEventListener('click', () => {
     mobile_nav.classList.toggle('closed')
@@ -92,8 +100,9 @@ window.addEventListener('DOMContentLoaded', () => {
   node.classList.add('high')
   setTimeout(() => {
     selfie.appendChild(node)
+    setTimeout(() => node.classList.toggle('transparent'), 500)
   }, 100)
-  setTimeout(() => node.classList.toggle('transparent'), 500)
+  
 
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
     .then(() => loadScript('./src/render_tiles.js')())

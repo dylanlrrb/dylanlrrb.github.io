@@ -250,8 +250,18 @@ section {
 }
 
 .home-p3 {
-  margin: 0px;
-  padding-bottom: 20px;
+  border-left-style: solid;
+  border-left-width: 2px;
+  border-left-color: rgb(65, 65, 65);
+  margin-top: 90px;
+  padding: 15px;
+  font-size: medium;
+  width: 48vw;
+  max-width: 700px;
+}
+.home-p3 a {
+  color: blue;
+  white-space: nowrap;
 }
 
 .home-button {
@@ -277,8 +287,14 @@ section {
 }
 .signiture {
   width: 260px;
-  margin-right: 35px;
-  float: right;
+  margin-left: 35px;
+  float: left;
+}
+.signiture-mobile {
+  display: none;
+  margin-top: 20px;
+  width: 60%;
+  float: left;
 }
 
 .interest {
@@ -592,6 +608,15 @@ section {
 }
 
 @media screen and (max-width: 700px) {
+  .home-p3 {
+    border: none;
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    width: 85%;
+  }
+
   .tile-image {
     height: 150px;
     width: 150px;
@@ -735,6 +760,9 @@ section {
   .signiture {
     display: none;
   }
+  .signiture-mobile {
+    display: block;
+  }
 
   #projects, #demo-list {
     margin-top: 50px;
@@ -744,7 +772,7 @@ section {
 
 
 .transparent {
-  opacity: 0;
+  opacity: 0.01;
 }
 
 .display-none {
