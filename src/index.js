@@ -1,19 +1,19 @@
-projects = [
-  "mnist_nn.js",
-  "style_transfer_1.js",
-  "backprop_painting.js",
-  "docker_tutorial.js",
-  "supervised_learning.js",
-  "unsupervised_learning.js",
-  "signal_separation.js",
-  "background_removal.js",
-  "cifar10_classification.js",
-  "landmark_classification.js",
-  "lstm_scripts.js",
-  "movie_sentiment.js",
-  "denoise_autoencoder.js",
-  "word2vec.js",
-  "cat_dog_classifier.js",
+project_ordered_list = [
+  "mnist_nn",
+  "style_transfer_1",
+  "backprop_painting",
+  "docker_tutorial",
+  "supervised_learning",
+  "unsupervised_learning",
+  "signal_separation",
+  "background_removal",
+  "cifar10_classification",
+  "landmark_classification",
+  "lstm_scripts",
+  "movie_sentiment",
+  "denoise_autoencoder",
+  "word2vec",
+  "cat_dog_classifier",
   // genomics PCA
   // View feature maps in a real time web app 
   // Multi box detector using mobile net + demo app (first expor`ation in pytorch then implementationin a web app)
@@ -29,22 +29,22 @@ projects = [
   // Image super resolution auto encoder
   // Compare dimensionality reduction with autoencoders vs PCA
   // brainwave signal separation and deep learning 
-].map((x) => `./src/projects/${x}`)
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "remove_loader",
+]
 
-demos = [
-  "mnist_nn.js",
-  "docker_tutorial.js",
-  "cat_dog_classifier.js",
+demo_ordered_list = [
+  "mnist_nn",
+  "docker_tutorial",
+  "cat_dog_classifier",
   // View feature maps in a real time web app
   // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
   // style transfter pt 3, arbitrary style transfer in browser (DEMO) 
-].map((x) => `./src/demos/${x}`)
+]
 
-placeholders = [
-  "00_tile_placeholder.js",
-  "00_tile_placeholder.js",
-  "00_tile_placeholder.js",
-].map((x) => `./src/projects/${x}`)
+
             
 
 function loadScript(src) {
@@ -61,7 +61,7 @@ function loadScript(src) {
 
 function sequential(p) {
   i = 0
-  recurse = () =>  {p[i]().then(() => {i++;if (i >= p.length) {return} else {recurse()}})}
+  recurse = () =>  {p[i]().finally(() => {i++;if (i >= p.length) {return} else {recurse()}})}
   recurse()
 }
 
@@ -93,11 +93,14 @@ window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     selfie.appendChild(node)
   }, 100)
-  setTimeout(() => node.classList.toggle('transparent'), 300)
+  setTimeout(() => node.classList.toggle('transparent'), 500)
 
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js')()
-    .then(() => loadScript('./src/helpers/render_tiles.js')())
-    .then(() => sequential([...projects, ...placeholders, ...demos, './src/projects/00_remove_loader.js'].map(loadScript)))
-    .catch(() => console.log('error loading showdown script'))
+    .then(() => loadScript('./src/render_tiles.js')())
+    .then(() => {
+      project_ordered_list.map((p) => window.projects[p]())
+      demo_ordered_list.map((d) => window.demos[d]())
+    })
+    .catch((e) => console.log('error loading showdown script', e))
   
 });
