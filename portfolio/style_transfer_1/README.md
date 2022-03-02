@@ -32,6 +32,12 @@ This makes intuitive sense as lower levels of a CNN learn to identify simple sha
 
 However, there is a bit more to 'style' that the paper explores. Style can be further described as low level features that are activated consistently together between the filter maps of a single low level layer in a CNN. In this way the 'style' of an image can be represented numerically by creating a gram matrix of a low level layer activations of a trianed CNN as an image is fed forward through it.
 
+Why a gram matrix is useful for quantifying stlye requires a little more explaination. By flattening and multiplying each feature map with every other feature map in that layer, we get a matrix that describes how correlated particular features in an image are with other features. For example, if there is a feature map that is activated by sharp corners and another feature map that is activated by blue colors in an image, the painting of an artist who's style consists of many blue edges would find a high value in that gram matrix at the intersection of the 'blue' and 'sharp corners' feature maps. Our goal then is then reduced to the challenge of getting our target image's gram matrix to resemble the gram matrix of our style image as closely as possible. Doing this at different convolutional layers will capture diferent and more abstract aspects of an artist's style.
+
+Take a look at the animation below for a more visual explaination
+
+<img src="./portfolio/style_transfer_1/assets/readme3.gif" alt="">
+
 With these pieces defined, we can create a loss function that takes into account how different a target tensor's content layer activations are from a content image's activations, and how different a target tensor's style gram matrix is from a style image's style gram matrix.
 
 Using this loss we can backpropogate the error through a network which has had it's parameters frozen to update the target tensor wich represents the final image!
