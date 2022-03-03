@@ -47,7 +47,7 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
           inner.innerHTML = converter.makeHtml(text)
           document.querySelector("#projects").append(node)
         })
-    }, 100)
+    }, 1000)
   }
 }
 
@@ -66,7 +66,7 @@ const renderDemo = (demo) => {
       demoIm.style.cssText = `background-image:linear-gradient(to right, transparent, transparent, white), url(${demoImage});
         background-image:-o-linear-gradient(to right, transparent, transparent, white), url(${demoImage});
         background-image:-webkit-gradient(to right, transparent, transparent, white), url(${demoImage});`
-    }, 100)
+    }, 1000)
   }
 }
 
