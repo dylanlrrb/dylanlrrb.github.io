@@ -3,9 +3,9 @@ project_ordered_list = [
   "backprop_painting",
   "style_transfer_1",
   "docker_tutorial",
-  "supervised_learning",
-  "unsupervised_learning",
-  "signal_separation",
+  // "supervised_learning",
+  // "unsupervised_learning",
+  // "signal_separation",
   "background_removal",
   "cifar10_classification",
   "landmark_classification",
@@ -29,6 +29,8 @@ project_ordered_list = [
   // Image super resolution auto encoder
   // Compare dimensionality reduction with autoencoders vs PCA
   // brainwave signal separation and deep learning 
+  // rudementry reverse image search
+  // customer segmentation https://www.kaggle.com/fabiendaniel/customer-segmentation
   "placeholder",
   "placeholder",
   "placeholder",
