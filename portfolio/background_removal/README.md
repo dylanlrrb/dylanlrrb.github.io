@@ -46,7 +46,7 @@ While I am impressed by the results I was able to achieve from scratch, the Open
 - Allows you to specify a history length. Old frames are thrown out and removed form the model after a certain number of frames have accumulated. This has the effect of ignoring, after some time, parts of a video that were once moving but then became stationary.
 - OpenCV implementation can differentiat shadows and can remove them entirely if desired
 
-There appears to be artifacts that flash in front of the entire video of the OpenCV implementation that are not preseent on the scratch implementation. These could be reduced by increasing the threshold value passed into `createBackgroundSubtractorMOG2`
+There appears to be artifacts that flash in front of the entire video of the OpenCV implementation that are not preseent on the scratch implementation, probably from sudden changes in lighting in the video. These could be reduced by increasing the threshold value passed into `createBackgroundSubtractorMOG2`
 
 One fun thing that I can do with my scratch implementation is take the average pixel value from each GMM and build up an image of just the background, excluding all moving parts of the video.
 
@@ -54,3 +54,7 @@ One fun thing that I can do with my scratch implementation is take the average p
 
 Even though my approach won't be used in production anytime soon, it was very interesting and educational to dive into this algorithm more in-depth and use GMMs in a way that I would not have otherwise considered.
 
+
+
+
+.
