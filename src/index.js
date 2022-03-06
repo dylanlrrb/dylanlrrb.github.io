@@ -14,13 +14,15 @@ project_ordered_list = [
   "denoise_autoencoder",
   "word2vec",
   "cat_dog_classifier",
+  // super resolution notebook and webapp
   // GANs + deployment
   // ---
   // View feature maps in a real time web app 
-  // super resolution notebook and webapp
   // Multi box detector using mobile net + demo app (first expor`ation in pytorch then implementationin a web app)
   // Class activation Map/ Saliency Map/ Attribution Maps
   // Deep dream clone
+  // ---
+  // Gan projects
   // ---
   // style transfer pt 2, model per style to transfer 1
   // style transfter pt 3, arbitrary style transfer in browser (DEMO)
@@ -29,9 +31,9 @@ project_ordered_list = [
   // Image captioning with attention, visualizing focused parts of image attention is given to 1
   // brainwave signal separation and deep learning 
   // ---
-  // Gan projects
-  // ---
   // Renforcemnt learning course
+  // ---
+  // Renforcement projects
   // ---
   // dermatologist AI
   // Create images from text
