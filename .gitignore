@@ -4,6 +4,10 @@ node_modules/
 .DS_Store
 gif/
 
+# models
+model_scratch.pt
+model_transfer.pt
+
 # datasets
 animals/
 Udacity_AZDIAS_Subset.csv

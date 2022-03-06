@@ -14,23 +14,30 @@ project_ordered_list = [
   "denoise_autoencoder",
   "word2vec",
   "cat_dog_classifier",
-  // genomics PCA
+  // GANs + deployment
+  // ---
   // View feature maps in a real time web app 
+  // super resolution notebook and webapp
   // Multi box detector using mobile net + demo app (first expor`ation in pytorch then implementationin a web app)
   // Class activation Map/ Saliency Map/ Attribution Maps
   // Deep dream clone
-  // tyle transfer pt 2, model per style to transfer 1
+  // ---
+  // style transfer pt 2, model per style to transfer 1
   // style transfter pt 3, arbitrary style transfer in browser (DEMO)
   // project with seq2seq without attention (translation in order to compare to w/ attention?)
   // Translation with Attention project (seq2seq w/ attention) + class activation map of attention matrix as sentence is translated 1, 2, 3, 4
   // Image captioning with attention, visualizing focused parts of image attention is given to 1
+  // brainwave signal separation and deep learning 
+  // ---
+  // Gan projects
+  // ---
+  // Renforcemnt learning course
+  // ---
+  // dermatologist AI
   // Create images from text
   // Add color to a BW image
-  // Image super resolution auto encoder
-  // Compare dimensionality reduction with autoencoders vs PCA
-  // brainwave signal separation and deep learning 
-  // rudementry reverse image search
   // customer segmentation https://www.kaggle.com/fabiendaniel/customer-segmentation
+  // genomics PCA
   "placeholder",
   "placeholder",
   "placeholder",
