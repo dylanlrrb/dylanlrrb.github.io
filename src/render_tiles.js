@@ -114,8 +114,8 @@ window.projects = {
   }),
 
   cifar10_classification: renderProject({
-    tileImage: './portfolio/cifar10_classification/assets/portfolio_tile.png',
-    tileTitle: 'Transfer Learning with the CIFAR-10 dataset',
+    tileImage: './portfolio/cifar10_classification/assets/portfolio_tile.jpeg',
+    tileTitle: 'Exploring Effect of Image Resizing on Classification of CIFAR-10 dataset',
     markdownUrl: './portfolio/cifar10_classification/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/cifar10_classification/notebook.ipynb" target="_blank">
@@ -214,6 +214,16 @@ window.projects = {
     ],
   }),
 
+  super_resolution: renderProject({
+    tileImage: './portfolio/super_resolution/assets/portfolio_tile.png',
+    tileTitle: 'Super Resolution',
+    markdownUrl: './portfolio/super_resolution/README.md',
+    controls: [
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/supervised_learning/notebook.ipynb" target="_blank">
+        <button class="primary-action-button">Notebook</button></a>`,
+    ],
+  }),
+
   unsupervised_learning: renderProject({
     tileImage: './portfolio/unsupervised_learning/assets/portfolio_tile.png',
     tileTitle: 'Identifying Customer Segments with Unsupervised Learning',
@@ -239,7 +249,7 @@ window.projects = {
 
 window.demos = {
   cat_dog_classifier: renderDemo({
-    demoLink: './portfolio/cat_dog_classifier/index.html',
+    demoLink: './portfolio/cat_dog_classifier/demo/index.html',
     demoImage: './portfolio/cat_dog_classifier/assets/demo_tile.png',
     demoDescription: 'Edge Image Classification on Mobile Browsers',
   }),
@@ -251,8 +261,14 @@ window.demos = {
   }),
 
   mnist_nn: renderDemo({
-    demoLink: './portfolio/mnist_nn/index.html',
+    demoLink: './portfolio/mnist_nn/demo/index.html',
     demoImage: './portfolio/mnist_nn/assets/demo_tile.png',
     demoDescription: 'MNIST Demo: See what a Neural Network is thinkning as it guesses what number you\'re drawing',
+  }),
+
+  super_resolution: renderDemo({
+    demoLink: './portfolio/super_resolution/demo/index.html',
+    demoImage: './portfolio/super_resolution/assets/demo_tile.png',
+    demoDescription: 'Super Resolution',
   }),
 }

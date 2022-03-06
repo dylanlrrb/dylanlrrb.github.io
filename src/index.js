@@ -10,11 +10,11 @@ project_ordered_list = [
   "cifar10_classification",
   "landmark_classification",
   "lstm_scripts",
-  "movie_sentiment",
+  // "movie_sentiment",
   "denoise_autoencoder",
-  "word2vec",
+  // "word2vec",
   "cat_dog_classifier",
-  // super resolution notebook and webapp
+  "super_resolution",
   // GANs + deployment
   // ---
   // View feature maps in a real time web app 
@@ -50,6 +50,7 @@ demo_ordered_list = [
   "mnist_nn",
   "docker_tutorial",
   "cat_dog_classifier",
+  "super_resolution",
   // View feature maps in a real time web app
   // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
   // style transfter pt 3, arbitrary style transfer in browser (DEMO) 

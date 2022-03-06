@@ -2,18 +2,18 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="data/data_qcost_0l_0stop.json"></script>
-    <script type="text/javascript" src="data/data_qcost_1l_0stop.json"></script>
-    <script type="text/javascript" src="data/data_qcost_2l_0stop.json"></script>
-    <script type="text/javascript" src="data/data_qcost_0l_1stop.json"></script>
-    <script type="text/javascript" src="data/data_qcost_1l_1stop.json"></script> 
-    <script type="text/javascript" src="data/data_qcost_2l_1stop.json"></script>
-    <script type="text/javascript" src="data/data_xcost_0l_0stop.json"></script>
-    <script type="text/javascript" src="data/data_xcost_1l_0stop.json"></script>
-    <script type="text/javascript" src="data/data_xcost_2l_0stop.json"></script>
-    <script type="text/javascript" src="data/data_xcost_0l_1stop.json"></script>
-    <script type="text/javascript" src="data/data_xcost_1l_1stop.json"></script> 
-    <script type="text/javascript" src="data/data_xcost_2l_1stop.json"></script>
+    <script type="text/javascript" src="../data/data_qcost_0l_0stop.json"></script>
+    <script type="text/javascript" src="../data/data_qcost_1l_0stop.json"></script>
+    <script type="text/javascript" src="../data/data_qcost_2l_0stop.json"></script>
+    <script type="text/javascript" src="../data/data_qcost_0l_1stop.json"></script>
+    <script type="text/javascript" src="../data/data_qcost_1l_1stop.json"></script> 
+    <script type="text/javascript" src="../data/data_qcost_2l_1stop.json"></script>
+    <script type="text/javascript" src="../data/data_xcost_0l_0stop.json"></script>
+    <script type="text/javascript" src="../data/data_xcost_1l_0stop.json"></script>
+    <script type="text/javascript" src="../data/data_xcost_2l_0stop.json"></script>
+    <script type="text/javascript" src="../data/data_xcost_0l_1stop.json"></script>
+    <script type="text/javascript" src="../data/data_xcost_1l_1stop.json"></script> 
+    <script type="text/javascript" src="../data/data_xcost_2l_1stop.json"></script>
     <script src="index.js"></script>
   </head>
   <body>
@@ -62,23 +62,23 @@
         <p>This visualization is inspired by a demo I encounterd while working through the <a href="https://brilliant.org/courses/intro-neural-networks" target="_blank" >Briliant.org Neural Network Course</a></p>
         <p>The neural network was built from scratch through the direction of the book <a href="http://neuralnetworksanddeeplearning.com/index.html" target="_blank" >Neural Networks and Deep Learning</a> by Michael Nielsen</p>
         <p>This visualization demonstrates the the feedforward activation of a network while classifying handwritten digits.</p>
-        <p>The network uses the <a href="data/data_xcost_2l_1stop.json" target="_blank" >real weights and biases</a> generated from training the network on the MNIST dataset.</p>
+        <p>The network uses the <a href="../data/data_xcost_2l_1stop.json" target="_blank" >real weights and biases</a> generated from training the network on the MNIST dataset.</p>
         <p>To see the how the network was implemented, including stochastic gradient descent and backpropogation, see the jupyter notebook <a href="https://github.com/dylanlrrb/neural-networks-from-scratch/blob/main/network2.ipynb" target="_blank">here</a></p>
         <p>Resources that helped me a lot with understanding the backpropogation algorithm: <br> <a href="https://ml-cheatsheet.readthedocs.io/en/latest/backpropagation.html" target="_blank" >ML Glossary</a> <br> <a href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/" target="_blank" >A Step by Step Backpropagation Example</a> <br> <a href="https://docs.google.com/drawings/d/1IyoAKGw2gTE2wbssTsL5hH-kFYqbyF9ZSx9p4JVydV4/edit?usp=sharing" target="_blank" >Diagram for visualizing Backprop</a></p>       
       </aside>
       <div id="app" class="center">
         <div>
           <div id="feature-lables">
-            <img src="assets/0.svg">
-            <img src="assets/1.svg">
-            <img src="assets/2.svg">
-            <img src="assets/3.svg">
-            <img src="assets/4.svg">
-            <img src="assets/5.svg">
-            <img src="assets/6.svg">
-            <img src="assets/7.svg">
-            <img src="assets/8.svg">
-            <img src="assets/9.svg">
+            <img src="../assets/0.svg">
+            <img src="../assets/1.svg">
+            <img src="../assets/2.svg">
+            <img src="../assets/3.svg">
+            <img src="../assets/4.svg">
+            <img src="../assets/5.svg">
+            <img src="../assets/6.svg">
+            <img src="../assets/7.svg">
+            <img src="../assets/8.svg">
+            <img src="../assets/9.svg">
           </div>
           <div id="neuron-activations" width="600" height="400"></div>
           <canvas id="neuron-weights" width="600" height="400"></canvas>

@@ -222,39 +222,39 @@ function draw(e) {
     const upperRightNode = inputLayerElements[row-1][col+1]
 
 
-    centerNode.style.opacity = `${Math.min(parseFloat(centerNode.style.opacity) + 0.4, 1)}`
-    inputLayerModel[row][col] = Math.min(inputLayerModel[row][col] + 0.4, 1)
+    centerNode.style.opacity = `${Math.min(parseFloat(centerNode.style.opacity) + 0.6, 1)}`
+    inputLayerModel[row][col] = Math.min(inputLayerModel[row][col] + 0.6, 1)
     if (upNode) {
-      upNode.style.opacity = `${Math.min(parseFloat(upNode.style.opacity) + 0.1, 1)}`
-      inputLayerModel[row-1][col] = Math.min(inputLayerModel[row-1][col] + 0.1, 1)
+      upNode.style.opacity = `${Math.min(parseFloat(upNode.style.opacity) + 0.2, 1)}`
+      inputLayerModel[row-1][col] = Math.min(inputLayerModel[row-1][col] + 0.2, 1)
     }
     if (downNode) {
-      downNode.style.opacity = `${Math.min(parseFloat(downNode.style.opacity) + 0.1, 1)}`
-      inputLayerModel[row+1][col] = Math.min(inputLayerModel[row+1][col] + 0.1, 1)
+      downNode.style.opacity = `${Math.min(parseFloat(downNode.style.opacity) + 0.2, 1)}`
+      inputLayerModel[row+1][col] = Math.min(inputLayerModel[row+1][col] + 0.2, 1)
     }
     if (leftNode) {
-      leftNode.style.opacity = `${Math.min(parseFloat(leftNode.style.opacity) + 0.1, 1)}`
-      inputLayerModel[row][col-1] = Math.min(inputLayerModel[row][col-1] + 0.1, 1)
+      leftNode.style.opacity = `${Math.min(parseFloat(leftNode.style.opacity) + 0.2, 1)}`
+      inputLayerModel[row][col-1] = Math.min(inputLayerModel[row][col-1] + 0.2, 1)
     }
     if (rightNode) {
-      rightNode.style.opacity = `${Math.min(parseFloat(rightNode.style.opacity) + 0.1, 1)}`
-      inputLayerModel[row][col+1] = Math.min(inputLayerModel[row][col+1] + 0.1, 1)
+      rightNode.style.opacity = `${Math.min(parseFloat(rightNode.style.opacity) + 0.2, 1)}`
+      inputLayerModel[row][col+1] = Math.min(inputLayerModel[row][col+1] + 0.2, 1)
     }
     if (upperLeftNode) {
-      upperLeftNode.style.opacity = `${Math.min(parseFloat(upperLeftNode.style.opacity) + 0.05, 1)}`
-      inputLayerModel[row-1][col-1] = Math.min(inputLayerModel[row-1][col-1] + 0.05, 1)
+      upperLeftNode.style.opacity = `${Math.min(parseFloat(upperLeftNode.style.opacity) + 0.1, 1)}`
+      inputLayerModel[row-1][col-1] = Math.min(inputLayerModel[row-1][col-1] + 0.1, 1)
     }
     if (lowerRightNode) {
-      lowerRightNode.style.opacity = `${Math.min(parseFloat(lowerRightNode.style.opacity) + 0.05, 1)}`
-      inputLayerModel[row+1][col+1] = Math.min(inputLayerModel[row+1][col+1] + 0.05, 1)
+      lowerRightNode.style.opacity = `${Math.min(parseFloat(lowerRightNode.style.opacity) + 0.1, 1)}`
+      inputLayerModel[row+1][col+1] = Math.min(inputLayerModel[row+1][col+1] + 0.1, 1)
     }
     if (lowerLeftNode) {
-      lowerLeftNode.style.opacity = `${Math.min(parseFloat(lowerLeftNode.style.opacity) + 0.05, 1)}`
-      inputLayerModel[row+1][col-1] = Math.min(inputLayerModel[row+1][col-1] + 0.05, 1)
+      lowerLeftNode.style.opacity = `${Math.min(parseFloat(lowerLeftNode.style.opacity) + 0.1, 1)}`
+      inputLayerModel[row+1][col-1] = Math.min(inputLayerModel[row+1][col-1] + 0.1, 1)
     }
     if (upperRightNode) {
-      upperRightNode.style.opacity = `${Math.min(parseFloat(upperRightNode.style.opacity) + 0.05, 1)}`
-      inputLayerModel[row-1][col+1] = Math.min(inputLayerModel[row-1][col+1] + 0.05, 1)
+      upperRightNode.style.opacity = `${Math.min(parseFloat(upperRightNode.style.opacity) + 0.1, 1)}`
+      inputLayerModel[row-1][col+1] = Math.min(inputLayerModel[row-1][col+1] + 0.1, 1)
     }
     calculateAndUpdateActivations(inputLayerModel)
   }
