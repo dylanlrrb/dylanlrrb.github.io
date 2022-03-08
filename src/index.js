@@ -11,14 +11,14 @@ project_ordered_list = [
   "landmark_classification",
   "lstm_scripts",
   // "movie_sentiment",
-  "denoise_autoencoder",
+  // "denoise_autoencoder",
   // "word2vec",
   "cat_dog_classifier",
   "super_resolution",
   // GANs + deployment
   // ---
   // View feature maps in a real time web app 
-  // Multi box detector using mobile net + demo app (first expor`ation in pytorch then implementationin a web app)
+  // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
   // Class activation Map/ Saliency Map/ Attribution Maps
   // Deep dream clone
   // ---
@@ -29,7 +29,9 @@ project_ordered_list = [
   // project with seq2seq without attention (translation in order to compare to w/ attention?)
   // Translation with Attention project (seq2seq w/ attention) + class activation map of attention matrix as sentence is translated 1, 2, 3, 4
   // Image captioning with attention, visualizing focused parts of image attention is given to 1
-  // brainwave signal separation and deep learning 
+  // brainwave signal separation and deep learning
+  // pose estimation
+  // depth estimation
   // ---
   // Renforcemnt learning course
   // ---

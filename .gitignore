@@ -7,6 +7,10 @@ gif/
 # models
 model_scratch.pt
 model_transfer.pt
+model_32.pth
+model_64.pth
+model_128.pth
+model_256.pth
 
 # datasets
 animals/

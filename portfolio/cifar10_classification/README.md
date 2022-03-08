@@ -1,8 +1,8 @@
 <img src="./portfolio/cifar10_classification/assets/readme.png" width=400 > 
 
-# Exploring Effect of Image Resizizing on Classification of CIFAR-10 dataset
+# Exploring Effect of Image Resizing on Classification of CIFAR-10 dataset
 
-### subtitle
+### Using image size as an data augmantation technique
 
 ## Description
 
