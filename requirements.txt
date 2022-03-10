@@ -1,0 +1,8 @@
+numpy
+torch
+torchvision
+matplotlib
+seaborn
+scikit-learn
+scipy
+tensorflow_datasets
