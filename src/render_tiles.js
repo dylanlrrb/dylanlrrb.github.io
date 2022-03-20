@@ -109,7 +109,9 @@ window.projects = {
     markdownUrl: './portfolio/cat_dog_classifier/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/cat_dog_classifier/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
+        <button class="secondary-action-button">Notebook</button></a>`,
+      `<a href="./portfolio/cat_dog_classifier/demo/build/index.html" target="_blank">
+        <button class="primary-action-button">Demo</button></a>`,
     ],
   }),
 
@@ -249,7 +251,7 @@ window.projects = {
 
 window.demos = {
   cat_dog_classifier: renderDemo({
-    demoLink: './portfolio/cat_dog_classifier/demo/index.html',
+    demoLink: './portfolio/cat_dog_classifier/demo/build/index.html',
     demoImage: './portfolio/cat_dog_classifier/assets/demo_tile.png',
     demoDescription: 'Edge Image Classification on Mobile Browsers',
   }),

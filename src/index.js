@@ -19,11 +19,13 @@ project_ordered_list = [
   // GANs + deployment
   // ---
   // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
+  // segmentation
   // Class activation Map/ Saliency Map/ Attribution Maps
   // Deep dream clone
   // ---
   // Gan projects
   // ---
+  // figure out attention and transform er networks
   // Translation with Attention project (seq2seq w/ attention) + class activation map of attention matrix as sentence is translated 1, 2, 3, 4
   // Image captioning with attention, visualizing focused parts of image attention is given to
   // style transfer pt 2, model per style to transfer 1
@@ -31,7 +33,6 @@ project_ordered_list = [
   // brainwave signal separation and deep learning
   // pose estimation
   // depth estimation
-  // segmentation
   // ---
   // Renforcemnt learning course
   // ---

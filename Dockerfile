@@ -9,6 +9,10 @@ RUN git clone https://github.com/dylanlrrb/dotfiles.git
 RUN apt-get -y update
 RUN apt-get -y install nodejs
 RUN apt-get -y install npm
+RUN npm install -g n
+RUN n stable
+
+# chown -R root /tf/notebooks/
 
 # ~/projects/dylanlrrb.github.io:/tf/notebooks
 # ~/projects/dylanlrrb.github.io/extensions:/root/.vscode-server/extensions
