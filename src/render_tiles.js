@@ -53,7 +53,7 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
 
 const renderDemo = (demo) => {
   const {demoImage, demoDescription, demoLink} = demo
-  const fragment = `<a href="${demoLink}" target="_blank" class="demo-tile">
+  const fragment = `<a href="${demoLink}" class="demo-tile">
                       <div class="demo-image"></div>
                       <div class="demo-description">${demoDescription}</div>
                     </a>`
@@ -110,7 +110,7 @@ window.projects = {
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/cat_dog_classifier/notebook.ipynb" target="_blank">
         <button class="secondary-action-button">Notebook</button></a>`,
-      `<a href="./portfolio/cat_dog_classifier/demo/build/index.html" target="_blank">
+      `<a href="./portfolio/cat_dog_classifier/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
   }),

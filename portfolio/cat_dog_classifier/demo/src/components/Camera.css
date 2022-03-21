@@ -1,6 +1,75 @@
 .Camera-container {
   display: flex;
   justify-content: center;
-  width: 100vw;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;;
   overflow: hidden;
 }
+
+.Camera-button {
+  width: 100%;
+  position: absolute;
+  bottom: 50px;
+}
+.Camera-button button {
+  width: 150px;
+  height: 45px;
+  border-radius: 50px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.Camera-button img {
+  height: 40px;
+  width: auto;
+}
+
+.Camera-toggle {
+  float: right;
+  margin: 20px;
+  border: none;
+  background-color: transparent;
+}
+.Camera-toggle img {
+  height: 50px;
+  width: auto;
+}
+
+.Camera-scrim {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Camera-loader {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.Camera-loader:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: loader 1.2s linear infinite;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
