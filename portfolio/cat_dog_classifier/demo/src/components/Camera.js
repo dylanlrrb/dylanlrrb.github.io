@@ -14,7 +14,7 @@ class Camera extends React.Component {
       facingMode: 'environment',
       loading: true,
       stopped: false,
-      error: false,
+      error: undefined,
     }
   }
 
@@ -30,22 +30,28 @@ class Camera extends React.Component {
 
   setupCamera = async (stream) => {
     let video = document.querySelector("#cameraOutput");
-    if (video) {
-      let viewportWidth = document.querySelector('#root').getBoundingClientRect().width
-      video.setAttribute('height', viewportWidth);
-      video.setAttribute('width', viewportWidth);
-  
-      let canvas = document.querySelector("canvas")
-      let camera = await tf.data.webcam(video, {facingMode: this.state.facingMode});
-      camera.start()
-  
-      this.setState({
-        camera,
-        canvas,
-        video,
-        loading: false
-      })
-    }
+    if (!video) {return this.setState({error: 'Video element is missing'})}
+    let canvas = document.querySelector("canvas")
+    if (!canvas) {return this.setState({error: 'Canvas element is missing'})}
+    let viewportWidth = document.querySelector('#root').getBoundingClientRect().width
+    video.setAttribute('height', viewportWidth);
+    video.setAttribute('width', viewportWidth);
+
+    let camera = await tf.data
+                        .webcam(video, {facingMode: this.state.facingMode})
+                        .catch((e) => {
+                          this.setState({error: `There was an error initalizing the webcam:\n ${e}`})
+                        });
+    await camera.start().catch((e) => {
+      this.setState({error: `There was an error starting the webcam:\n ${e}`})
+    })
+
+    return this.setState({
+      camera,
+      canvas,
+      video,
+      loading: false
+    })
   }
 
   retake = async () => {
@@ -66,14 +72,15 @@ class Camera extends React.Component {
     this.state.video.classList.add('display-none')
     this.state.canvas.classList.remove('display-none')
     this.setState({stopped: true})
-    this.props.predict(image)
+    // this.props.predict(image)
   }
 
-  predict = async () => {
+  tick = async () => {
     if (!this.state.stopped){
       window.requestAnimationFrame(async () => {
         let image = await this.state.camera.capture();
-        this.props.predict(image)
+        // this.props.predict(image)
+        // possibly draw frames on the canvas rather than showing the video element if the predicted overlay is lagging behind the live camera 
       })
     }
   }
@@ -88,9 +95,8 @@ class Camera extends React.Component {
 
   videoMessage = () => {
     if (this.state.error) {
-      return <span className='position-absolute'>There was an error starting the webcam</span>
+      return <span className='position-absolute'>{this.state.error}</span>
     } else if (this.state.loading) {
-      // return <span className='position-absolute'>XXXX</span>
       return <div className='Camera-scrim'><div className="Camera-loader position-absolute"></div></div>
     }
   }
