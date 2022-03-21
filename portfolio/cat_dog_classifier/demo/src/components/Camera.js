@@ -28,7 +28,7 @@ class Camera extends React.Component {
   }
 
   setupCamera = async (stream) => {
-    let viewportWidth = document.querySelector('#root').getBoundingClientRect().width
+    let viewportWidth = Math.floor(document.querySelector('#root').getBoundingClientRect().width)
     let canvas = document.querySelector('#webcam')
     canvas.setAttribute('height', viewportWidth)
     let camera = await tf.data
@@ -47,7 +47,8 @@ class Camera extends React.Component {
     return this.setState({
       camera,
       canvas,
-      loading: false
+      loading: false,
+      stopped: false,
     }, this.tick)
   }
 
@@ -68,11 +69,11 @@ class Camera extends React.Component {
   }
 
   tick = async () => {
-    if (!this.state.stopped){
+    if (!this.state.stopped && this.state.camera){
       window.requestAnimationFrame(async () => {
-        if (this.state.camera) {
-          let image = await this.state.camera.capture();
-          await tf.browser.toPixels(image, this.state.canvas).catch(()=>{});
+        let image = await this.state.camera.capture();
+        if (image) {
+          await tf.browser.toPixels(image, this.state.canvas);
           // this.props.predict(image)
           // console.log(image.shape)
         }
