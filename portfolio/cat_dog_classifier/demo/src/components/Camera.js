@@ -20,22 +20,26 @@ class Camera extends React.Component {
 
   toggleFacingMode = () => {
     this.state.camera.stop()
-    this.setState({loading: true})
+    this.setState({loading: true, error: undefined})
     if(this.state.facingMode === 'environment'){
-      this.setState({facingMode: 'user'}, this.setupCamera)
+      this.setState({facingMode: 'user', camera: undefined}, this.setupCamera)
     } else {
-      this.setState({facingMode: 'environment'}, this.setupCamera)
+      this.setState({facingMode: 'environment', camera: undefined}, this.setupCamera)
     }
   }
 
   setupCamera = async (stream) => {
-    let video = document.querySelector("#cameraOutput");
-    if (!video) {return this.setState({error: 'Video element is missing'})}
-    let canvas = document.querySelector("canvas")
-    if (!canvas) {return this.setState({error: 'Canvas element is missing'})}
     let viewportWidth = document.querySelector('#root').getBoundingClientRect().width
+    let video = document.createElement('video')
+    video.setAttribute('id', 'cameraOutput')
     video.setAttribute('height', viewportWidth);
     video.setAttribute('width', viewportWidth);
+    let canvas = document.querySelector("canvas")
+    let cameraContainer = document.querySelector('#webcam')
+    if (this.state.video){
+      cameraContainer.removeChild(this.state.video)
+    }
+    cameraContainer.appendChild(video)
 
     let camera = await tf.data
                         .webcam(video, {facingMode: this.state.facingMode})
@@ -75,15 +79,15 @@ class Camera extends React.Component {
     // this.props.predict(image)
   }
 
-  tick = async () => {
-    if (!this.state.stopped){
-      window.requestAnimationFrame(async () => {
-        let image = await this.state.camera.capture();
-        // this.props.predict(image)
-        // possibly draw frames on the canvas rather than showing the video element if the predicted overlay is lagging behind the live camera 
-      })
-    }
-  }
+  // tick = async () => {
+  //   if (!this.state.stopped){
+  //     window.requestAnimationFrame(async () => {
+  //       let image = await this.state.camera.capture();
+  //       this.props.predict(image)
+  //       // possibly draw frames on the canvas rather than showing the video element if the predicted overlay is lagging behind the live camera 
+  //     })
+  //   }
+  // }
 
   componentDidMount() {
     this.setupCamera()
@@ -107,8 +111,8 @@ class Camera extends React.Component {
         <button className='Camera-toggle' onClick={this.toggleFacingMode}><img src={camera_flip} alt="" /></button>
         <div className="Camera-container">
           {this.videoMessage()}
-          <div>
-            <video autoPlay={true} id="cameraOutput"></video>
+          <div id="webcam">
+            {/* <video autoPlay={true} id="cameraOutput"></video> */}
             <canvas className='display-none'></canvas>
           </div>
         </div>
