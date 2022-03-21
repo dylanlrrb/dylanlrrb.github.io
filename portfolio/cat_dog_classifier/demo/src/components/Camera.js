@@ -10,7 +10,6 @@ class Camera extends React.Component {
     this.state = {
       camera: undefined,
       canvas: undefined,
-      video:  undefined,
       facingMode: 'environment',
       loading: true,
       stopped: false,
@@ -30,19 +29,14 @@ class Camera extends React.Component {
 
   setupCamera = async (stream) => {
     let viewportWidth = document.querySelector('#root').getBoundingClientRect().width
-    let video = document.createElement('video')
-    video.setAttribute('id', 'cameraOutput')
-    video.setAttribute('height', viewportWidth);
-    video.setAttribute('width', viewportWidth);
-    let canvas = document.querySelector("canvas")
-    let cameraContainer = document.querySelector('#webcam')
-    if (this.state.video){
-      cameraContainer.removeChild(this.state.video)
-    }
-    cameraContainer.appendChild(video)
-
+    let canvas = document.querySelector('#webcam')
+    canvas.setAttribute('height', viewportWidth)
     let camera = await tf.data
-                        .webcam(video, {facingMode: this.state.facingMode})
+                        .webcam(null, {
+                          facingMode: this.state.facingMode,
+                          resizeHeight: viewportWidth,
+                          resizeWidth: viewportWidth
+                        })
                         .catch((e) => {
                           this.setState({error: `There was an error initalizing the webcam:\n ${e}`})
                         });
@@ -53,9 +47,8 @@ class Camera extends React.Component {
     return this.setState({
       camera,
       canvas,
-      video,
       loading: false
-    })
+    }, this.tick)
   }
 
   retake = async () => {
@@ -63,31 +56,30 @@ class Camera extends React.Component {
       stopped: false,
     })
     await this.state.camera.start()
-    this.state.canvas.classList.add('display-none')
-    this.state.video.classList.remove('display-none')
-
-    this.setState({loading: false})
+    this.setState({loading: false}, this.tick)
   }
 
   captureFrame = async () => {
     let image = await this.state.camera.capture();
-    tf.browser.toPixels(image, this.state.canvas);
+    await tf.browser.toPixels(image, this.state.canvas);
     this.state.camera.stop()
-    this.state.video.classList.add('display-none')
-    this.state.canvas.classList.remove('display-none')
     this.setState({stopped: true})
     // this.props.predict(image)
   }
 
-  // tick = async () => {
-  //   if (!this.state.stopped){
-  //     window.requestAnimationFrame(async () => {
-  //       let image = await this.state.camera.capture();
-  //       this.props.predict(image)
-  //       // possibly draw frames on the canvas rather than showing the video element if the predicted overlay is lagging behind the live camera 
-  //     })
-  //   }
-  // }
+  tick = async () => {
+    if (!this.state.stopped){
+      window.requestAnimationFrame(async () => {
+        if (this.state.camera) {
+          let image = await this.state.camera.capture();
+          await tf.browser.toPixels(image, this.state.canvas).catch(()=>{});
+          // this.props.predict(image)
+          // console.log(image.shape)
+        }
+        this.tick()
+      })
+    }
+  }
 
   componentDidMount() {
     this.setupCamera()
@@ -111,9 +103,8 @@ class Camera extends React.Component {
         <button className='Camera-toggle' onClick={this.toggleFacingMode}><img src={camera_flip} alt="" /></button>
         <div className="Camera-container">
           {this.videoMessage()}
-          <div id="webcam">
-            {/* <video autoPlay={true} id="cameraOutput"></video> */}
-            <canvas className='display-none'></canvas>
+          <div>
+            <canvas id="webcam"></canvas>
           </div>
         </div>
         <div className='Camera-button'>
