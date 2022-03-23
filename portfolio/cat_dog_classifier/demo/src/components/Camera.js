@@ -6,9 +6,9 @@ import * as tf from "@tensorflow/tfjs"
 
 let throttlePause;
  
-const throttle = (callback, time) => {
+const throttle = (callback, waitCallback, time) => {
   //don't run the function if throttlePause is true
-  if (throttlePause) return;
+  if (throttlePause) return waitCallback();
  
   //set throttlePause to true after the if condition. This allows the function to be run once
   throttlePause = true;
@@ -84,7 +84,6 @@ class Camera extends React.Component {
     this.state.camera.stop()
     this.setState({stopped: true})
     this.props.predict(image)
-    image.dispose()
   }
 
   tick = async () => {
@@ -93,8 +92,8 @@ class Camera extends React.Component {
         let image = await this.state.camera.capture().catch(()=>{});
         if (image) {
           await tf.browser.toPixels(image, this.state.canvas);
-          // throttle(() => this.props.predict(image), 100)
-          image.dispose()
+          // throttle(() => this.props.predict(image), () => image.dispose(), 100)
+          this.props.predict(image)
         }
         this.tick()
       })

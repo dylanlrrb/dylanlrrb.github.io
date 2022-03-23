@@ -74,23 +74,23 @@ class App extends React.Component {
   }
 
     predict = (tensor) => {
-      tensor = tf.image.resizeNearestNeighbor(tensor, [200,200]).toFloat()
-      tensor = tf.expandDims(tensor, 0)
       if (this.state.model) {
+        tensor = tf.image.resizeNearestNeighbor(tensor, [200,200]).toFloat()
+        tensor = tf.expandDims(tensor, 0)
         const pred = this.state.model.predict(tensor)
-        // animal.print()
-        console.log('prediction', pred)
         this.setState({
-          animalClass: animalMap[pred.argMax().dataSync()[0]],
+          animalClass: animalMap[pred.argMax(-1).dataSync()[0]],
           animalProb: Math.floor(pred.max().dataSync()[0] * 100),
           breedClass: 'unknown breed',
           breedProb: 0,
         })
+        tensor.dispose()
+        pred.dispose()
       }
     }
 
   renderIcon = () => {
-    if (this.state.animalProb < 80) {
+    if (this.state.animalProb < 50) {
       return <div className='App-results-loader'></div>
     }
     if (this.state.animalClass === 'Cat') {
@@ -103,7 +103,7 @@ class App extends React.Component {
     if (this.state.loading) {
       return <div><p>Loading models...</p></div>
     }
-    if (this.state.animalProb < 70) {
+    if (this.state.animalProb < 50) {
       return <div><p>No animal detected in frame.</p>
       <p>Point your camera at a pet!</p></div>
     }
