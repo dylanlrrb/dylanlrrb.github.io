@@ -1,3 +1,4 @@
+boto3
 numpy
 torch
 torchvision
@@ -7,3 +8,4 @@ scikit-learn
 scipy
 tensorflow-datasets
 tensorflow-hub
+tensorflowjs

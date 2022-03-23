@@ -3,6 +3,8 @@ node_modules/
 .sass-cache
 .DS_Store
 gif/
+logs/
+models/
 extensions/*
 extensions/*/*
 !extensions/**/README.md

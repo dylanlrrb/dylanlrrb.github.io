@@ -1,16 +1,20 @@
 FROM tensorflow/tensorflow:latest-gpu-jupyter
 
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
 
 WORKDIR /../root
-RUN curl -o .bash_profile https://raw.githubusercontent.com/dylanlrrb/dotfiles/linux/.bash_profile
-RUN git clone https://github.com/dylanlrrb/dotfiles.git
+
 RUN apt-get -y update
 RUN apt-get -y install nodejs
 RUN apt-get -y install npm
+RUN npm install -g ngrok
 RUN npm install -g n
 RUN n stable
+
+RUN curl -o .bash_profile https://raw.githubusercontent.com/dylanlrrb/dotfiles/linux/.bash_profile
+RUN git clone https://github.com/dylanlrrb/dotfiles.git
+
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
 # chown -R root /tf/notebooks/
 
