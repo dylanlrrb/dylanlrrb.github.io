@@ -4,6 +4,24 @@ import camera_flip from '../icons/camera-flip.png';
 import camera from '../icons/camera.png';
 import * as tf from "@tensorflow/tfjs"
 
+let throttlePause;
+ 
+const throttle = (callback, time) => {
+  //don't run the function if throttlePause is true
+  if (throttlePause) return;
+ 
+  //set throttlePause to true after the if condition. This allows the function to be run once
+  throttlePause = true;
+   
+  //setTimeout runs the callback within the specified time
+  setTimeout(() => {
+    callback();
+     
+    //throttlePause is set to false once the function has been called, allowing the throttle function to loop
+    throttlePause = false;
+  }, time);
+};
+
 class Camera extends React.Component {
   constructor(props) {
     super(props);
@@ -65,17 +83,18 @@ class Camera extends React.Component {
     await tf.browser.toPixels(image, this.state.canvas);
     this.state.camera.stop()
     this.setState({stopped: true})
-    // this.props.predict(image)
+    this.props.predict(image)
+    image.dispose()
   }
 
   tick = async () => {
     if (!this.state.stopped && this.state.camera){
       window.requestAnimationFrame(async () => {
-        let image = await this.state.camera.capture();
+        let image = await this.state.camera.capture().catch(()=>{});
         if (image) {
           await tf.browser.toPixels(image, this.state.canvas);
-          // this.props.predict(image)
-          // console.log(image.shape)
+          // throttle(() => this.props.predict(image), 100)
+          image.dispose()
         }
         this.tick()
       })
