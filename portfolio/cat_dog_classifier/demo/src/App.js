@@ -6,7 +6,7 @@ import Info from './components/Info'
 import { math } from '@tensorflow/tfjs';
 
 const animalMap = ['Cat', 'Dog']
-const animalCertaintyThreshold = 0.3
+const animalCertaintyThreshold = 0.1
 const catBreedMap = []
 const dogBreedMap = []
 
