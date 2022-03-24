@@ -6,7 +6,7 @@ import Info from './components/Info'
 import { math } from '@tensorflow/tfjs';
 
 const animalMap = ['Cat', 'Dog']
-const animalCertaintyThreshold = 80
+const animalCertaintyThreshold = 0.5
 const catBreedMap = []
 const dogBreedMap = []
 
@@ -14,6 +14,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      animalDetected: false,
       loading: true,
       animalClass: 'Cat',
       animalProb: 0,
@@ -78,18 +79,23 @@ class App extends React.Component {
       if (this.state.model) {
         tensor = tf.image.resizeNearestNeighbor(tensor, [224,224]).toFloat()
         tensor = tf.expandDims(tensor, 0)
-        const pred = this.state.model.predict(tensor)
+        const logits = this.state.model.predict(tensor)
+        const pred = tf.softmax(logits)
+        const linear = tf.sigmoid(logits)
+        // console.log(animalMap[pred.argMax(-1).dataSync()[0]], `${Math.floor(pred.max().dataSync()[0] * 100)}%`)
+        // linear.print()
         this.setState({
+          animalDetected: linear.max().dataSync()[0] > animalCertaintyThreshold,
           animalClass: animalMap[pred.argMax(-1).dataSync()[0]],
           animalProb: Math.floor(pred.max().dataSync()[0] * 100),
-          breedClass: 'unknown breed',
-          breedProb: 0,
+          // breedClass: 'unknown breed',
+          // breedProb: 0,
         })
       }
     }
 
   renderIcon = () => {
-    if (this.state.animalProb < animalCertaintyThreshold) {
+    if (!this.state.animalDetected) {
       return <div className='App-results-loader'></div>
     }
     if (this.state.animalClass === 'Cat') {
@@ -100,9 +106,9 @@ class App extends React.Component {
 
   renderText = () => {
     if (this.state.loading) {
-      return <div><p>Loading models...</p></div>
+      return <div><p>Loading model...</p></div>
     }
-    if (this.state.animalProb < animalCertaintyThreshold) {
+    if (!this.state.animalDetected) {
       return <div><p>No animal detected in frame.</p>
       <p>Point your camera at a pet!</p></div>
     }
