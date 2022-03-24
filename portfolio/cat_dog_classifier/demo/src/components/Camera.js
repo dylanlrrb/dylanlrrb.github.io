@@ -5,21 +5,17 @@ import camera from '../icons/camera.png';
 import * as tf from "@tensorflow/tfjs"
 
 let throttlePause;
+
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
  
-const throttle = (callback, waitCallback, time) => {
-  //don't run the function if throttlePause is true
-  if (throttlePause) return waitCallback();
- 
-  //set throttlePause to true after the if condition. This allows the function to be run once
+const throttle = async (callback, time) => {
+  if (throttlePause) return;
   throttlePause = true;
-   
-  //setTimeout runs the callback within the specified time
-  setTimeout(() => {
-    callback();
-     
-    //throttlePause is set to false once the function has been called, allowing the throttle function to loop
-    throttlePause = false;
-  }, time);
+  await timeout(time)
+  callback();
+  throttlePause = false;
 };
 
 class Camera extends React.Component {
@@ -79,22 +75,27 @@ class Camera extends React.Component {
   }
 
   captureFrame = async () => {
+    tf.engine().startScope()
     let image = await this.state.camera.capture();
     await tf.browser.toPixels(image, this.state.canvas);
     this.state.camera.stop()
     this.setState({stopped: true})
     this.props.predict(image)
+    tf.engine().endScope()
   }
 
-  tick = async () => {
+  tick = () => {
     if (!this.state.stopped && this.state.camera){
       window.requestAnimationFrame(async () => {
+        tf.engine().startScope()
         let image = await this.state.camera.capture().catch(()=>{});
         if (image) {
           await tf.browser.toPixels(image, this.state.canvas);
-          // throttle(() => this.props.predict(image), () => image.dispose(), 100)
-          this.props.predict(image)
+          await throttle(() => this.props.predict(image), 100)
+          // this.props.predict(image)
         }
+        tf.engine().endScope()
+        // console.log('num Tensors:', tf.memory().numTensors)
         this.tick()
       })
     }

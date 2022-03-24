@@ -6,6 +6,7 @@ import Info from './components/Info'
 import { math } from '@tensorflow/tfjs';
 
 const animalMap = ['Cat', 'Dog']
+const animalCertaintyThreshold = 80
 const catBreedMap = []
 const dogBreedMap = []
 
@@ -65,7 +66,7 @@ class App extends React.Component {
   // }
 
   componentDidMount = async () => {
-    const model = await tf.loadGraphModel('https://built-model-repository.s3.us-west-2.amazonaws.com/cat_dog_classifier/test_tfjs_model/model.json');
+    const model = await tf.loadGraphModel('https://built-model-repository.s3.us-west-2.amazonaws.com/cat_dog_classifier/tfjs_model/model.json');
     // const model = await tf.loadLayersModel('https://built-model-repository.s3.us-west-2.amazonaws.com/cat_dog_classifier/test_tfjs_model/model.json');
     this.setState({
       loading: false,
@@ -75,7 +76,7 @@ class App extends React.Component {
 
     predict = (tensor) => {
       if (this.state.model) {
-        tensor = tf.image.resizeNearestNeighbor(tensor, [200,200]).toFloat()
+        tensor = tf.image.resizeNearestNeighbor(tensor, [224,224]).toFloat()
         tensor = tf.expandDims(tensor, 0)
         const pred = this.state.model.predict(tensor)
         this.setState({
@@ -84,13 +85,11 @@ class App extends React.Component {
           breedClass: 'unknown breed',
           breedProb: 0,
         })
-        tensor.dispose()
-        pred.dispose()
       }
     }
 
   renderIcon = () => {
-    if (this.state.animalProb < 50) {
+    if (this.state.animalProb < animalCertaintyThreshold) {
       return <div className='App-results-loader'></div>
     }
     if (this.state.animalClass === 'Cat') {
@@ -103,7 +102,7 @@ class App extends React.Component {
     if (this.state.loading) {
       return <div><p>Loading models...</p></div>
     }
-    if (this.state.animalProb < 50) {
+    if (this.state.animalProb < animalCertaintyThreshold) {
       return <div><p>No animal detected in frame.</p>
       <p>Point your camera at a pet!</p></div>
     }
