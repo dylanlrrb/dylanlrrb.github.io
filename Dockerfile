@@ -6,9 +6,9 @@ WORKDIR /../root
 RUN apt-get -y update
 RUN apt-get -y install nodejs
 RUN apt-get -y install npm
-RUN npm install -g ngrok
 RUN npm install -g n
 RUN n stable
+RUN npm install -g ngrok
 
 RUN curl -o .bash_profile https://raw.githubusercontent.com/dylanlrrb/dotfiles/linux/.bash_profile
 RUN git clone https://github.com/dylanlrrb/dotfiles.git

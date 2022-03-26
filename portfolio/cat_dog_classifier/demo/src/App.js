@@ -3,12 +3,22 @@ import * as tf from "@tensorflow/tfjs"
 import './App.css';
 import Camera from './components/Camera'
 import Info from './components/Info'
-import { math } from '@tensorflow/tfjs';
 
-const animalMap = ['Cat', 'Dog']
-const animalCertaintyThreshold = 0.1
-const catBreedMap = []
-const dogBreedMap = []
+const animal_class_map = ['Cat', 'Dog']
+const cat_class_map = ['Abyssinian','American_Bobtail','American_Curl','American_Shorthair','American_Wirehair','Applehead_Siamese','Balinese','Bengal','Birman','Bombay','British_Shorthair','Burmese','Burmilla','Calico','Canadian_Hairless','Chartreux','Chausie','Chinchilla','Cornish_Rex','Cymric','Devon_Rex','Dilute_Calico','Dilute_Tortoiseshell','Domestic_Long_Hair','Domestic_Medium_Hair','Domestic_Short_Hair','Egyptian_Mau','Exotic_Shorthair','Havana','Himalayan','Japanese_Bobtail','Javanese','Korat','LaPerm','Maine_Coon','Manx','Munchkin','Nebelung','Norwegian_Forest_Cat','Ocicat','Oriental_Long_Hair','Oriental_Short_Hair','Oriental_Tabby','Persian','Pixiebob','Ragamuffin','Ragdoll','Russian_Blue','Scottish_Fold','Selkirk_Rex','Siamese','Siberian','Silver','Singapura','Snowshoe','Somali','Sphynx','Tabby','Tiger','Tonkinese','Torbie','Tortoiseshell','Turkish_Angora','Turkish_Van','Tuxedo','York_Chocolate']
+const dog_class_map = ['Affenpinscher','Afghan_Hound','African_Hunting_Dog','Airedale','American_Staffordshire_Terrier','Appenzeller','Australian_Terrier','Basenji','Basset','Beagle','Bedlington_Terrier','Bernese_Mountain_Dog','Black-and-Tan_Coonhound','Blenheim_Spaniel','Bloodhound','Bluetick','Border_Collie','Border_Terrier','Borzoi','Boston_Bull','Bouvier_des_Flandres','Boxer','Brabancon_Griffon','Briard','Brittany_Spaniel','Bull_Mastiff','Bulldog','Cairn','Cardigan','Chesapeake_Bay_Retriever','Chihuahua','Chow','Clumber','Cocker_Spaniel','Collie','Curly-Coated_Retriever','Dandie_Dinmont','Dhole','Dingo','Doberman','English_Foxhound','English_Setter','English_Springer','EntleBucher','Eskimo_Dog','Flat-Coated_Retriever','German_Shepherd','German_Short-Haired_Pointer','Giant_Schnauzer','Golden_Retriever','Gordon_Setter','Great_Dane','Great_Pyrenees','Greater_Swiss_Mountain_Dog','Groenendael','Havanese','Ibizan_Hound','Irish_Setter','Irish_Terrier','Irish_Water_Spaniel','Irish_Wolfhound','Italian_Greyhound','Japanese_Chin','Japanese_Spaniel','Keeshond','Kelpie','Kerry_Blue_Terrier','Komondor','Kuvasz','Labrador_Retriever','Lakeland_Terrier','Leonberg','Lhasa','Malamute','Malinois','Maltese','Mexican_Hairless','Miniature_Pinscher','Miniature_Poodle','Miniature_Schnauzer','Newfoundland','Norfolk_Terrier','Norwegian_Elkhound','Norwich_Terrier','Old_English_Sheepdog','Otterhound','Papillon','Pekinese','Pembroke','Pitbull','Pomeranian','Pug_','Redbone','Rhodesian_Ridgeback','Rottweiler','Saint_Bernard','Saluki','Samoyed','Schipperke','Scotch_Terrier','Scottish_Deerhound','Sealyham_Terrier','Shetland_Sheepdog','Shiba_Inu','Shih-Tzu','Siberian_Husky','Silky_Terrier','Soft-Coated_Wheaten_Terrier','Staffordshire_Bullterrier','Standard_Poodle','Standard_Schnauzer','Sussex_Spaniel','Tibetan_Mastiff','Tibetan_Terrier','Toy_Poodle','Toy_Terrier','Vizsla','Walker_Hound','Weimaraner','Welsh_Springer_Spaniel','West_Highland_White_Terrier','Wheaten_Terrier','Whippet','Wire-Haired_Fox_Terrier','Yorkshire_Terrier']
+
+// const detectionBias = [-0.1, -0.5]
+const animalCertaintyThreshold = 0.6
+
+const isVowel = (char) => {
+  char.toUpperCase()
+  return char === "A" || char === "E" || char === "I" || char === "O" || char === "U";
+}
+
+const formatClassName = (className) => {
+  return `${isVowel(className[0]) ? 'an' : 'a'} ${className.replace('_', ' ')}`
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -28,47 +38,8 @@ class App extends React.Component {
     }
   }
 
-  // componentDidMount = async () => {
-  //   const featureDetector = await tf.loadLayersModel('http://model-server.domain/download/model.json');
-  //   const animalClassifier = await tf.loadLayersModel('http://model-server.domain/download/model.json');
-  //   const catBreedClassifier = await tf.loadLayersModel('http://model-server.domain/download/model.json');
-  //   const dogBreedClassifier = await tf.loadLayersModel('http://model-server.domain/download/model.json');
-
-  //   const animalModel = tf.sequential({layers: [featureDetector, animalClassifier]})
-  //   const catModel = tf.Sequential({layers: [featureDetector, catBreedClassifier]})
-  //   const dogModel = tf.Sequential({layers: [featureDetector, dogBreedClassifier]})
-
-  //   this.setState({
-  //     loading: false,
-  //     animalModel,
-  //     catModel,
-  //     dogModel,
-  //   })
-  // }
-
-  // predict = (tensor) => {
-    // console.log(tensor)
-    // const {animalModel, catModel, dogModel,} = this.state;
-    // if (animalModel && catModel && dogModel) {
-    //   const animal = animalModel.predict(tensor)
-    //   const breed = undefined
-    //   if (animal == 0) {
-    //     breed = catBreedMap[catModel.predict(tensor)]
-    //   } else {
-    //     breed = dogBreedMap[dogModel.predict(tensor)]
-    //   }
-    //   this.setState({
-    //     animalClass: animalMap[animal],
-    //     animalProb: '??',
-    //     breedClass: breed,
-    //     breedProb: '??',
-    //   })
-    // }
-  // }
-
   componentDidMount = async () => {
-    const model = await tf.loadGraphModel('https://built-model-repository.s3.us-west-2.amazonaws.com/cat_dog_classifier/tfjs_model/model.json');
-    // const model = await tf.loadLayersModel('https://built-model-repository.s3.us-west-2.amazonaws.com/cat_dog_classifier/test_tfjs_model/model.json');
+    const model = await tf.loadGraphModel('https://built-model-repository.s3.us-west-2.amazonaws.com/cat_dog_classifier/combined_model/model.json');
     this.setState({
       loading: false,
       model
@@ -80,17 +51,29 @@ class App extends React.Component {
         if (this.state.model) {
           tensor = tf.image.resizeNearestNeighbor(tensor, [224,224]).toFloat()
           tensor = tf.expandDims(tensor, 0)
-          const logits = this.state.model.predict(tensor)
-          const pred = tf.softmax(logits)
-          const linear = tf.sigmoid(logits)
-          // console.log(animalMap[pred.argMax(-1).dataSync()[0]], `${Math.floor(pred.max().dataSync()[0] * 100)}%`)
-          linear.print()
+          const [dog_probs, cat_probs, animal_logits] = this.state.model.predict(tensor)
+          const animal_linear = tf.sigmoid(animal_logits)
+          const animal_softmax = tf.softmax(animal_logits)
+          const animalClass = animal_class_map[animal_softmax.argMax(-1).dataSync()[0]]
+          let breedClass = 'unknown breed'
+          let breedProb = 0
+
+          // console.log('animal linear:', animal_linear.max().dataSync()[0])
+          
+          if(animalClass === 'Cat') {
+            breedClass = cat_class_map[cat_probs.argMax(-1).dataSync()[0]]
+            breedProb =  cat_probs.max().dataSync()[0]
+          } else {
+            breedClass = dog_class_map[dog_probs.argMax(-1).dataSync()[0]]
+            breedProb =  dog_probs.max().dataSync()[0]
+          }
+
           this.setState({
-            animalDetected: linear.max().dataSync()[0] > animalCertaintyThreshold,
-            animalClass: animalMap[pred.argMax(-1).dataSync()[0]],
-            animalProb: Math.floor(pred.max().dataSync()[0] * 100),
-            // breedClass: 'unknown breed',
-            // breedProb: 0,
+            animalDetected: animal_linear.max().dataSync()[0] > animalCertaintyThreshold,
+            animalClass,
+            animalProb: Math.floor(animal_softmax.max().dataSync()[0] * 100),
+            breedClass,
+            breedProb: Math.floor(breedProb * 100),
           })
         }
       })
@@ -115,7 +98,7 @@ class App extends React.Component {
       <p>Point your camera at a pet!</p></div>
     }
     return <div><p>I think this is a {this.state.animalClass}! ({this.state.animalProb}%)</p>
-    {/* <p>Likely {this.state.breedClass} ({this.state.breedProb}%)</p> */}
+    <p>Maybe {formatClassName(this.state.breedClass)}? ({this.state.breedProb}%)</p>
     </div>
 
      

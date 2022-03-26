@@ -80,7 +80,7 @@ class Camera extends React.Component {
           if (!this.waiting) {
             this.props.predict(image)
             this.waiting = true
-            setTimeout(() => {this.waiting = false}, 100)
+            setTimeout(() => {this.waiting = false}, 500)
           }
           image.dispose()
         }

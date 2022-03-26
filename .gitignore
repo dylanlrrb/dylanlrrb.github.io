@@ -5,7 +5,7 @@ node_modules/
 gif/
 logs/
 models/
-tfjs_model/
+tfjs_models/
 extensions/*
 extensions/*/*
 !extensions/**/README.md
