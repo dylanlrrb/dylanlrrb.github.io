@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Cat Dog Classifier",
+  "name": "Cat Dog Classifier",
   "icons": [
     {
       "src": "favicon.ico",
