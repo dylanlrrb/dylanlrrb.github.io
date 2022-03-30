@@ -172,7 +172,7 @@ window.projects = {
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/neural-networks-from-scratch/blob/main/network2.ipynb" target="_blank">
         <button class="secondary-action-button">Notebook</button></a>`,
-      `<a href="./portfolio/mnist_nn/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>`
+      `<a href="./portfolio/mnist_nn/demo/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>`
     ],
   }),
 
@@ -183,6 +183,18 @@ window.projects = {
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/movie_sentiment/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
+    ],
+  }),
+
+  object_detection: renderProject({
+    tileImage: './portfolio/object_detection/assets/portfolio_tile.png',
+    tileTitle: 'Single Shot Object Detection',
+    markdownUrl: './portfolio/object_detection/README.md',
+    controls: [
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/object_detection/notebook.ipynb" target="_blank">
+        <button class="secondary-action-button">Notebook</button></a>`,
+      `<a href="./portfolio/object_detection/demo/build/index.html">
+        <button class="primary-action-button">Demo</button></a>`,
     ],
   }),
 
@@ -267,6 +279,13 @@ window.demos = {
     demoImage: './portfolio/mnist_nn/assets/demo_tile.png',
     demoDescription: 'MNIST Demo: See what a Neural Network is thinkning as it guesses what number you\'re drawing',
   }),
+
+  object_detection: renderDemo({
+    demoLink: "./portfolio/object_detection/demo/build/index.html",
+    demoImage: './portfolio/object_detection/assets/demo_tile.png',
+    demoDescription: 'Single Shot Object Detection',
+  }),
+
 
   super_resolution: renderDemo({
     demoLink: './portfolio/super_resolution/demo/index.html',

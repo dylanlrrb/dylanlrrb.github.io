@@ -14,6 +14,7 @@ project_ordered_list = [
   // "denoise_autoencoder",
   // "word2vec",
   "cat_dog_classifier",
+  "object_detection",
   "super_resolution",
   // View feature maps in a real time web app 
   // GANs + deployment
@@ -53,6 +54,7 @@ demo_ordered_list = [
   "mnist_nn",
   "docker_tutorial",
   "cat_dog_classifier",
+  "object_detection",
   "super_resolution",
   // View feature maps in a real time web app
   // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)

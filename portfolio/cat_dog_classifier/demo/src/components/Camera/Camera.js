@@ -28,30 +28,32 @@ class Camera extends React.Component {
     }
   }
 
-  setupCamera = async (stream) => {
-    let viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
-    let canvas = document.querySelector('#webcam')
-    canvas.setAttribute('height', viewportWidth)
-    canvas.setAttribute('width', viewportWidth)
-    let camera = await tf.data
-                        .webcam(null, {
-                          facingMode: this.state.facingMode,
-                          resizeHeight: viewportWidth,
-                          resizeWidth: viewportWidth
-                        })
-                        .catch((e) => {
-                          this.setState({error: `There was an error initalizing the webcam:\n ${e}`})
-                        });
-    await camera.start().catch((e) => {
-      this.setState({error: `There was an error starting the webcam:\n ${e}`})
-    })
+  setupCamera = (stream) => {
+    setTimeout(async () => {
+      let viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
+      let canvas = document.querySelector('#webcam')
+      canvas.setAttribute('height', viewportWidth)
+      canvas.setAttribute('width', viewportWidth)
+      let camera = await tf.data
+                          .webcam(null, {
+                            facingMode: this.state.facingMode,
+                            resizeHeight: viewportWidth,
+                            resizeWidth: viewportWidth
+                          })
+                          .catch((e) => {
+                            this.setState({error: `There was an error initalizing the webcam:\n ${e}`})
+                          });
+      await camera.start().catch((e) => {
+        this.setState({error: `There was an error starting the webcam:\n ${e}`})
+      })
 
-    return this.setState({
-      camera,
-      canvas,
-      loading: false,
-      stopped: false,
-    }, this.tick)
+      return this.setState({
+        camera,
+        canvas,
+        loading: false,
+        stopped: false,
+      }, this.tick)
+    }, 10)
   }
 
   retake = async () => {
