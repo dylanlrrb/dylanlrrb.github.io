@@ -18,12 +18,11 @@ body {
   width: 100vw;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
-  max-width: 500px;
-  max-height: 1000px;
-  background-color: black;
   color: white;
   position: relative;
-  overflow: hidden;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 a {
@@ -44,4 +43,12 @@ code {
 
 .position-absolute {
   position: absolute !important;
+}
+
+.hidden {
+  opacity:0 !important;
+}
+
+.width-0 {
+  width: 0 !important;
 }

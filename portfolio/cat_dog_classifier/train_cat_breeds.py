@@ -6,17 +6,13 @@ import sys
 import pathlib
 import os
 
+class_freq = [459,992,150,5296,20,136,255,2678,428,2036,768,345,9,3469,5,85,25,4,172,18,120,3231,3153,4500,5483,10180,506,472,185,1302,128,26,69,18,1619,2060,182,149,581,119,38,492,102,4219,112,135,2870,2071,381,78,3089,190,95,23,1626,37,410,3013,2257,261,3397,3964,751,816,3182,2,]
+
 hyperparameter_tuning = len(sys.argv) < 2 or len(sys.argv) > 3
 
 print('hyperparameter tuning', hyperparameter_tuning)
 if not hyperparameter_tuning:
         print(f'with {sys.argv[1]} fc layers and {sys.argv[2]} nodes per layer')
-
-weight_map = {}
-weights = [0.871459695,0.4032258065,2.666666667,0.07552870091,20,2.941176471,1.568627451,0.1493651979,0.9345794393,0.1964636542,0.5208333333,1.15942029,44.44444444,0.1153070049,80,4.705882353,16,100,2.325581395,22.22222222,3.333333333,0.1238006809,0.1268633048,0.08888888889,0.07295276309,0.03929273084,0.790513834,0.8474576271,2.162162162,0.3072196621,3.125,15.38461538,5.797101449,22.22222222,0.2470660902,0.1941747573,2.197802198,2.684563758,0.6884681583,3.361344538,10.52631579,0.8130081301,3.921568627,0.09480919649,3.571428571,2.962962963,0.1393728223,0.193143409,1.049868766,5.128205128,0.1294917449,2.105263158,4.210526316,17.39130435,0.24600246,10.81081081,0.9756097561,0.1327580485,0.1772264067,1.53256705,0.1177509567,0.1009081736,0.5326231691,0.4901960784,0.1257071025,200,]
-
-for idx, value in enumerate(weights):
-  weight_map[idx] = value
 
 dataset_name = 'cat_breeds'
 data_dir = f'/root/.keras/datasets/{dataset_name}'
@@ -26,7 +22,8 @@ if not os.path.isdir(data_dir):
         tf.keras.utils.get_file(origin=dataset_url, extract=True)
 
 data_dir = pathlib.Path(data_dir)
-print(f"{len(list(data_dir.glob('*/*.jpg')))} images in dataset")
+n_samples = len(list(data_dir.glob('*/*.jpg')))
+print(f"{n_samples} images in dataset")
 
 batch_size = 128
 img_size = 224
@@ -38,6 +35,9 @@ ds = tf.keras.utils.image_dataset_from_directory(
   batch_size=batch_size)
 
 num_classes = len(ds.class_names)
+
+class_weights = [n_samples / (num_classes * freq) if freq > 0 else 1 for freq in class_freq]
+weight_map = dict(enumerate(class_weights))
 
 if hyperparameter_tuning:
         ds = ds.take(int(0.03 * len(ds)))
@@ -63,13 +63,13 @@ val_ds = ds.skip(train_size).take(val_size).prefetch(buffer_size=AUTOTUNE)
 test_ds = ds.skip(train_size).skip(val_size).prefetch(buffer_size=AUTOTUNE)
 
 if hyperparameter_tuning:
-        hidden_layer_nums = [1,2,3]
-        hidden_layer_node_nums = [100, 200, 500, 700]
+        hidden_layer_nums = [1,2]
+        hidden_layer_node_nums = [500, 1000, 2000, 2500, 3000]
 else:
         hidden_layer_nums = [int(sys.argv[1])]
         hidden_layer_node_nums = [int(sys.argv[2])]
 
-epochs = 15
+epochs = 10
 
 for hidden_layer_num in hidden_layer_nums:
         for hidden_layer_node_num in hidden_layer_node_nums:

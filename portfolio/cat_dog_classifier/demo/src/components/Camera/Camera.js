@@ -1,7 +1,7 @@
 import React from 'react';
 import './Camera.css'
-import camera_flip from '../icons/camera-flip.png';
-import camera from '../icons/camera.png';
+import camera_flip from './icons/camera-flip.png';
+import camera from './icons/camera.png';
 import * as tf from "@tensorflow/tfjs"
 
 class Camera extends React.Component {
@@ -29,9 +29,10 @@ class Camera extends React.Component {
   }
 
   setupCamera = async (stream) => {
-    let viewportWidth = Math.floor(document.querySelector('#root').getBoundingClientRect().width)
+    let viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
     let canvas = document.querySelector('#webcam')
     canvas.setAttribute('height', viewportWidth)
+    canvas.setAttribute('width', viewportWidth)
     let camera = await tf.data
                         .webcam(null, {
                           facingMode: this.state.facingMode,
@@ -62,19 +63,17 @@ class Camera extends React.Component {
   }
 
   captureFrame = async () => {
-    // tf.engine().startScope()
     let image = await this.state.camera.capture();
     await tf.browser.toPixels(image, this.state.canvas);
     this.state.camera.stop()
     this.setState({stopped: true})
     this.props.predict(image)
-    // tf.engine().endScope()
   }
 
   tick = () => {
     if (!this.state.stopped && this.state.camera){
       window.requestAnimationFrame(async () => {
-        let image = await this.state.camera.capture().catch(()=>{});
+        let image = await this.state.camera.capture();
         if (image) {
           await tf.browser.toPixels(image, this.state.canvas);
           if (!this.waiting) {
@@ -84,7 +83,6 @@ class Camera extends React.Component {
           }
           image.dispose()
         }
-        // console.log('num Tensors::', tf.memory().numTensors)
         this.tick()
       })
     }
