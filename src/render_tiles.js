@@ -125,6 +125,18 @@ window.projects = {
     ],
   }),
 
+  conv_visualizer: renderProject({
+    tileImage: './portfolio/conv_visualizer/assets/portfolio_tile.png',
+    tileTitle: 'Convolution Visualizer',
+    markdownUrl: './portfolio/conv_visualizer/README.md',
+    controls: [
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/conv_visualizer/notebook.ipynb" target="_blank">
+        <button class="primary-action-button">Notebook</button></a>`,
+      `<a href="./portfolio/conv_visualizer/demo/build/index.html">
+        <button class="primary-action-button">Demo</button></a>`,
+    ],
+  }),
+
   denoise_autoencoder: renderProject({
     tileImage: './portfolio/denoise_autoencoder/assets/portfolio_tile.png',
     tileTitle: 'Using Autoencoders for Image Noise Reduction',
@@ -266,6 +278,12 @@ window.demos = {
     demoLink: './portfolio/cat_dog_classifier/demo/build/index.html',
     demoImage: './portfolio/cat_dog_classifier/assets/demo_tile.png',
     demoDescription: 'Edge Image Classification on Mobile Browsers',
+  }),
+
+  conv_visualizer: renderDemo({
+    demoLink: './portfolio/conv_visualizer/demo/build/index.html',
+    demoImage: './portfolio/conv_visualizer/assets/demo_tile.png',
+    demoDescription: 'Convolution Visualizer',
   }),
 
   docker_tutorial: renderDemo({
