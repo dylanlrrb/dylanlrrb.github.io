@@ -111,9 +111,7 @@ class Camera extends React.Component {
         <button className='Camera-toggle' onClick={this.toggleFacingMode}><img src={camera_flip} alt="" /></button>
         <div className="Camera-container">
           {this.videoMessage()}
-          <div>
-            <canvas id="webcam"></canvas>
-          </div>
+          <canvas id="webcam"></canvas>
         </div>
       </div>
     );

@@ -64,6 +64,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {this.state.loading ? <div className="App-scrim"><div className='App-loader'></div></div> : null}
         <Camera predict={this.predict} />
         <Results state={this.state} />
         <Info />

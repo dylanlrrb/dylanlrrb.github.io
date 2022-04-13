@@ -7,7 +7,7 @@ const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min 
 
 const randomColor = () => {
   const random = randomBetween(0, 255)
-  return `rgb(${random},${random},${random})`;
+  return `rgba(${random},${random},${random},0.3)`;
 }
 
 
@@ -17,7 +17,7 @@ class Results extends React.Component {
     super(props);
     this.state = {
       selectedFilter: 0,
-      filterCount: 30,
+      filterCount: 60,
       filters: [],
       filtersContainer: undefined,
     }
@@ -68,18 +68,18 @@ class Results extends React.Component {
         <div className="Results-selector">
           <p>Convolutional Layers:</p>
           <div className="Results-pills">
-            <span className={this.state.selectedFilter === 0 ? 'highlight' : ''} onClick={this.setSelectedFilter(0)}>1</span>
-            <span className={this.state.selectedFilter === 1 ? 'highlight' : ''} onClick={this.setSelectedFilter(1)}>2</span>
-            <span className={this.state.selectedFilter === 2 ? 'highlight' : ''} onClick={this.setSelectedFilter(2)}>3</span>
-            <span className={this.state.selectedFilter === 3 ? 'highlight' : ''} onClick={this.setSelectedFilter(3)}>4</span>
-            <span className={this.state.selectedFilter === 4 ? 'highlight' : ''} onClick={this.setSelectedFilter(4)}>5</span>
-            <span className={this.state.selectedFilter === 5 ? 'highlight' : ''} onClick={this.setSelectedFilter(5)}>6</span>
-            <span className={this.state.selectedFilter === 6 ? 'highlight' : ''} onClick={this.setSelectedFilter(6)}>7</span>
-            <span className={this.state.selectedFilter === 7 ? 'highlight' : ''} onClick={this.setSelectedFilter(7)}>8</span>
-            <span className={this.state.selectedFilter === 8 ? 'highlight' : ''} onClick={this.setSelectedFilter(8)}>9</span>
-            <span className={this.state.selectedFilter === 9 ? 'highlight' : ''} onClick={this.setSelectedFilter(9)}>10</span>
-            <span className={this.state.selectedFilter === 10 ? 'highlight' : ''} onClick={this.setSelectedFilter(10)}>11</span>
-            <span className={this.state.selectedFilter === 11 ? 'highlight' : ''} onClick={this.setSelectedFilter(11)}>12</span>
+            <span className={this.state.selectedFilter === 0 ? 'highlight' : ''} onClick={this.setSelectedFilter(0)}>Conv_1</span>
+            <span className={this.state.selectedFilter === 1 ? 'highlight' : ''} onClick={this.setSelectedFilter(1)}>Conv_2</span>
+            <span className={this.state.selectedFilter === 2 ? 'highlight' : ''} onClick={this.setSelectedFilter(2)}>Conv_3</span>
+            <span className={this.state.selectedFilter === 3 ? 'highlight' : ''} onClick={this.setSelectedFilter(3)}>Conv_4</span>
+            <span className={this.state.selectedFilter === 4 ? 'highlight' : ''} onClick={this.setSelectedFilter(4)}>Conv_5</span>
+            <span className={this.state.selectedFilter === 5 ? 'highlight' : ''} onClick={this.setSelectedFilter(5)}>Conv_6</span>
+            <span className={this.state.selectedFilter === 6 ? 'highlight' : ''} onClick={this.setSelectedFilter(6)}>Conv_7</span>
+            <span className={this.state.selectedFilter === 7 ? 'highlight' : ''} onClick={this.setSelectedFilter(7)}>Conv_8</span>
+            <span className={this.state.selectedFilter === 8 ? 'highlight' : ''} onClick={this.setSelectedFilter(8)}>Conv_9</span>
+            <span className={this.state.selectedFilter === 9 ? 'highlight' : ''} onClick={this.setSelectedFilter(9)}>Conv_10</span>
+            <span className={this.state.selectedFilter === 10 ? 'highlight' : ''} onClick={this.setSelectedFilter(10)}>Conv_11</span>
+            <span className={this.state.selectedFilter === 11 ? 'highlight' : ''} onClick={this.setSelectedFilter(11)}>Conv_12</span>
           </div>
           {/* <p>Fully Connected Layers:</p>
           <div className="Results-pills">

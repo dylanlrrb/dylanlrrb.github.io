@@ -7,6 +7,9 @@
   position: absolute;
   z-index: 1;
   top: 80px;
+  border: solid;
+  border-width: 1px;
+  border-color: red;
 }
 
 .Camera-button {

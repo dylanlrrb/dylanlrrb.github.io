@@ -131,7 +131,7 @@ window.projects = {
     markdownUrl: './portfolio/conv_visualizer/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/conv_visualizer/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
+        <button class="secondary-action-button">Notebook</button></a>`,
       `<a href="./portfolio/conv_visualizer/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
