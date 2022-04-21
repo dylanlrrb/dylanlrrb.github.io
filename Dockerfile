@@ -16,6 +16,10 @@ RUN git clone https://github.com/dylanlrrb/dotfiles.git
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
+RUN apt-get -y install tmux
+RUN touch ~/.tmux.conf
+RUN echo "set -g mouse on" >> ~/.tmux.conf
+
 # chown -R root /tf/notebooks/
 
 # ~/projects/dylanlrrb.github.io:/tf/notebooks

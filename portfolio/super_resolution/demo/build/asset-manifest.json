@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "./static/css/main.064d4978.css",
+    "main.js": "./static/js/main.9f9ccd30.js",
+    "static/js/787.f055211e.chunk.js": "./static/js/787.f055211e.chunk.js",
+    "static/media/camera-flip.png": "./static/media/camera-flip.160cc273681b38ae258c.png",
+    "static/media/debug.png": "./static/media/debug.7edfa5334d77651fc7cb.png",
+    "index.html": "./index.html",
+    "main.064d4978.css.map": "./static/css/main.064d4978.css.map",
+    "main.9f9ccd30.js.map": "./static/js/main.9f9ccd30.js.map",
+    "787.f055211e.chunk.js.map": "./static/js/787.f055211e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.064d4978.css",
+    "static/js/main.9f9ccd30.js"
+  ]
+}

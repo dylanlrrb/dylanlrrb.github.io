@@ -246,7 +246,9 @@ window.projects = {
     markdownUrl: './portfolio/super_resolution/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/supervised_learning/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
+        <button class="secondary-action-button">Notebook</button></a>`,
+      `<a href="./portfolio/super_resolution/demo/build/index.html">
+        <button class="primary-action-button">Demo</button></a>`,
     ],
   }),
 
@@ -306,7 +308,7 @@ window.demos = {
 
 
   super_resolution: renderDemo({
-    demoLink: './portfolio/super_resolution/demo/index.html',
+    demoLink: './portfolio/super_resolution/demo/build/index.html',
     demoImage: './portfolio/super_resolution/assets/demo_tile.png',
     demoDescription: 'Super Resolution',
   }),
