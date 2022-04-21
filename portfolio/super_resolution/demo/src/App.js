@@ -10,7 +10,7 @@ import Debug from './components/Debug/Debug';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/input_224_6_blocks_perceptual_loss_full_train_1/model.json'
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/input_224_6_blocks_mobile_perceptual_loss_1/model.json'
     this.state = {
       loading: true,
       model: undefined,
@@ -85,15 +85,14 @@ class App extends React.Component {
       console.log('FINISH CROPPING', tf.memory())
 
       // const processedCrops = tf.tidy(() => {
-      //   return tf.unstack(this.state.model.predict(tf.div(tf.stack(crops), 255)), 0)
+      //   return tf.unstack(this.state.model.predict(tf.stack(crops)), 0)
       // })
 
       const processedCrops = tf.tidy(() => {
         const processedCrops = []
         let i = 0
         for (const crop of crops) {
-          const scaledCrop = tf.div(crop, 255)
-          const expandedCrop = tf.expandDims(scaledCrop, 0)
+          const expandedCrop = tf.expandDims(crop, 0)
           const expandedPred = this.state.model.predict(expandedCrop)
           const processedCrop = tf.squeeze(expandedPred)
           console.log('patch:', i++, ', tensors:', tf.memory())
