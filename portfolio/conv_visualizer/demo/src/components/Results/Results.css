@@ -11,7 +11,7 @@
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  height: 55%;
+  height: calc(var(--vw, 1vw) * 105);
   top: 80px;
   overflow: scroll;
 }
@@ -19,6 +19,8 @@
 .Results-selector {
   padding: 20px;
   text-align: left;
+  height: calc(100% - 100px - var(--vw, 1vw) * 105);
+  overflow: scroll;
 }
 
 .Results-pills {

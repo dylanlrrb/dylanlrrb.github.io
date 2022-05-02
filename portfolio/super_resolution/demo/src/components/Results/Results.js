@@ -1,6 +1,9 @@
 import React from "react";
 import './Results.css'
 
+// const dpr = window.devicePixelRatio || 1
+const dpr = 1
+
 class Results extends React.Component {
 
   constructor(props) {
@@ -25,20 +28,18 @@ class Results extends React.Component {
   componentDidMount() {
     // draw images to appropriate canvases
     const  viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
-    const dpr = window.devicePixelRatio || 1
-    // let dpr = window.devicePixelRatio || 1
     
     let canvasOriginal = document.querySelector('#Results-canvas-original')
     canvasOriginal.setAttribute('height', viewportWidth)
     canvasOriginal.setAttribute('width', viewportWidth)
     const originalContext = canvasOriginal.getContext('2d');
-    // originalContext.scale(dpr, dpr)
+    originalContext.scale(dpr, dpr)
 
     let canvasEnhanced = document.querySelector('#Results-canvas-enhanced')
     canvasEnhanced.setAttribute('height', viewportWidth)
     canvasEnhanced.setAttribute('width', viewportWidth)
     const enhancedContext = canvasEnhanced.getContext('2d');
-    // enhancedContext.scale(dpr, dpr)
+    enhancedContext.scale(dpr, dpr)
 
     if (this.props.originalImg && this.props.enhancedImg) {
       createImageBitmap(this.props.originalImg).then(
@@ -59,10 +60,10 @@ class Results extends React.Component {
           this.state.originalContext &&
           this.state.enhancedContext) {
         createImageBitmap(this.props.originalImg).then(
-          (img) => this.state.originalContext.drawImage(img, this.state.x, this.state.y, this.state.dimension, this.state.dimension)
+          (img) => this.state.originalContext.drawImage(img, this.state.x, this.state.y, this.state.dimension / (dpr), this.state.dimension / (dpr))
         )
         createImageBitmap(this.props.enhancedImg).then(
-          (img) => this.state.enhancedContext.drawImage(img, this.state.x, this.state.y, this.state.dimension, this.state.dimension)
+          (img) => this.state.enhancedContext.drawImage(img, this.state.x, this.state.y, this.state.dimension / (dpr), this.state.dimension / (dpr))
         )
       }
     }

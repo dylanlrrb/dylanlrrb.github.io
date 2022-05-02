@@ -8,6 +8,11 @@
   overflow: hidden;
 }
 
+.Camera-container #webcam {
+  height: calc(var(--vw, 1vw) * 100);
+  width: 100%;
+}
+
 .Camera-button {
   width: 100%;
   position: absolute;

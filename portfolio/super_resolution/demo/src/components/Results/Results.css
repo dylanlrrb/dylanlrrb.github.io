@@ -10,7 +10,7 @@
 
 .Results-controls {
   position: absolute;
-  height: calc(var(--vw, 1vw) * 100);;
+  height: calc(var(--vw, 1vw) * 100);
   width: 100%;
   background-color: rgba(255, 0, 0, 0);
   z-index: 3;
@@ -22,9 +22,6 @@
   position: relative;
 }
 
-.Results-original {
-  /* position: absolute; */
-}
 
 .Results-enhanced {
   position: absolute;

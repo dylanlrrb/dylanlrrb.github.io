@@ -66,7 +66,7 @@ class Results extends React.Component {
           {this.renderFilters()}
         </div>
         <div className="Results-selector">
-          <p>Convolutional Layers:</p>
+          <p>Select Convolutional Layer:</p>
           <div className="Results-pills">
             <span className={this.state.selectedFilter === 0 ? 'highlight' : ''} onClick={this.setSelectedFilter(0)}>Conv_1</span>
             <span className={this.state.selectedFilter === 1 ? 'highlight' : ''} onClick={this.setSelectedFilter(1)}>Conv_2</span>

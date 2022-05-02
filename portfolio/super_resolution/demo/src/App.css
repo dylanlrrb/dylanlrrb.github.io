@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
-  max-width: 500px;
+  max-width: 512px;
   max-height: 1000px;
 }
 

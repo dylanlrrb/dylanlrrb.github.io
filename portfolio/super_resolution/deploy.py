@@ -23,7 +23,7 @@ if out.returncode == 0:
       s3_client.upload_file(
         f,
         'built-model-repository',
-        f'{s3_parent_dir}/{model_name}/{filename}',
+        f'{s3_parent_dir}/{model_name.replace("/", "_")}/{filename}',
         ExtraArgs={'ACL': 'public-read'}
       )
       print('.', end=' ')
