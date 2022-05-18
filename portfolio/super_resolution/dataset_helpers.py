@@ -63,9 +63,9 @@ def split_training_image_dataset(
     valid_ratio=val_ratio,
     test_ratio=test_ratio,)
 
-  train_ds = train_ds.map(train_transforms, num_parallel_calls=AUTOTUNE).prefetch(buffer_size=AUTOTUNE)
-  val_ds = val_ds.map(val_transforms, num_parallel_calls=AUTOTUNE).prefetch(buffer_size=AUTOTUNE)
-  test_ds = test_ds.map(test_transforms, num_parallel_calls=AUTOTUNE).prefetch(buffer_size=AUTOTUNE)
+  train_ds = train_ds.map(train_transforms).prefetch(buffer_size=AUTOTUNE)
+  val_ds = val_ds.map(val_transforms).prefetch(buffer_size=AUTOTUNE)
+  test_ds = test_ds.map(test_transforms).prefetch(buffer_size=AUTOTUNE)
 
   return train_ds, val_ds, test_ds
 

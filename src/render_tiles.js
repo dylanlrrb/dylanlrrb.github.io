@@ -245,7 +245,7 @@ window.projects = {
     tileTitle: 'Super Resolution',
     markdownUrl: './portfolio/super_resolution/README.md',
     controls: [
-      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/supervised_learning/notebook.ipynb" target="_blank">
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/super_resolution/notebook.ipynb" target="_blank">
         <button class="secondary-action-button">Notebook</button></a>`,
       `<a href="./portfolio/super_resolution/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,

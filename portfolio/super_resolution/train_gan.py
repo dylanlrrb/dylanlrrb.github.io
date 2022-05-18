@@ -14,7 +14,7 @@ from discriminator import define_discriminator
 from perceptual_loss import PerceptualLoss
 
 # 2 = Warn messages and below are not printed
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 batch_size = 4
@@ -58,7 +58,7 @@ train_ds, val_ds, test_ds = split_training_image_dataset(
   val_transforms,
   test_transforms,
   labels=None,
-  data_subsample=0.1,
+  data_subsample=1,
   batch_size=batch_size,
   image_size=(image_size,image_size),
 )
@@ -86,9 +86,9 @@ composite_gan.compile(loss=['binary_crossentropy', PerceptualLoss(0.1)], optimiz
 
 
 # Training
-model_name = 'gan_in256_4Xzoom_plossX0-1'
-epochs = 20
-batches_per_epoch = len(train_ds) // 2
+model_name = 'gan_in256_4Xzoom_plossX0-1_full_train'
+epochs = 50
+batches_per_epoch = len(train_ds) // 10
 iterations = epochs * batches_per_epoch
 log_per_n_iterations = 100
 

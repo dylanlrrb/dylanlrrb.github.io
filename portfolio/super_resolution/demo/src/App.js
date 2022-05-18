@@ -22,7 +22,10 @@ const range = (start, end, skip=1) => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_iteration_12719/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_iteration_12719/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_50839/model.json'
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_48297/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_24148/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in512_4Xzoom_plossX0-1_iteration_12719/model.json'
     
     this.state = {
