@@ -218,14 +218,26 @@ section {
   max-width: 1000px;
 }
 
+/* .blah-blah {
+  clip-path: url(#authorImage);
+  mask-size: cover
+} */
+.sss {
+  clip-path: url(#svgClip);
+	width: 18em;
+	height: 18em;
+	object-fit: cover;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 .selfie {
   background-size: cover;
   background-position: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: transparent;
   border-radius: 5px;
   margin: 40px 20px;
-  -webkit-box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.407);
-      box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.407);
   position: relative;
   height: 80vw;
   width: 80vw;
@@ -233,6 +245,7 @@ section {
   max-width: 350px;
 }
 .selfie .low {
+  clip-path: url(#svgClip);
   height: 80vw;
   width: 80vw;
   max-height: 400px;
@@ -246,6 +259,7 @@ section {
   position: absolute;
 }
 .selfie .high {
+  clip-path: url(#svgClip);
   height: 80vw;
   width: 80vw;
   max-height: 400px;
