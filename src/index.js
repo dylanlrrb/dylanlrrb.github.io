@@ -95,7 +95,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const selfie = document.querySelector('div.selfie')
   const years_exp = document.querySelector('.years-exp')
 
-  years_exp.innerHTML = getYearsSince('9/15/2016', )
+  years_exp.innerHTML = getYearsSince('9/15/2016')
 
   hamburger_icon.addEventListener('click', () => {
     mobile_nav.classList.toggle('closed')
@@ -130,5 +130,54 @@ window.addEventListener('DOMContentLoaded', () => {
       demo_ordered_list.map((d) => window.demos[d]())
     })
     .catch((e) => console.log('error loading showdown script', e))
+
+  let filteredTags = []
+  const filterButtons =  Array.from(document.querySelectorAll('.project-filters-buttons button'))
+  const allFilterButton = document.querySelector('.project-filters-buttons button[data-filter="ALL"]')
+
+  document.querySelector('.project-filters-buttons').addEventListener('click', ({target}) => {
+    if (target.tagName !== 'BUTTON') {return}
+
+    if (target.dataset.filter === 'ALL') {
+      filterButtons.forEach((b) => b.className = 'dormant-filter-button')
+      allFilterButton.className = 'active-filter-button'
+      filteredTags = []
+      window.project_tiles.forEach((p) => p.classList.remove('display-none'))
+    }
+    else {
+      allFilterButton.className = 'dormant-filter-button'
+      if (target.classList.contains('dormant-filter-button')) {
+        target.className = 'active-filter-button'
+        filteredTags.push(target.dataset.filter)
+        window.project_tiles.forEach((p) => {
+          p.classList.add('display-none')
+          filteredTags.forEach((t) => {
+            if (p.dataset.tags.includes(t)) {
+              p.classList.remove('display-none')
+            }
+          })
+        })
+      } else { // if active already
+        target.className = 'dormant-filter-button'
+        filteredTags = filteredTags.filter((e) => e !== target.dataset.filter)
+        if (filteredTags.length === 0) {
+          filterButtons.forEach((b) => b.className = 'dormant-filter-button')
+          allFilterButton.className = 'active-filter-button'
+          filteredTags = []
+          window.project_tiles.forEach((p) => p.classList.remove('display-none'))
+        } else {
+          window.project_tiles.forEach((p) => {
+            p.classList.add('display-none')
+            filteredTags.forEach((t) => {
+              if (p.dataset.tags.includes(t)) {
+                p.classList.remove('display-none')
+              }
+            })
+          })
+        }
+      }
+    }
+  })
+  
   
 });

@@ -10,3 +10,4 @@ tensorflow-datasets
 tensorflow-hub
 tensorflowjs
 imageio
+mpld3

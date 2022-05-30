@@ -1,5 +1,7 @@
-const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
-  const html = `<div class="project">
+window.project_tiles = []
+
+const renderProject = ({projectId, tileImage, tileTitle, markdownUrl, controls, tags=[]}) => {
+  const html = `<div class="project" data-tags="${tags.join(',')}">
     <div class="tile">
       <div class="tile-image"></div>
       <p class="tile-title">${tileTitle}</p>
@@ -28,6 +30,7 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
   
   return () => {
     document.querySelector("#projects").append(node)
+    window.project_tiles.push(tile.parentElement)
     tile.addEventListener('click', () => {
       modal.classList.toggle('display-none')
       document.documentElement.classList.add('disable-scroll')
@@ -39,15 +42,28 @@ const renderProject = ({tileImage, tileTitle, markdownUrl, controls}) => {
     }, true)
     exit.addEventListener('click', () => window.history.back())
     scrim.addEventListener('click', () => window.history.back())
+    inner.innerHTML = `<div class="lds-ring"><div class="blue"></div><div></div><div></div><div></div></div>`
+    const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
+    const queryParam = (new URLSearchParams(window.location.search)).get('project')
+    if (projectId === queryParam) {
+      fetch(markdownUrl).then(res => res.text())
+      .then(text => {
+        inner.innerHTML = converter.makeHtml(text)
+        document.querySelector("#projects").append(node)
+      })
+      const click = new Event('click')
+      tile.dispatchEvent(click)
+    }
     setTimeout(() => {
       tileIm.style['background-image'] = `url(${tileImage})`
-      const converter = new showdown.Converter({strikethrough:true, tables:true, tasklists:true, emoji:true, openLinksInNewWindow:true})
-      fetch(markdownUrl).then(res => res.text())
-        .then(text => {
-          inner.innerHTML = converter.makeHtml(text)
-          document.querySelector("#projects").append(node)
+      if (projectId !== queryParam) {
+        fetch(markdownUrl).then(res => res.text())
+          .then(text => {
+            inner.innerHTML = converter.makeHtml(text)
+            document.querySelector("#projects").append(node)
         })
-    }, 1000)
+      }
+    }, 1500)
   }
 }
 
@@ -70,6 +86,17 @@ const renderDemo = (demo) => {
   }
 }
 
+const TAGS = {
+  BIOINFORMATICS: "BIOINFORMATICS",
+  COMPUTER_VISION: "COMPUTER_VISION",
+  DEEP_LEARNING: "DEEP_LEARNING",
+  DEPLOYMENT: "DEPLOYMENT",
+  RECURRENCE: "RECURRENCE",
+  REINFORCEMENT_LEARNING: "REINFORCEMENT_LEARNING",
+  NATURAL_LANGUAGE_PROCESSING: "NATURAL_LANGUAGE_PROCESSING",
+  
+}
+
 
 // portfolio
 
@@ -84,6 +111,7 @@ window.projects = {
   },
 
   background_removal: renderProject({
+    projectId: 'background_removal',
     tileImage: './portfolio/background_removal/assets/portfolio_tile.gif',
     tileTitle: 'Using Gaussian Mixture Models to Isolate Movement in Video',
     markdownUrl: './portfolio/background_removal/README.md',
@@ -91,9 +119,11 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/background_removal/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEEP_LEARNING],
   }),
 
   backprop_painting: renderProject({
+    projectId: 'backprop_painting',
     tileImage: './portfolio/backprop_painting/assets/portfolio_tile.png',
     tileTitle: 'Visualizing Convolutional Layers in a Trained VGG Network',
     markdownUrl: './portfolio/backprop_painting/README.md',
@@ -101,9 +131,11 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/backprop_painting/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEEP_LEARNING],
   }),
 
   cat_dog_classifier: renderProject({
+    projectId: 'cat_dog_classifier',
     tileImage: './portfolio/cat_dog_classifier/assets/portfolio_tile.png',
     tileTitle: 'Classifying Cat Vs. Dog Images with a MobileNet',
     markdownUrl: './portfolio/cat_dog_classifier/README.md',
@@ -113,9 +145,11 @@ window.projects = {
       `<a href="./portfolio/cat_dog_classifier/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
   }),
 
   cifar10_classification: renderProject({
+    projectId: 'cifar10_classification',
     tileImage: './portfolio/cifar10_classification/assets/portfolio_tile.jpeg',
     tileTitle: 'Exploring Effect of Image Resizing on Classification of CIFAR-10 dataset',
     markdownUrl: './portfolio/cifar10_classification/README.md',
@@ -123,9 +157,11 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/cifar10_classification/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEEP_LEARNING],
   }),
 
   conv_visualizer: renderProject({
+    projectId: 'conv_visualizer',
     tileImage: './portfolio/conv_visualizer/assets/portfolio_tile.png',
     tileTitle: 'Convolution Visualizer',
     markdownUrl: './portfolio/conv_visualizer/README.md',
@@ -135,19 +171,11 @@ window.projects = {
       `<a href="./portfolio/conv_visualizer/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
-  }),
-
-  denoise_autoencoder: renderProject({
-    tileImage: './portfolio/denoise_autoencoder/assets/portfolio_tile.png',
-    tileTitle: 'Using Autoencoders for Image Noise Reduction',
-    markdownUrl: './portfolio/denoise_autoencoder/README.md',
-    controls: [
-      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/denoise_autoencoder/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
-    ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
   }),
 
   docker_tutorial: renderProject({
+    projectId: 'docker_tutorial',
     tileImage: './portfolio/docker_tutorial/assets/portfolio_tile.png',
     tileTitle: 'Project-Based Docker Tutorial',
     markdownUrl: 'https://raw.githubusercontent.com/dylanlrrb/Please-Contain-Yourself/master/README.md',
@@ -158,6 +186,7 @@ window.projects = {
   }),
 
   landmark_classification: renderProject({
+    projectId: 'landmark_classification',
     tileImage: './portfolio/landmark_classification/assets/portfolio_tile.png',
     tileTitle: 'Implementing Reverse Image Search with Landmark Images',
     markdownUrl: './portfolio/landmark_classification/README.md',
@@ -165,9 +194,11 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/landmark_classification/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEEP_LEARNING],
   }),
 
   lstm_scripts: renderProject({
+    projectId: 'lstm_scripts',
     tileImage: './portfolio/lstm_scripts/assets/portfolio_tile.gif',
     tileTitle: 'Generating  Parks and Rec Episode Scripts with LSTM Recurrent Neural Networks',
     markdownUrl: './portfolio/lstm_scripts/README.md',
@@ -175,9 +206,11 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/lstm_scripts/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
+    tags: [TAGS.DEEP_LEARNING, TAGS.RECURRENCE],
   }),
 
   mnist_nn: renderProject({
+    projectId: 'mnist_nn',
     tileImage: './portfolio/mnist_nn/assets/portfolio_tile.gif',
     tileTitle: 'Real Time Activation and Weight Visualization of Neural Network Trained on MNIST Dataset',
     markdownUrl: './portfolio/mnist_nn/README.md',
@@ -186,9 +219,11 @@ window.projects = {
         <button class="secondary-action-button">Notebook</button></a>`,
       `<a href="./portfolio/mnist_nn/demo/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>`
     ],
+    tags: [TAGS.DEEP_LEARNING],
   }),
 
   movie_sentiment: renderProject({
+    projectId: 'movie_sentiment',
     tileImage: './portfolio/movie_sentiment/assets/portfolio_tile.png',
     tileTitle: 'Sentiment Analysis of Movie Reviews with LSTM Recurrent Neural Nets',
     markdownUrl: './portfolio/movie_sentiment/README.md',
@@ -196,9 +231,11 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/movie_sentiment/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
+    tags: [TAGS.DEEP_LEARNING, TAGS.RECURRENCE],
   }),
 
   object_detection: renderProject({
+    projectId: 'object_detection',
     tileImage: './portfolio/object_detection/assets/portfolio_tile.png',
     tileTitle: 'Single Shot Object Detection',
     markdownUrl: './portfolio/object_detection/README.md',
@@ -208,19 +245,11 @@ window.projects = {
       `<a href="./portfolio/object_detection/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
-  }),
-
-  signal_separation: renderProject({
-    tileImage: './portfolio/signal_separation/assets/portfolio_tile.png',
-    tileTitle: 'Blind Source Signal Separation',
-    markdownUrl: './portfolio/signal_separation/README.md',
-    controls: [
-      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/signal_separation/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
-    ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
   }),
 
   style_transfer_1: renderProject({
+    projectId: 'style_transfer_1',
     tileImage: './portfolio/style_transfer_1/assets/portfolio_tile.gif',
     tileTitle: 'Style Transfer with Backpropogation Through a Convolutional Neural Network',
     markdownUrl: './portfolio/style_transfer_1/README.md',
@@ -228,19 +257,11 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/style_transfer_1/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
-  }),
-
-  supervised_learning: renderProject({
-    tileImage: './portfolio/supervised_learning/assets/portfolio_tile.png',
-    tileTitle: 'Supervised Learning Methods Comparison Using Census Data',
-    markdownUrl: './portfolio/supervised_learning/README.md',
-    controls: [
-      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/supervised_learning/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
-    ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEEP_LEARNING],
   }),
 
   super_resolution: renderProject({
+    projectId: 'super_resolution',
     tileImage: './portfolio/super_resolution/assets/portfolio_tile.png',
     tileTitle: 'Super Resolution',
     markdownUrl: './portfolio/super_resolution/README.md',
@@ -250,19 +271,11 @@ window.projects = {
       `<a href="./portfolio/super_resolution/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
-  }),
-
-  unsupervised_learning: renderProject({
-    tileImage: './portfolio/unsupervised_learning/assets/portfolio_tile.png',
-    tileTitle: 'Identifying Customer Segments with Unsupervised Learning',
-    markdownUrl: './portfolio/unsupervised_learning/README.md',
-    controls: [
-      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/unsupervised_learning/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
-    ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
   }),
 
   word2vec: renderProject({
+    projectId: 'word2vec',
     tileImage: './portfolio/word2vec/assets/portfolio_tile.png',
     tileTitle: 'Exploring Word Embedding Methods',
     markdownUrl: './portfolio/word2vec/README.md',
@@ -270,6 +283,7 @@ window.projects = {
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/word2vec/notebook.ipynb" target="_blank">
         <button class="primary-action-button">Notebook</button></a>`,
     ],
+    tags: [TAGS.NATURAL_LANGUAGE_PROCESSING, TAGS.DEEP_LEARNING],
   })
 }
 
