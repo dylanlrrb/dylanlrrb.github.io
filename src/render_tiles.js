@@ -15,6 +15,7 @@ const renderProject = ({projectId, tileImage, tileTitle, markdownUrl, controls, 
         <div class="modal-inner"></div>
         <div class="modal-fade"></div>
         <div class="modal-controls">
+          <img class="share-link" src="public/icons/share-icon.png" alt="Share link" />
           ${controls.join('')}
         </div>
       </div>
@@ -27,6 +28,14 @@ const renderProject = ({projectId, tileImage, tileTitle, markdownUrl, controls, 
   const exit = modal.querySelector('.exit')
   const scrim = modal.querySelector('.modal-scrim')
   const inner = modal.querySelector('.modal-inner')
+  const share = modal.querySelector('.modal-controls .share-link')
+
+  share.addEventListener('click', () => {
+    navigator.clipboard.writeText(`${window.location.origin}/?project=${projectId}#portfolio`)
+      .then(() => {
+        alert("Copied link to clipboard");
+      })
+  })
   
   return () => {
     document.querySelector("#projects").append(node)

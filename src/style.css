@@ -548,6 +548,12 @@ section {
           align-items: center;
   padding: 10px 10px;
 }
+.modal-controls .share-link {
+  height: 33px;
+  left: 15px;
+  position: absolute;
+  cursor: pointer;
+}
 .modal-inner hr {
   width: 100%;
 }
