@@ -194,20 +194,6 @@ window.projects = {
     ],
   }),
 
-  faster_r_cnn: renderProject({
-    projectId: 'faster_r_cnn',
-    tileImage: './portfolio/faster_r_cnn/assets/portfolio_tile.png',
-    tileTitle: 'FasterRCNN',
-    markdownUrl: './portfolio/faster_r_cnn/README.md',
-    controls: [
-      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/faster_r_cnn/notebook.ipynb" target="_blank">
-        <button class="primary-action-button">Notebook</button></a>`,
-      `<a href="./portfolio/segmentation_and_detection/demo/build/index.html">
-        <button class="primary-action-button">Demo</button></a>`,
-    ],
-    tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
-  }),
-
   landmark_classification: renderProject({
     projectId: 'landmark_classification',
     tileImage: './portfolio/landmark_classification/assets/portfolio_tile.png',
@@ -260,12 +246,12 @@ window.projects = {
   image_segmentation: renderProject({
     projectId: 'image_segmentation',
     tileImage: './portfolio/image_segmentation/assets/portfolio_tile.png',
-    tileTitle: 'Image Segmentation',
+    tileTitle: 'Image Segmentation with U-Net',
     markdownUrl: './portfolio/image_segmentation/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/image_segmentation/notebook.ipynb" target="_blank">
         <button class="secondary-action-button">Notebook</button></a>`,
-      `<a href="./portfolio/segmentation_and_detection/demo/build/index.html">
+      `<a href="./portfolio/image_segmentation/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
     tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
@@ -307,7 +293,21 @@ window.projects = {
         <button class="primary-action-button">Notebook</button></a>`,
     ],
     tags: [TAGS.NATURAL_LANGUAGE_PROCESSING, TAGS.DEEP_LEARNING],
-  })
+  }),
+
+  yolo: renderProject({
+    projectId: 'yolo',
+    tileImage: './portfolio/yolo/assets/portfolio_tile.png',
+    tileTitle: 'YOLO Object Detection',
+    markdownUrl: './portfolio/yolo/README.md',
+    controls: [
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/yolo/notebook.ipynb" target="_blank">
+        <button class="primary-action-button">Notebook</button></a>`,
+      `<a href="./portfolio/yolo/demo/build/index.html">
+        <button class="primary-action-button">Demo</button></a>`,
+    ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
+  }),
 }
 
 // demos
@@ -343,10 +343,15 @@ window.demos = {
     demoDescription: 'Object Detection with Segmentation',
   }),
 
-
   super_resolution: renderDemo({
     demoLink: './portfolio/super_resolution/demo/build/index.html',
     demoImage: './portfolio/super_resolution/assets/demo_tile.png',
     demoDescription: 'Super Resolution',
+  }),
+
+  image_segmentation: renderDemo({
+    demoLink: './portfolio/image_segmentation/demo/build/index.html',
+    demoImage: './portfolio/image_segmentation/assets/demo_tile.png',
+    demoDescription: 'Image Segmentation with U-Net',
   }),
 }
