@@ -27,7 +27,8 @@ class App extends React.Component {
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_24148/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in512_4Xzoom_plossX0-1_iteration_12719/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_48297/model.json'
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in224_4Xzoom_plossX0-1_monilenet_backbone_iteration_9999/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in224_4Xzoom_plossX0-1_monilenet_backbone_iteration_9999/model.json'
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in224_4Xzoom_plossX0-1_monilenet_backbone_conv5_lr_2e-4_iteration_17499/model.json'
     
     this.state = {
       loading: true,
@@ -91,7 +92,7 @@ class App extends React.Component {
       let overlap = 15
       const trim = 10
       
-      const minSizeTensor = tensor // tf.image.resizeBilinear(tensor, [model_output_dim,model_output_dim]) if you want to demo with a more degraded image, also processes faster
+      const minSizeTensor = tensor  // tf.image.resizeBilinear(tensor, [model_output_dim,model_output_dim]) // if you want to demo with a more degraded image, also processes faster
       const trimmed_model_output_dim = model_output_dim - trim
       const originalImgDim = minSizeTensor.shape[0]
       const numTiles = Math.floor(originalImgDim / trimmed_model_output_dim)

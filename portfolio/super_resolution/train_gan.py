@@ -67,25 +67,59 @@ train_ds, val_ds, test_ds = split_training_image_dataset(
 
 
 # Build Models
-tf.keras.backend.clear_session()
-image_shape = (patch_size, patch_size, 3)
-# generator = define_generator(image_shape)
-generator = define_mobilenet_generator(image_shape)
-discriminator = define_discriminator(image_shape)
+# tf.keras.backend.clear_session()
+# image_shape = (patch_size, patch_size, 3)
+# # generator = define_generator(image_shape)
+# generator = define_mobilenet_generator(image_shape)
+# discriminator = define_discriminator(image_shape)
+# discriminator_optimizer = tf.keras.optimizers.Adam(learning_rate=1e-5)
+# discriminator.compile(loss='binary_crossentropy', optimizer=discriminator_optimizer, loss_weights=[0.5])
 
 # generator.summary()
 
 # Build composite model
-for layer in discriminator.layers:
-  if not isinstance(layer, BatchNormalization):
-    layer.trainable = False
-in_src = Input(shape=image_shape)
-gen_out = generator(in_src)
-dis_out = discriminator([in_src, gen_out])
+# for layer in discriminator.layers:
+#   if not isinstance(layer, BatchNormalization):
+#     layer.trainable = False
+# in_src = Input(shape=image_shape)
+# gen_out = generator(in_src)
+# dis_out = discriminator([in_src, gen_out])
 
-composite_gan = Model(in_src, [dis_out, gen_out])
-opt = tf.keras.optimizers.Adam(learning_rate=1e-5)
-composite_gan.compile(loss=['binary_crossentropy', PerceptualLoss()], optimizer=opt)
+# composite_gan = Model(in_src, [dis_out, gen_out])
+# generator_optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
+# composite_gan.compile(loss=['binary_crossentropy', PerceptualLoss()], optimizer=generator_optimizer)
+
+class GAN():
+  def __init__(self, image_shape, d_lr=2e-4, g_lr=2e-4):
+    # Build Models
+    self.generator = define_mobilenet_generator(image_shape)
+    self.discriminator = define_discriminator(image_shape)
+    discriminator_optimizer = tf.keras.optimizers.Adam(learning_rate=d_lr, beta_1=0.5)
+    self.discriminator.compile(loss='binary_crossentropy', optimizer=discriminator_optimizer, loss_weights=[0.5])
+    
+    # Build composite model
+    for layer in self.discriminator.layers:
+      if not isinstance(layer, BatchNormalization):
+        layer.trainable = False
+    in_src = Input(shape=image_shape)
+    gen_out = self.generator(in_src)
+    dis_out = self.discriminator([in_src, gen_out])
+
+    self.composite_gan = Model(in_src, [dis_out, gen_out])
+    generator_optimizer = tf.keras.optimizers.Adam(learning_rate=g_lr, beta_1=0.5)
+    self.composite_gan.compile(loss=['binary_crossentropy', PerceptualLoss()], optimizer=generator_optimizer)
+
+  def update_discriminator_lr(self, lr):
+    discriminator_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
+    self.discriminator.compile(loss='binary_crossentropy', optimizer=discriminator_optimizer, loss_weights=[0.5])
+
+  def update_composite_lr(self, lr):
+    generator_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
+    self.composite_gan.compile(loss=['binary_crossentropy', PerceptualLoss()], optimizer=generator_optimizer)
+
+
+tf.keras.backend.clear_session()
+sr_gan = GAN(image_shape=(patch_size, patch_size, 3))
 
 # Logging helpers
 def create_comparison_plot(model, img_path, epoch):
@@ -141,16 +175,16 @@ samples = [{'name': 'baboon', 'extension': 'jpg', 'description': 'Baboon', 'trai
 
 
 # Training
-# model_name = 'gan_in256_4Xzoom_plossX0-1_full_train'
-model_name = 'gan_in224_4Xzoom_plossX0-1_monilenet_backbone_conv5'
+model_name = 'gan_in224_4Xzoom_plossX0-1_monilenet_backbone_conv5_lr_2e-4'
 epochs = 50
 batches_per_epoch = 500
 iterations = epochs * batches_per_epoch
 log_per_n_iterations = 100
+reduce_lr_on_epoch = 16
 
 
 generate_real_samples = iter(train_ds)
-generate_fake_samples = lambda samples: generator.predict(samples)
+generate_fake_samples = lambda samples: sr_gan.generator.predict(samples)
 def generate_discriminator_patches(samples_in_batch, patch_shape):
   discriminator_real = tf.ones((samples_in_batch, patch_shape, patch_shape, 1))
   discriminator_fake = tf.zeros((samples_in_batch, patch_shape, patch_shape, 1))
@@ -172,13 +206,13 @@ for i in range(iterations):
   X, real_y = next(generate_real_samples)
   generated_y = generate_fake_samples(X)
   samples_in_batch = len(X)
-  discriminator_patch_shape = discriminator.output_shape[1]
+  discriminator_patch_shape = sr_gan.discriminator.output_shape[1]
   discriminator_real, discriminator_fake = generate_discriminator_patches(samples_in_batch, discriminator_patch_shape)
 
-  d_loss1 = discriminator.train_on_batch([X, real_y], discriminator_real)
-  d_loss2 = discriminator.train_on_batch([X, generated_y], discriminator_fake)
+  d_loss1 = sr_gan.discriminator.train_on_batch([X, real_y], discriminator_real)
+  d_loss2 = sr_gan.discriminator.train_on_batch([X, generated_y], discriminator_fake)
   d_loss_total = d_loss1 + d_loss2
-  g_loss_total, g_loss, p_loss = composite_gan.train_on_batch(X, [discriminator_real, real_y])
+  g_loss_total, g_loss, p_loss = sr_gan.composite_gan.train_on_batch(X, [discriminator_real, real_y])
 
   accumulated_d_loss.append(d_loss_total)
   accumulated_g_loss.append(g_loss)
@@ -204,11 +238,11 @@ for i in range(iterations):
 
   if (i+1) % batches_per_epoch == 0:
     progbar.update(i % batches_per_epoch, values=[('d_loss', d_loss_total), ('g_loss', g_loss), ('p_loss', p_loss)], finalize=True)
-    generator.save(f'models/{model_name}/iteration_{i}.h5')
+    sr_gan.generator.save(f'models/{model_name}/iteration_{i}.h5')
     epoch_num = ceil((i+1) / batches_per_epoch) + 1
   
     for sample in samples:
-      plot = create_comparison_plot(generator, f"{sample['name']}.{sample['extension']}", epoch_num-1)
+      plot = create_comparison_plot(sr_gan.generator, f"{sample['name']}.{sample['extension']}", epoch_num-1)
       img = plot_to_img(plot)
       sample['train_samples'].append(img)
       pickle_img_seq(model_name, sample['train_samples'], sample['name'])
@@ -216,5 +250,11 @@ for i in range(iterations):
 
     print('' if epoch_num > epochs else f'\nEpoch {epoch_num} / {epochs}')
     progbar = tf.keras.utils.Progbar(batches_per_epoch)
+
+    # if epoch_num == reduce_lr_on_epoch:
+    #   # sr_gan.update_discriminator_lr(1e-6)
+    #   sr_gan.update_composite_lr(1e-5)
+    #   print('dropping generator learning rate')
+
     gc.collect()
     

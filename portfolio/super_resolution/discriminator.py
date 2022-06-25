@@ -6,8 +6,6 @@ from keras.layers import Activation
 from keras.layers import Concatenate
 from keras.layers import Conv2D
 from keras.layers import BatchNormalization
-from tensorflow.keras.optimizers import Adam
-# from tensorflow.keras.optimizers import Adam
 
 # define the discriminator model
 def define_discriminator(image_shape):
@@ -52,7 +50,4 @@ def define_discriminator(image_shape):
 	patch_out = Activation('sigmoid')(d)
 	# define model
 	model = Model([in_src_image, in_target_image], patch_out)
-	# compile model
-	opt = Adam(learning_rate=1e-6)
-	model.compile(loss='binary_crossentropy', optimizer=opt, loss_weights=[0.5])
 	return model
