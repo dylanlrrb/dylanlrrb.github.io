@@ -1,0 +1,10 @@
+.App {
+  position: relative;
+  background-color: black;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  max-width: 500px;
+  max-height: 1000px;
+}

@@ -63,20 +63,8 @@ def split_training_image_dataset(
     valid_ratio=val_ratio,
     test_ratio=test_ratio,)
 
-  train_ds = train_ds.map(train_transforms).prefetch(buffer_size=AUTOTUNE)
-  val_ds = val_ds.map(val_transforms).prefetch(buffer_size=AUTOTUNE)
-  test_ds = test_ds.map(test_transforms).prefetch(buffer_size=AUTOTUNE)
+  train_ds = train_ds.map(train_transforms).repeat().prefetch(1)
+  val_ds = val_ds.map(val_transforms).repeat().prefetch(1)
+  test_ds = test_ds.map(test_transforms).repeat().prefetch(1)
 
   return train_ds, val_ds, test_ds
-
-def iterate_dataset(dataset):
-  iterator = iter(dataset)
-  def generate_real():
-    nonlocal iterator
-    try:
-      X_batch, y_batch = iterator.get_next()
-    except tf.errors.OutOfRangeError:
-      iterator = iter(dataset)
-      X_batch, y_batch = iterator.get_next()
-    return X_batch, y_batch
-  return generate_real

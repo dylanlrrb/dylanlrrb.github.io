@@ -3,48 +3,16 @@ project_ordered_list = [
   "backprop_painting",
   "style_transfer_1",
   "docker_tutorial",
-  // "supervised_learning",
-  // "unsupervised_learning",
-  // "signal_separation",
   "background_removal",
-  "cifar10_classification",
   "landmark_classification",
   "lstm_scripts",
-  // "movie_sentiment",
-  // "denoise_autoencoder",
-  // "word2vec",
+  "word2vec",
   "cat_dog_classifier",
-  "object_detection",
   "conv_visualizer",
   "super_resolution",
-  // View feature maps in a real time web app 
-  // GANs + deployment
-  // ---
-  // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
-  // segmentation
-  // Class activation Map/ Saliency Map/ Attribution Maps
-  // Deep dream clone
-  // ---
-  // Gan projects
-  // ---
-  // figure out attention and transform er networks
-  // Translation with Attention project (seq2seq w/ attention) + class activation map of attention matrix as sentence is translated 1, 2, 3, 4
-  // Image captioning with attention, visualizing focused parts of image attention is given to
-  // style transfer pt 2, model per style to transfer 1
-  // style transfter pt 3, arbitrary style transfer in browser (DEMO)
-  // brainwave signal separation and deep learning
-  // pose estimation
-  // depth estimation
-  // ---
-  // Renforcemnt learning course
-  // ---
-  // Renforcement projects
-  // ---
-  // dermatologist AI
-  // Create images from text
-  // Add color to a BW image
-  // customer segmentation https://www.kaggle.com/fabiendaniel/customer-segmentation
-  // genomics PCA
+  "image_segmentation",
+  "faster_r_cnn",
+
   "placeholder",
   "placeholder",
   "placeholder",
@@ -55,7 +23,7 @@ demo_ordered_list = [
   "mnist_nn",
   "docker_tutorial",
   "cat_dog_classifier",
-  "object_detection",
+  "segmentation_and_detection",
   "conv_visualizer",
   "super_resolution",
   // View feature maps in a real time web app

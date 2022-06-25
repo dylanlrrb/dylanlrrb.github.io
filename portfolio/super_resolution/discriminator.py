@@ -20,7 +20,7 @@ def define_discriminator(image_shape):
 	# C64
 	d = Conv2D(64, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal')(merged)
 	d = LeakyReLU(alpha=0.2)(d)
-	d = Conv2D(64, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(merged)
+	d = Conv2D(64, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(d)
 	d = LeakyReLU(alpha=0.2)(d)
 	# C128
 	d = Conv2D(128, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal')(d)
@@ -53,6 +53,6 @@ def define_discriminator(image_shape):
 	# define model
 	model = Model([in_src_image, in_target_image], patch_out)
 	# compile model
-	opt = Adam(learning_rate=0.0002, beta_1=0.5)
+	opt = Adam(learning_rate=1e-6)
 	model.compile(loss='binary_crossentropy', optimizer=opt, loss_weights=[0.5])
 	return model

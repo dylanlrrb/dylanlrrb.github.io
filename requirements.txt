@@ -11,3 +11,6 @@ tensorflow-hub
 tensorflowjs
 imageio
 mpld3
+cython
+opencv-python
+pydot

@@ -194,6 +194,20 @@ window.projects = {
     ],
   }),
 
+  faster_r_cnn: renderProject({
+    projectId: 'faster_r_cnn',
+    tileImage: './portfolio/faster_r_cnn/assets/portfolio_tile.png',
+    tileTitle: 'FasterRCNN',
+    markdownUrl: './portfolio/faster_r_cnn/README.md',
+    controls: [
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/faster_r_cnn/notebook.ipynb" target="_blank">
+        <button class="primary-action-button">Notebook</button></a>`,
+      `<a href="./portfolio/segmentation_and_detection/demo/build/index.html">
+        <button class="primary-action-button">Demo</button></a>`,
+    ],
+    tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
+  }),
+
   landmark_classification: renderProject({
     projectId: 'landmark_classification',
     tileImage: './portfolio/landmark_classification/assets/portfolio_tile.png',
@@ -243,15 +257,15 @@ window.projects = {
     tags: [TAGS.DEEP_LEARNING, TAGS.RECURRENCE],
   }),
 
-  object_detection: renderProject({
-    projectId: 'object_detection',
-    tileImage: './portfolio/object_detection/assets/portfolio_tile.png',
-    tileTitle: 'Single Shot Object Detection',
-    markdownUrl: './portfolio/object_detection/README.md',
+  image_segmentation: renderProject({
+    projectId: 'image_segmentation',
+    tileImage: './portfolio/image_segmentation/assets/portfolio_tile.png',
+    tileTitle: 'Image Segmentation',
+    markdownUrl: './portfolio/image_segmentation/README.md',
     controls: [
-      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/object_detection/notebook.ipynb" target="_blank">
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/image_segmentation/notebook.ipynb" target="_blank">
         <button class="secondary-action-button">Notebook</button></a>`,
-      `<a href="./portfolio/object_detection/demo/build/index.html">
+      `<a href="./portfolio/segmentation_and_detection/demo/build/index.html">
         <button class="primary-action-button">Demo</button></a>`,
     ],
     tags: [TAGS.COMPUTER_VISION, TAGS.DEPLOYMENT, TAGS.DEEP_LEARNING],
@@ -323,10 +337,10 @@ window.demos = {
     demoDescription: 'MNIST Demo: See what a Neural Network is thinkning as it guesses what number you\'re drawing',
   }),
 
-  object_detection: renderDemo({
-    demoLink: "./portfolio/object_detection/demo/build/index.html",
-    demoImage: './portfolio/object_detection/assets/demo_tile.png',
-    demoDescription: 'Single Shot Object Detection',
+  segmentation_and_detection: renderDemo({
+    demoLink: "./portfolio/segmentation_and_detection/demo/build/index.html",
+    demoImage: './portfolio/segmentation_and_detection/assets/demo_tile.png',
+    demoDescription: 'Object Detection with Segmentation',
   }),
 
 
