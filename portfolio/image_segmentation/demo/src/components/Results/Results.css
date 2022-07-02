@@ -3,7 +3,7 @@
 }
 
 .Results-detected {
-  padding: 10px 30px;
+  padding: 0px 30px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -61,6 +61,11 @@
   border: 6px solid #fff;
   border-color: #fff transparent #fff transparent;
   animation: loader 1.2s linear infinite;
+}
+.Results-slider-range{
+  width: 100%;
+  padding: 0;
+  margin: 10px 0 0 0;
 }
 @keyframes loader {
   0% {

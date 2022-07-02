@@ -8,7 +8,7 @@ import Info from './components/Info/Info'
 import Results from './components/Results/Results';
 import Debug from './components/Debug/Debug';
 
-const pixel_count_thresh = 500
+const pixel_count_thresh = 1000
 const max_classes = 5
 
 const idx_to_category_name = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush', 'background']
@@ -40,8 +40,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/finetune_mobilnet_u_sep_1_tvl-gamma/model.json'
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/mobilnet_u_sep_1_tvl-gamma/model.json'// best so far
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_sep_1_fine/model.json' 
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_sep_1/model.json'
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_sep_1_fine/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_sep_2/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_net_1/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_jacard_1/model.json'
@@ -51,6 +53,7 @@ class App extends React.Component {
       model: undefined,
       loading: true,
       masks: undefined,
+      softmax_threshold: 0.99,
       classes: [],
       logs: [],
       paused: false,
@@ -87,16 +90,23 @@ class App extends React.Component {
     })
   }
 
+  updateSoftmaxThresh = (newThresh) => {
+    this.setState({softmax_threshold: newThresh})
+  }
+
   predict = async (tensor) => {
     if (this.state.model) {
       let [masks, classes] = tf.tidy(() => {
           tensor = tf.image.resizeNearestNeighbor(tensor, [224,224]).toFloat()
           tensor = tf.expandDims(tensor, 0)
-          const predictions = this.state.model.predict(tensor)
-          const sparse_classes = tf.argMax(tf.squeeze(predictions), 2)
+          const predictions = tf.squeeze(this.state.model.predict(tensor))
+          const sparse_classes = tf.argMax(predictions, 2).dataSync()
+          const class_probs = tf.max(predictions, 2).dataSync()
 
-          let classes = sparse_classes.dataSync().reduce((acc, idx) => {
-            acc[idx] += 1
+          let classes = sparse_classes.reduce((acc, filter_idx, i) => {
+            if (class_probs[i] > this.state.softmax_threshold) {
+              acc[filter_idx] += 1
+            }
             return acc
           }, (new Array(81)).fill(0))
 
@@ -107,9 +117,9 @@ class App extends React.Component {
                       .slice(0, max_classes)
                       .filter((x) => x.count > pixel_count_thresh)
 
-          let masks = sparse_classes.dataSync().reduce((acc, idx) => {
+          let masks = sparse_classes.reduce((acc, idx, j) => {
             const present = classes.reduce((acc, x, i) => (x.idx === idx) ? i : acc, false)
-            if (present !== false) {
+            if (present !== false && class_probs[j] > this.state.softmax_threshold) {
               // acc.push(...idx_to_color(present))
               acc.push(...idx_to_color(idx))
               return acc
@@ -134,7 +144,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Camera predict={this.predict} />
-        <Results state={this.state} />
+        <Results state={this.state} onSlideChange={this.updateSoftmaxThresh}/>
         <Info />
         <Debug debug={this.debug} logs={this.state.logs} paused={this.state.paused} />
       </div>

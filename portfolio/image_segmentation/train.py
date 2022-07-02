@@ -9,19 +9,22 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from keras import backend as K
-from keras.callbacks import Callback, ReduceLROnPlateau, TensorBoard, ModelCheckpoint
+from keras.callbacks import Callback, ReduceLROnPlateau, ModelCheckpoint
 from pycocotools.coco import COCO
-from architectures import u_net_x5
+from architectures import u_net
 from dataset.preprocess import cocoDataGenerator, CategoryMappingHelper, to_tf_dataset
 from dataset.augmentation import augment
+import wandb
+from wandb.keras import WandbCallback
 
 # 2 = Warn messages and below are not printed
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 os.chdir('/root')
 PROJECT_DIR = '../tf/notebooks/portfolio/image_segmentation'
+ABS_PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
 
-MODEL_NAME = 'u_sep_1'
+MODEL_NAME = 'mobilnet_u_sep_1_tversky_softmax'
 BATCH_SIZE = 4
 IMAGE_SIZE = (224,224)
 LR = 1e-3
@@ -48,11 +51,6 @@ train_augment = dict(featurewise_center = False, samplewise_center = False,
 train_aug_generator = augment(train_generator, train_augment)
 train_dataset = to_tf_dataset(train_aug_generator, BATCH_SIZE, IMAGE_SIZE, num_classes)
 
-
-
-tensorboard_callback = TensorBoard(
-                        log_dir=f'{PROJECT_DIR}/logs/{MODEL_NAME}')
-
 model_checkpoint_callback = ModelCheckpoint(
         filepath=f'{PROJECT_DIR}/models/{MODEL_NAME}.h5',
         monitor='val_loss',
@@ -62,10 +60,10 @@ model_checkpoint_callback = ModelCheckpoint(
 reduce_lr = ReduceLROnPlateau(
     monitor='val_loss',
     mode='min',
+    # min_delta=0.001,
     factor=0.1,   
     patience=10, 
     min_lr=0,)
-
 
 samples = [{'name': 'dog', 'extension': 'jpg', 'description': 'Dog', 'train_samples': []},
         {'name': 'frisbee', 'extension': 'jpg', 'description': 'Person with Frisbee', 'train_samples': []},
@@ -74,16 +72,30 @@ samples = [{'name': 'dog', 'extension': 'jpg', 'description': 'Dog', 'train_samp
         {'name': 'cat', 'extension': 'jpg', 'description': 'Cat with Computer', 'train_samples': []},
         {'name': 'ducks', 'extension': 'jpg', 'description': 'Ducks', 'train_samples': []},]
 
-def create_mask_plot(model, img_path, epoch):
-    img = np.asarray(Image.open(f'{PROJECT_DIR}/assets/{img_path}'))
-    X = np.array([cv2.resize(img, IMAGE_SIZE)])
+def create_sparse_masks(model, image):
+    X = np.array([cv2.resize(image, IMAGE_SIZE)])
     y = model.predict(X)
     y = np.squeeze(y)
-    out = np.apply_along_axis(np.argmax, 2, y)
-    cat_pixel_counts = np.bincount(out.flatten())
+    return np.argmax(y, axis=2)
+
+def log_masks_to_wandb(sparse_masks, image, description, class_labels=None):
+    image = np.array([cv2.resize(image, IMAGE_SIZE)])
+    mask_data = np.array(sparse_masks)
+    mask_img = wandb.Image(image, masks={
+        "predictions": {
+            "mask_data": mask_data,
+            "class_labels": catMapper.filter_idx_to_category_name if class_labels==None else class_labels,
+        },
+    })
+    wandb.log({description: mask_img})
+
+def create_mask_plot(epoch, sparse_masks, image):
+    X = np.array([cv2.resize(image, IMAGE_SIZE)])
+    cat_pixel_counts = np.bincount(sparse_masks.flatten())
     above_zero = np.count_nonzero(cat_pixel_counts > 0)
     top_n = above_zero if above_zero < 5 else 5
     most_freq_idxs = np.argpartition(cat_pixel_counts, -top_n)[-top_n:]
+    class_labels = {int(filter_idx): catMapper.get(filter_idx, 'filter_idx', 'category_name') for filter_idx in most_freq_idxs.astype(int)}
     most_freq_idxs = [*filter(lambda x: x != 80, most_freq_idxs.tolist())] # filter out the background class
     masks = np.zeros(IMAGE_SIZE)
     cmap = cm.viridis
@@ -91,12 +103,12 @@ def create_mask_plot(model, img_path, epoch):
     
     for i, filter_idx in enumerate(most_freq_idxs[::-1]):
         pixel_value = len(most_freq_idxs)-i
-        masks = np.maximum((out == filter_idx)*pixel_value, masks)
+        masks = np.maximum((sparse_masks == filter_idx)*pixel_value, masks)
         mycolor = cmap(pixel_value / (len(most_freq_idxs)))
         plt.plot(0, 0, "o", color=mycolor, label=f"{catMapper.get(filter_idx, 'filter_idx', 'category_name')}")
     plt.plot(0, 0, "o", color=cmap(0), label="background")
 
-    ax1.text(0., 1., f'{epoch}',
+    ax1.text(0., 1., f'{epoch}'.zfill(2),
         horizontalalignment='center',
         verticalalignment='center',
         transform=ax1.transAxes,
@@ -109,7 +121,7 @@ def create_mask_plot(model, img_path, epoch):
     plt.subplots_adjust(wspace=0, hspace=0)
     plt.legend(loc="upper right", bbox_to_anchor=(1.6, 1.))
     
-    return figure
+    return figure, class_labels
 
 def plot_to_img(figure):
   buf = io.BytesIO()
@@ -119,31 +131,25 @@ def plot_to_img(figure):
   image = tf.image.decode_png(buf.getvalue(), channels=4)
   return image
 
-def log_img_to_tensorboard(dir, epoch, img, img_description, model_name):
-    file_writer = tf.summary.create_file_writer(f'{dir}/logs/{model_name}/sample_images')
-    with file_writer.as_default():
-        tf.summary.image(f'{model_name}/{img_description}', tf.expand_dims(img, 0), step=epoch)
-
 def pickle_img_seq(dir, model_name, img_seq, name):
     with open(f'{dir}/train_samples/{model_name}_{name}.pkl', 'wb') as f:
-      pkl.dump(img_seq, f)
+        pkl.dump(img_seq, f)
 
 class CustomCallback(Callback):
     def __init__(self, model_name):
         self.model_name = model_name
         super().__init__()
     def on_epoch_end(self, epoch, logs=None):
-        gc.collect()
-
         for sample in samples:
-            mask_plot = create_mask_plot(self.model, f"{sample['name']}.{sample['extension']}", epoch)
+            image = np.asarray(Image.open(f'{PROJECT_DIR}/assets/{sample["name"]}.{sample["extension"]}'))
+            sparse_masks = create_sparse_masks(self.model, image)
+            mask_plot, class_labels = create_mask_plot(epoch, sparse_masks, image)
             img = plot_to_img(mask_plot)
+            wandb.log({sample['description']: wandb.Image(img)})
+            log_masks_to_wandb(sparse_masks, image, f"{sample['description']} Overlay", class_labels=class_labels)
             sample['train_samples'].append(img)
             pickle_img_seq(PROJECT_DIR, self.model_name, sample['train_samples'], sample['name'])
-            log_img_to_tensorboard(PROJECT_DIR, epoch, img, sample['description'], self.model_name)
-        
         gc.collect()
-
 
 def sensitivity(y_true, y_pred):
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
@@ -155,47 +161,77 @@ def specificity(y_true, y_pred):
     possible_negatives = K.sum(K.round(K.clip(1-y_true, 0, 1)))
     return true_negatives / (possible_negatives + K.epsilon())
 
-def tversky_loss(alpha=0.5, beta=0.5):
-    def loss(y_true, y_pred):
-        # alpha = 0.5 # dice
-        # beta  = 0.5
-
-        # alpha = 1. # jacard?
-        # beta  = 1.
-        
-        ones = tf.ones(K.shape(y_true))
-        p0 = y_pred      # prob that pixels are class i
-        p1 = ones-y_pred # prob that pixels are not class i
-        g0 = y_true
-        g1 = ones-y_true
-        
-        num = K.sum(p0*g0, (0,1,2))
-        den = num + alpha*K.sum(p0*g1,(0,1,2)) + beta*K.sum(p1*g0,(0,1,2))
-        
-        T = K.sum(num/den) # when summing over classes, T has dynamic range [0 Ncl]
-        
-        Ncl = K.cast(K.shape(y_true)[-1], 'float32')
-        return Ncl-T
+def tversky_index(y_true, y_pred, alpha=0.7):
+    ones = tf.ones(K.shape(y_true))
+    p0 = y_pred      # prob that pixels are class i
+    p1 = ones-y_pred # prob that pixels are not class i
+    g0 = y_true
+    g1 = ones-y_true
     
+    num = K.sum(p0*g0, (0,1,2))
+    den = num + alpha*K.sum(p0*g1,(0,1,2)) + (1-alpha)*K.sum(p1*g0,(0,1,2))
+    
+    T = K.sum(num/den) # when summing over classes, T has dynamic range 0-Ncl
+    Ncl = K.cast(K.shape(y_true)[-1], 'float32')
+    return T/Ncl
+
+def focal_tversky_loss(alpha=0.7, gamma=0.75):
+    def loss(y_true, y_pred):
+        tvi = tversky_index(y_true, y_pred, alpha=alpha)
+        return K.pow((1 - tvi), gamma)
     return loss
 
+# def class_tversky(y_true, y_pred, alpha, smooth):
+#     true_pos = tf.reduce_sum(y_true * y_pred, axis=(0, 1, 2))
+#     false_neg = tf.reduce_sum(y_true * (1-y_pred), axis=(0, 1, 2))
+#     false_pos = tf.reduce_sum((1-y_true) * y_pred, axis=(0, 1, 2))
+
+#     T = (true_pos + smooth)/(true_pos + alpha*false_neg + (1-alpha)*false_pos + smooth)
+#     Ncl = K.cast(K.shape(y_true)[-1], 'float32') 
+#     return T/Ncl 
+
+# def focal_tversky_loss(alpha=0.7, gamma=0.75, smooth=1):
+#     def loss(y_true, y_pred):
+#         tv = class_tversky(y_true, y_pred, alpha, smooth)
+#         return tf.reduce_sum((1-tv)**gamma)
+#     return loss
 
 
 if __name__ == "__main__":
 
-    model = u_net_x5.define_sep_unet(input_shape=IMAGE_SIZE, conv_per_block=1, num_classes=num_classes)
-    # model = u_net_x5.define_unet(input_shape=IMAGE_SIZE, conv_per_block=2, num_classes=num_classes)
+    conv_per_block = 1
+    epochs = 100
+    steps_per_epoch = 100
+    validation_steps = 10
+    alpha = 0.7
+    gamma = 0.75
+    final_activation = 'softmax'
+
+    wandb.init(project="image-segmentation", dir=ABS_PROJECT_DIR, name=MODEL_NAME, config={
+        'conv_per_block': conv_per_block,
+        "epochs": epochs,
+        "steps_per_epoch": steps_per_epoch,
+        "validation_steps": validation_steps,
+        "batch_size": BATCH_SIZE,
+        "lr": LR,
+        "alpha": alpha,
+        "gamma": gamma,
+        "num_classes": num_classes,
+        "final_activation": final_activation,
+    })
+
+    model = u_net.define_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
+    # model = u_net.define_vgg_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes)
 
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=LR),
-                    loss=tversky_loss(),
-                    metrics=['accuracy', sensitivity, specificity],
-                    )
+                    loss=focal_tversky_loss(alpha=alpha, gamma=gamma),
+                    metrics=['accuracy', sensitivity, specificity])
 
-    model_history = model.fit(train_dataset, epochs=100,
-                            steps_per_epoch=100,
-                            validation_steps=10,
+    model_history = model.fit(train_dataset, epochs=epochs,
+                            steps_per_epoch=steps_per_epoch,
+                            validation_steps=validation_steps,
                             validation_data=val_dataset,
                             callbacks=[reduce_lr,
-                                tensorboard_callback,
                                 model_checkpoint_callback,
+                                WandbCallback(save_model=False),
                                 CustomCallback(MODEL_NAME)])

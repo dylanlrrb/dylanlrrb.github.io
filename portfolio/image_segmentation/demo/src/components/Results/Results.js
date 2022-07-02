@@ -1,5 +1,4 @@
 import React from "react";
-import * as tf from "@tensorflow/tfjs"
 import './Results.css'
 
 class Results extends React.Component {
@@ -46,10 +45,20 @@ class Results extends React.Component {
     }
   }
 
+  onSlideChange = (e) => {
+    console.log(Math.log10(parseFloat(e.target.value)))
+    this.props.onSlideChange(Math.log10(parseFloat(e.target.value)))
+  }
+  // value={Math.pow(10, this.props.state.softmax_threshold)}
+
   render() {
     return (
     <div className='Results'>
       <canvas className="Results-masks-container" height={224} width={224}></canvas>
+      <div className="Results-slider">
+      <div className="Results-slider-value">Softmax threshold for pixel classification: {this.props.state.softmax_threshold.toFixed(2)}</div>
+      <input className="Results-slider-range" type="range" min="7" max="10" step="0.001" onChange={this.onSlideChange} value={Math.pow(10, this.props.state.softmax_threshold)} />
+      </div>
       <div className="Results-detected">
         {this.renderText()}
       </div>

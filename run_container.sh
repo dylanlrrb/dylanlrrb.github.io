@@ -9,6 +9,7 @@ docker run --name portfolio \
   -v ~/.cache/keras:/root/.keras \
   -v ~/.ngrok2:/root/.ngrok2 \
   -v ~/.aws:/root/.aws \
+  --env-file ~/.docker-env \
   --gpus all -it -d \
   --name portfolio \
   --rm gpu-image

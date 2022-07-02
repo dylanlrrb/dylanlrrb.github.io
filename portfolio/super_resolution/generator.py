@@ -5,6 +5,8 @@ from keras.models import Model
 from keras.models import Input
 from keras.layers import Rescaling
 from keras.layers import SeparableConv2D
+from keras.layers import Conv2D
+from keras.layers import Conv2DTranspose
 from keras.layers import UpSampling2D
 from keras.layers import LeakyReLU
 from keras.layers import Activation
@@ -14,60 +16,73 @@ from keras.layers import BatchNormalization
 from keras.layers import MaxPool2D
 
 
-def define_encoder_block(layer_in, n_filters, batchnorm=True, maxpool=True, conv_per_block=1):
-  for i in range(conv_per_block):
-    g = SeparableConv2D(n_filters, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal', activation=LeakyReLU(alpha=0.2), use_bias=(not batchnorm))(layer_in)
-    if batchnorm:
-      g = BatchNormalization()(g)
-  if maxpool:
-    g = MaxPool2D(padding='same')(g)
-  g = LeakyReLU(alpha=0.2)(g)
-  return g
- 
-
-def decoder_block(layer_in, skip_in, n_filters, upsample=True, dropout=True, conv_per_block=1):
-  
+def encoder_block(layer_in, n_filters, conv_per_block=1):
   g = layer_in
-  if upsample:
-    g = UpSampling2D()(g)
-  for i in range(conv_per_block):
-    g = SeparableConv2D(n_filters, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal', activation='relu', use_bias=False)(g)
+  g = Conv2D(n_filters, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal', activation=LeakyReLU(alpha=0.2))(g)
+  for _ in range(conv_per_block):
     g = BatchNormalization()(g)
-    if dropout:
-      g = Dropout(0.5)(g)
+    g = Conv2D(n_filters, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal', activation=LeakyReLU(alpha=0.2))(g)
+  return g
+
+def decoder_block(layer_in, skip_in, n_filters, conv_per_block=1):
+  g = layer_in
+  g = UpSampling2D()(g)
   g = Concatenate()([g, skip_in])
-  g = Activation('relu')(g)
+  for _ in range(conv_per_block):
+    g = BatchNormalization()(g)
+    g = Conv2D(n_filters, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal', activation='relu')(g)
   return g
 
 
 # define the standalone generator model
-def define_generator(image_shape=(256,256,3)):
+def define_generator(image_shape=(224,224,3), conv_per_block=3):
   in_image = Input(shape=image_shape)
-  scaled_in_image = Rescaling(1./255)(in_image)
-  e1 = define_encoder_block(scaled_in_image, 64, conv_per_block=3, batchnorm=False)
-  e2 = define_encoder_block(e1, 128, conv_per_block=3)
-  e3 = define_encoder_block(e2, 256, conv_per_block=3)
-  e4 = define_encoder_block(e3, 512, conv_per_block=3)
-  e5 = define_encoder_block(e4, 512, conv_per_block=3)
-  e6 = define_encoder_block(e5, 512, conv_per_block=3)
-  e7 = define_encoder_block(e6, 512, conv_per_block=3)
-  b = SeparableConv2D(512, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal', activation='relu')(e7)
-  d1 = decoder_block(b, e7, 512, conv_per_block=3)
-  d2 = decoder_block(d1, e6, 512, conv_per_block=3)
-  d3 = decoder_block(d2, e5, 512, conv_per_block=3)
-  d4 = decoder_block(d3, e4, 512, conv_per_block=3, dropout=False)
-  d5 = decoder_block(d4, e3, 256, conv_per_block=3, dropout=False)
-  d6 = decoder_block(d5, e2, 128, conv_per_block=3, dropout=False)
-  d7 = decoder_block(d6, e1, 64, conv_per_block=3, dropout=False)
-  g = UpSampling2D()(d7)
-  g = SeparableConv2D(32, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
-  g = SeparableConv2D(32, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
-  g = SeparableConv2D(3, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
+  scaled_in_image = Rescaling(1./255)(in_image) # 224 x 224 x 3
+  e1 = encoder_block(scaled_in_image, 32, conv_per_block=conv_per_block) # 112 x 112 x 32
+  e2 = encoder_block(e1, 64, conv_per_block=conv_per_block) # 56 x 56 x 64
+  e3 = encoder_block(e2, 128, conv_per_block=conv_per_block) # 28 x 28 x 128
+  e4 = encoder_block(e3, 256, conv_per_block=conv_per_block) # 14 x 14 x 256
+  b = BatchNormalization()(e4)
+  b = Conv2D(512, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal', activation='relu')(b) # 7 x 7 x 512
+  d1 = decoder_block(b, e4, 256, conv_per_block=conv_per_block)
+  d2 = decoder_block(d1, e3, 256, conv_per_block=conv_per_block)
+  d3 = decoder_block(d2, e2, 128, conv_per_block=conv_per_block)
+  d4 = decoder_block(d3, e1, 64, conv_per_block=conv_per_block)
+  g = UpSampling2D()(d4)
+  g = Conv2D(32, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
+  g = Conv2D(3, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
   out_image = Activation('tanh')(g)
   model = Model(in_image, out_image)
   return model
 
 
+def define_vgg16_generator(input_shape=(224,224,3), conv_per_block=3):
+  base_model = tf.keras.applications.VGG16(input_shape=input_shape, include_top=False, weights='imagenet')
+  layer_names = [
+      'block1_pool',
+      'block2_pool',
+      'block3_pool',
+      'block4_pool',
+      'block5_pool',
+    ]
+  base_model_outputs = [base_model.get_layer(name).output for name in layer_names]
+  down_stack = tf.keras.Model(inputs=base_model.input, outputs=base_model_outputs)
+  down_stack.trainable = False
+
+  in_image = Input(shape=input_shape)
+  scaled_in_image = Rescaling(1./255)(in_image)
+  e1, e2, e3, e4, e5 = down_stack(scaled_in_image)
+  b = Conv2D(512, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal', activation='relu')(e5)
+  d1 = decoder_block(b, e4, 512, conv_per_block=conv_per_block)
+  d2 = decoder_block(d1, e3, 256, conv_per_block=conv_per_block)
+  d3 = decoder_block(d2, e2, 128, conv_per_block=conv_per_block)
+  d4 = decoder_block(d3, e1, 64, conv_per_block=conv_per_block)
+  g = UpSampling2D()(d4)
+  g = Conv2D(32, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
+  g = Conv2D(3, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
+  out_image = Activation('tanh')(g)
+  model = Model(in_image, out_image)
+  return model
 
 
 def upsample_sep_block(layer_in, skip_in, n_filters, dropout=False, conv_per_block=1):
@@ -81,14 +96,14 @@ def upsample_sep_block(layer_in, skip_in, n_filters, dropout=False, conv_per_blo
     g = Dropout(0.5)(g)
   return g
 
-def define_mobilenet_generator(input_shape=(128,128,3), conv_per_block=5):
-  base_model = tf.keras.applications.MobileNetV2(input_shape=input_shape, include_top=False)
+def define_mobilenet_generator(input_shape=(224,224,3), conv_per_block=5):
+  base_model = tf.keras.applications.MobileNetV2(input_shape=input_shape, include_top=False, weights='imagenet')
   layer_names = [
-      'block_1_expand_relu',   # 64x64
-      'block_3_expand_relu',   # 32x32
-      'block_6_expand_relu',   # 16x16
-      'block_13_expand_relu',  # 8x8
-      'block_16_project',      # 4x4
+      'block_1_expand_relu',
+      'block_3_expand_relu',
+      'block_6_expand_relu',
+      'block_13_expand_relu',
+      'block_16_project',
   ]
   base_model_outputs = [base_model.get_layer(name).output for name in layer_names]
   down_stack = tf.keras.Model(inputs=base_model.input, outputs=base_model_outputs)

@@ -15,26 +15,26 @@ def define_discriminator(image_shape):
 	in_target_image = Input(shape=image_shape)
 	# concatenate images channel-wise
 	merged = Concatenate()([in_src_image, in_target_image])
-	# C64
+
 	d = Conv2D(64, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal')(merged)
 	d = LeakyReLU(alpha=0.2)(d)
 	d = Conv2D(64, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(d)
 	d = LeakyReLU(alpha=0.2)(d)
-	# C128
+
 	d = Conv2D(128, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal')(d)
 	d = BatchNormalization()(d)
 	d = LeakyReLU(alpha=0.2)(d)
 	d = Conv2D(128, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(d)
 	d = BatchNormalization()(d)
 	d = LeakyReLU(alpha=0.2)(d)
-	# C256
+
 	d = Conv2D(256, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal')(d)
 	d = BatchNormalization()(d)
 	d = LeakyReLU(alpha=0.2)(d)
 	d = Conv2D(256, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(d)
 	d = BatchNormalization()(d)
 	d = LeakyReLU(alpha=0.2)(d)
-	# C512
+
 	d = Conv2D(512, (4,4), strides=(2,2), padding='same', kernel_initializer='random_normal')(d)
 	d = BatchNormalization()(d)
 	d = LeakyReLU(alpha=0.2)(d)

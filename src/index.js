@@ -24,10 +24,11 @@ demo_ordered_list = [
   "mnist_nn",
   "docker_tutorial",
   "cat_dog_classifier",
-  "segmentation_and_detection",
   "conv_visualizer",
   "super_resolution",
   "image_segmentation",
+  "yolo",
+  "mask_r_cnn",
   // View feature maps in a real time web app
   // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
   // style transfter pt 3, arbitrary style transfer in browser (DEMO) 

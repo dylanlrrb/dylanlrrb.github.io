@@ -8,7 +8,7 @@ class CategoryMappingHelper():
     self.catIds = coco_annotations.getCatIds()
     self.categories = [*coco_annotations.loadCats(self.catIds), {'id': 0, 'name': 'background'}]
     self.filter_idx_to_category_id = [cat['id'] for cat in self.categories]
-    self.filter_idx_to_category_name = [cat['name'] for cat in self.categories]
+    self.filter_idx_to_category_name = {idx: cat['name'] for idx, cat in enumerate(self.categories)}
     self.categry_id_to_category_name = {cat['id']: cat['name'] for cat in self.categories}
     self.category_id_to_filter_idx = {id: idx for idx, id in enumerate(self.filter_idx_to_category_id)}
     self.category_name_to_filter_idx = {name: idx for idx, name in enumerate(self.filter_idx_to_category_name)}

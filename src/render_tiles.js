@@ -101,7 +101,7 @@ const TAGS = {
   DEEP_LEARNING: "DEEP_LEARNING",
   DEPLOYMENT: "DEPLOYMENT",
   RECURRENCE: "RECURRENCE",
-  REINFORCEMENT_LEARNING: "REINFORCEMENT_LEARNING",
+  SIGNAL_PROCESSING: "SIGNAL_PROCESSING",
   NATURAL_LANGUAGE_PROCESSING: "NATURAL_LANGUAGE_PROCESSING",
   
 }
@@ -146,7 +146,7 @@ window.projects = {
   cat_dog_classifier: renderProject({
     projectId: 'cat_dog_classifier',
     tileImage: './portfolio/cat_dog_classifier/assets/portfolio_tile.png',
-    tileTitle: 'Classifying Cat Vs. Dog Images with a MobileNet',
+    tileTitle: 'Classifying Cat Vs. Dog Breeds with a MobileNet',
     markdownUrl: './portfolio/cat_dog_classifier/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/cat_dog_classifier/notebook.ipynb" target="_blank">
@@ -172,7 +172,7 @@ window.projects = {
   conv_visualizer: renderProject({
     projectId: 'conv_visualizer',
     tileImage: './portfolio/conv_visualizer/assets/portfolio_tile.png',
-    tileTitle: 'Convolution Visualizer',
+    tileTitle: 'Visualizing Convolutional Layers of a Trained CNN',
     markdownUrl: './portfolio/conv_visualizer/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/conv_visualizer/notebook.ipynb" target="_blank">
@@ -246,7 +246,7 @@ window.projects = {
   image_segmentation: renderProject({
     projectId: 'image_segmentation',
     tileImage: './portfolio/image_segmentation/assets/portfolio_tile.png',
-    tileTitle: 'Image Segmentation with U-Net',
+    tileTitle: 'Image Segmentation with U-Nets and COCO Dataset',
     markdownUrl: './portfolio/image_segmentation/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/image_segmentation/notebook.ipynb" target="_blank">
@@ -272,7 +272,7 @@ window.projects = {
   super_resolution: renderProject({
     projectId: 'super_resolution',
     tileImage: './portfolio/super_resolution/assets/portfolio_tile.png',
-    tileTitle: 'Super Resolution',
+    tileTitle: 'Super Resolving Images with GANs',
     markdownUrl: './portfolio/super_resolution/README.md',
     controls: [
       `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/super_resolution/notebook.ipynb" target="_blank">
@@ -316,13 +316,13 @@ window.demos = {
   cat_dog_classifier: renderDemo({
     demoLink: './portfolio/cat_dog_classifier/demo/build/index.html',
     demoImage: './portfolio/cat_dog_classifier/assets/demo_tile.png',
-    demoDescription: 'Edge Image Classification on Mobile Browsers',
+    demoDescription: 'Edge Pet and Breed Classification on Mobile Browsers',
   }),
 
   conv_visualizer: renderDemo({
     demoLink: './portfolio/conv_visualizer/demo/build/index.html',
     demoImage: './portfolio/conv_visualizer/assets/demo_tile.png',
-    demoDescription: 'Convolution Visualizer',
+    demoDescription: 'Visualize Convolutional Layers as it Extracts Features from an Image',
   }),
 
   docker_tutorial: renderDemo({
@@ -337,21 +337,27 @@ window.demos = {
     demoDescription: 'MNIST Demo: See what a Neural Network is thinkning as it guesses what number you\'re drawing',
   }),
 
-  segmentation_and_detection: renderDemo({
-    demoLink: "./portfolio/segmentation_and_detection/demo/build/index.html",
-    demoImage: './portfolio/segmentation_and_detection/assets/demo_tile.png',
+  mask_r_cnn: renderDemo({
+    demoLink: "./portfolio/mask_r_cnn/demo/build/index.html",
+    demoImage: './portfolio/mask_r_cnn/assets/demo_tile.png',
     demoDescription: 'Object Detection with Segmentation',
   }),
 
   super_resolution: renderDemo({
     demoLink: './portfolio/super_resolution/demo/build/index.html',
     demoImage: './portfolio/super_resolution/assets/demo_tile.png',
-    demoDescription: 'Super Resolution',
+    demoDescription: 'Super Resolving Images with a Generative Adversarial Network',
   }),
 
   image_segmentation: renderDemo({
     demoLink: './portfolio/image_segmentation/demo/build/index.html',
     demoImage: './portfolio/image_segmentation/assets/demo_tile.png',
-    demoDescription: 'Image Segmentation with U-Net',
+    demoDescription: 'Image Segmentation Common Object in Contect (COCO) with U-Nets',
+  }),
+
+  yolo: renderDemo({
+    demoLink: "./portfolio/yolo/demo/build/index.html",
+    demoImage: './portfolio/yolo/assets/demo_tile.png',
+    demoDescription: 'YOLO Object Detection',
   }),
 }

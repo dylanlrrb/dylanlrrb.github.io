@@ -29,7 +29,7 @@ def PerceptualLoss(prcpt_weight=0.1, gram_weight=0.01, model="vgg", layer_maps=N
     layer_maps = ['block_2_project_BN', 'block_4_project_BN', 'block_8_project_BN', 'block_12_project_BN', 'block_16_project_BN']
 
   if layer_maps is None and model == "vgg":
-    layer_maps = ['block1_conv1', 'block2_conv1', 'block3_conv1', 'block4_conv1', 'block5_conv1']
+    layer_maps = ['block1_pool', 'block2_pool', 'block3_pool', 'block4_pool', 'block5_pool']
 
   loss_models = [tf.keras.Model(feature_extractor.inputs, feature_extractor.get_layer(m).output) for m in layer_maps]
 
