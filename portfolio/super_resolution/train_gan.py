@@ -154,8 +154,8 @@ def generate_discriminator_patches(samples_in_batch, patch_shape):
   return discriminator_real, discriminator_fake
 
 # Training
-model_name = 'mobilenet_4x'
-epochs = 30
+model_name = 'mobile_unet'
+epochs = 50
 batches_per_epoch = 500
 iterations = epochs * batches_per_epoch
 log_per_n_iterations = 100

@@ -208,7 +208,7 @@ window.projects = {
 
   lstm_scripts: renderProject({
     projectId: 'lstm_scripts',
-    tileImage: './portfolio/lstm_scripts/assets/portfolio_tile.gif',
+    tileImage: './portfolio/lstm_scripts/assets/portfolio_tile.png',
     tileTitle: 'Generating  Parks and Rec Episode Scripts with LSTM Recurrent Neural Networks',
     markdownUrl: './portfolio/lstm_scripts/README.md',
     controls: [

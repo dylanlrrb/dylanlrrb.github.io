@@ -31,7 +31,12 @@ class App extends React.Component {
 
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in224_4Xzoom_plossX0-1_monilenet_backbone_conv5_lr_2e-4_iteration_17499/model.json' // best looking so far
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/4xzoom_mobilenet/model.json'
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/4xzoom_mobilenet-mse-test/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/4xzoom_mobilenet-mse-test/model.json'
+
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_BEST-MSE/model.json'
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_BEST-P/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_FINAL/model.json'
+    
 
     this.state = {
       loading: true,

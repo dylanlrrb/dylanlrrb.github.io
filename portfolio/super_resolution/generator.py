@@ -52,8 +52,7 @@ def define_generator(image_shape=(224,224,3), conv_per_block=3):
   g = Conv2D(32, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
   g = Conv2D(3, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
   out_image = Activation('tanh')(g)
-  model = Model(in_image, out_image)
-  return model
+  return Model(in_image, out_image)
 
 
 def define_vgg16_generator(input_shape=(224,224,3), conv_per_block=3):
@@ -81,8 +80,7 @@ def define_vgg16_generator(input_shape=(224,224,3), conv_per_block=3):
   g = Conv2D(32, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
   g = Conv2D(3, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal')(g)
   out_image = Activation('tanh')(g)
-  model = Model(in_image, out_image)
-  return model
+  return Model(in_image, out_image)
 
 
 def upsample_sep_block(layer_in, skip_in, n_filters, dropout=False, conv_per_block=1):
@@ -121,6 +119,5 @@ def define_mobilenet_generator(input_shape=(224,224,3), conv_per_block=5):
   g = SeparableConv2D(32, (4,4), strides=(1,1), padding='same')(g)
   g = SeparableConv2D(3, (4,4), strides=(1,1), padding='same')(g)
   out_image = Activation('tanh')(g)
-  model = Model(in_image, out_image)
-  return model
+  return Model(in_image, out_image)
  
