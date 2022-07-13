@@ -1,4 +1,12 @@
-program: python train.py -p foo/foo -d bar/bar
+program: train.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--project_dir"
+  - "foo/foo"
+  - "--dataset_dir"
+  - "bar/bar"
 method: grid
 metric:
   goal: minimize
@@ -13,4 +21,4 @@ parameters:
   learning_rate:
     values: [0.001, 0.005]
   epochs:
-    value: 27
+    value: 10
