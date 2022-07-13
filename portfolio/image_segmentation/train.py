@@ -20,17 +20,17 @@ from wandb.keras import WandbCallback
 # 2 = Warn messages and below are not printed
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-os.chdir('/root')
-PROJECT_DIR = '../tf/notebooks/portfolio/image_segmentation'
-ABS_PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
+os.chdir('/')
+PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
+DATASET_DIR = 'root/datasets/coco2017'
 
-MODEL_NAME = 'mobilnet_u_sep_1_tversky_softmax'
+MODEL_NAME = 'dir_test'
 BATCH_SIZE = 4
 IMAGE_SIZE = (224,224)
 LR = 1e-3
 
-train_annotations = COCO('datasets/coco2017/annotations/instances_train2017.json')
-val_annotations = COCO('datasets/coco2017/annotations/instances_val2017.json')
+train_annotations = COCO(f'{DATASET_DIR}/annotations/instances_train2017.json')
+val_annotations = COCO(f'{DATASET_DIR}/annotations/instances_val2017.json')
 
 catIDs = train_annotations.getCatIds()
 cats = train_annotations.loadCats(catIDs)
@@ -38,10 +38,10 @@ num_classes = len(cats) + 1 # add one for the background class
 
 catMapper = CategoryMappingHelper(train_annotations)
 
-val_generator = cocoDataGenerator(val_annotations, 'datasets/coco2017/images/val2017', catMapper, input_size=IMAGE_SIZE, output_size=IMAGE_SIZE, batch_size=BATCH_SIZE, shuffle=True)
+val_generator = cocoDataGenerator(val_annotations, f'{DATASET_DIR}/images/val2017', catMapper, input_size=IMAGE_SIZE, output_size=IMAGE_SIZE, batch_size=BATCH_SIZE, shuffle=True)
 val_dataset = to_tf_dataset(val_generator, BATCH_SIZE, IMAGE_SIZE, num_classes)
 
-train_generator = cocoDataGenerator(train_annotations, 'datasets/coco2017/images/train2017', catMapper, input_size=IMAGE_SIZE, output_size=IMAGE_SIZE, batch_size=BATCH_SIZE, shuffle=True, train=True)
+train_generator = cocoDataGenerator(train_annotations, f'{DATASET_DIR}/images/train2017', catMapper, input_size=IMAGE_SIZE, output_size=IMAGE_SIZE, batch_size=BATCH_SIZE, shuffle=True, train=True)
 train_augment = dict(featurewise_center = False, samplewise_center = False,
                 rotation_range = 10, width_shift_range = 0.01,
                 height_shift_range = 0.01, brightness_range = (0.8,1.2),
@@ -207,7 +207,7 @@ if __name__ == "__main__":
     gamma = 0.75
     final_activation = 'softmax'
 
-    wandb.init(project="image-segmentation", dir=ABS_PROJECT_DIR, name=MODEL_NAME, config={
+    wandb.init(project="image-segmentation", dir=PROJECT_DIR, name=MODEL_NAME, config={
         'conv_per_block': conv_per_block,
         "epochs": epochs,
         "steps_per_epoch": steps_per_epoch,
