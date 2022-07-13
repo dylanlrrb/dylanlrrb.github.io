@@ -1,6 +1,7 @@
 import argparse
 import wandb
 import random
+import os
 
 
 hyperparameter_defaults = dict(
@@ -14,13 +15,14 @@ hyperparameter_defaults = dict(
 
 
 def main(project_dir, dataset_dir):
-  wandb.init(config=hyperparameter_defaults, project="facial_keypoints_sweep", dir=PROJECT_DIR)
+  os.chdir('/')
+  wandb.init(config=hyperparameter_defaults, project="facial_keypoints", dir=project_dir)
   config = wandb.config
-
-  print(config)
+  print('config', config)
 
   wandb.log({'loss': random.randint(0,9)})
-  print(project_dir, dataset_dir)
+  print('project_dir files', os.listdir(project_dir))
+  print('dataset_dir files', os.listdir(dataset_dir))
 
 
 if __name__ == '__main__':
@@ -42,8 +44,5 @@ if __name__ == '__main__':
 
   PROJECT_DIR = args.project_dir if args.project_dir != None else 'tf/notebooks/portfolio/facial_keypoints'
   DATASET_DIR = args.dataset_dir if args.dataset_dir != None else 'tf/notebooks/portfolio/facial_keypoints/data'
-
-  # PROJECT_DIR = 'tf/notebooks/portfolio/facial_keypoints'
-  # DATASET_DIR = 'tf/notebooks/portfolio/facial_keypoints/data'
 
   main(PROJECT_DIR, DATASET_DIR)

@@ -4,9 +4,9 @@ command:
   - ${interpreter}
   - ${program}
   - "--project_dir"
-  - "foo/foo"
+  - "content/drive/MyDrive/dylanlrrb.github.io/portfolio/facial_keypoints"
   - "--dataset_dir"
-  - "bar/bar"
+  - "content/drive/MyDrive/datasets/facial_keypoints"
 method: grid
 metric:
   goal: minimize
