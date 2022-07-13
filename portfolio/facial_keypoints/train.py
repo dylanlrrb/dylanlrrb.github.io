@@ -18,11 +18,11 @@ hyperparameter_defaults = dict(
 
 
 def main(project_dir, dataset_dir):
-  # wandb.init(config=hyperparameter_defaults, project="facial_keypoints_sweep", dir=PROJECT_DIR)
-  # config = wandb.config
+  wandb.init(config=hyperparameter_defaults, project="facial_keypoints_sweep", dir=PROJECT_DIR)
+  config = wandb.config
 
 
-  # wandb.log({'loss': random.randint(0,9)})
+  wandb.log({'loss': random.randint(0,9)})
   print(project_dir, dataset_dir)
 
 
