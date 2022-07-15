@@ -37,7 +37,6 @@ hyperparameter_defaults = dict(
 
 
 def main(project_dir, dataset_dir, sweep):
-  os.chdir('/')
   wandb.init(config=hyperparameter_defaults, project="facial_keypoints", dir=project_dir)
   config = wandb.config
   print('configs for this sweep:', config)
@@ -99,6 +98,8 @@ if __name__ == '__main__':
                         help='flag if running as a sweep')
 
   args = my_parser.parse_args()
+
+  os.chdir('/')
 
   IN_COLAB = os.path.isdir("content/drive/MyDrive")
   print('In Colab:', IN_COLAB)
