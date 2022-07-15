@@ -109,7 +109,7 @@ if __name__ == '__main__':
   print('In Colab:', IN_COLAB)
 
   PROJECT_DIR = "content/drive/MyDrive/dylanlrrb.github.io/portfolio/facial_keypoints" if IN_COLAB else 'tf/notebooks/portfolio/facial_keypoints'
-  DATASET_DIR = "content/drive/MyDrive/datasets/facial_keypoints" if IN_COLAB else 'tf/notebooks/portfolio/facial_keypoints/data'
+  DATASET_DIR = "content/facial_keypoints" if IN_COLAB else 'tf/notebooks/portfolio/facial_keypoints/data'
   SWEEP = args.sweep
 
   main(PROJECT_DIR, DATASET_DIR, SWEEP)
