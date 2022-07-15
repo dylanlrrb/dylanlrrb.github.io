@@ -99,6 +99,10 @@ if __name__ == '__main__':
 
   args = my_parser.parse_args()
 
+  print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+  for gpu in tf.config.list_physical_devices('GPU'):
+    print(gpu)
+
   os.chdir('/')
 
   IN_COLAB = os.path.isdir("content/drive/MyDrive")
