@@ -46,15 +46,3 @@ parameters:
     values: ["glorot_uniform", "he_uniform", "random_uniform"]
   pointwise_initializer:
     values: ["glorot_uniform", "he_uniform", "random_uniform"]
-
-parameters:
-  dropout:
-    values: [0.1, 0.2]
-  channels_one:
-    values: [10, 12]
-  channels_two:
-    values: [24, 28]
-  learning_rate:
-    values: [0.001, 0.005]
-  epochs:
-    value: 10
