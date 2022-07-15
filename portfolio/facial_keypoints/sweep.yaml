@@ -15,7 +15,7 @@ metric:
 
 parameters:
   epochs:
-    value: 10
+    value: 20
   loss:
     values: ['mse', 'mae']
   batch_size:
