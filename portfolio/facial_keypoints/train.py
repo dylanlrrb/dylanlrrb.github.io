@@ -93,16 +93,6 @@ def main(project_dir, dataset_dir, sweep):
 if __name__ == '__main__':
   my_parser = argparse.ArgumentParser(description='Training script for facial keypoint CNN')
 
-  my_parser.add_argument('--project_dir',
-                        '-p',
-                        type=str,
-                        required=False,
-                        help='path to the project relitive to /')
-  my_parser.add_argument('--dataset_dir',
-                        '-d',
-                        type=str,
-                        required=False,
-                        help='path to the dataset relitive to /')
   my_parser.add_argument('--sweep',
                         '-s',
                         action='store_true',
@@ -110,7 +100,9 @@ if __name__ == '__main__':
 
   args = my_parser.parse_args()
 
-  IN_COLAB = 'google.colab' in sys.modules
+  IN_COLAB = os.path.isdir("content/drive/MyDrive")
+  print('In Colab:', IN_COLAB)
+
   PROJECT_DIR = "content/drive/MyDrive/dylanlrrb.github.io/portfolio/facial_keypoints" if IN_COLAB else 'tf/notebooks/portfolio/facial_keypoints'
   DATASET_DIR = "content/drive/MyDrive/datasets/facial_keypoints" if IN_COLAB else 'tf/notebooks/portfolio/facial_keypoints/data'
   SWEEP = args.sweep
