@@ -37,7 +37,7 @@ parameters:
   kernal_size:
     values: [2, 3, 4]
   activation:
-    values: ["relu" "gelu", "sigmoid"]
+    values: ["relu", "gelu", "sigmoid"]
   batch_norm:
     values: [1, 0]
   dropout:
