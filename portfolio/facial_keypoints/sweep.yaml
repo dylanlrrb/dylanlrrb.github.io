@@ -3,14 +3,50 @@ command:
   - ${env}
   - ${interpreter}
   - ${program}
+  - "--sweep"
   - "--project_dir"
   - "content/drive/MyDrive/dylanlrrb.github.io/portfolio/facial_keypoints"
   - "--dataset_dir"
   - "content/drive/MyDrive/datasets/facial_keypoints"
-method: grid
+method: random
 metric:
   goal: minimize
   name: loss
+
+parameters:
+  epochs:
+    value: 10
+  loss:
+    values: ['mse', 'mae']
+  batch_size:
+    value: 64
+  steps_per_epoch:
+    value: 100
+  validation_steps:
+    value: 20
+  optimizer:
+    values: ["Adam", "SGD"]
+  learning_rate:
+    values: [5e-3, 1e-3, 5e-4, 1e-4]
+  blocks:
+    values: [1, 2, 3]
+  dense_layers:
+    values: [1, 2, 3]
+  conv_per_block:
+    values: [1, 2, 3]
+  kernal_size:
+    values: [2, 3, 4]
+  activation:
+    values: ["relu" "gelu", "sigmoid"]
+  batch_norm:
+    values: [1, 0]
+  dropout:
+    values: [0., 0.1, 0.5]
+  depthwise_initializer:
+    values: ["glorot_uniform", "he_uniform", "random_uniform"]
+  pointwise_initializer:
+    values: ["glorot_uniform", "he_uniform", "random_uniform"]
+
 parameters:
   dropout:
     values: [0.1, 0.2]
