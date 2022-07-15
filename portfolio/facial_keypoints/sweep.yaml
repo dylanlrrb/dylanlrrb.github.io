@@ -4,10 +4,6 @@ command:
   - ${interpreter}
   - ${program}
   - "--sweep"
-  - "--project_dir"
-  - "content/drive/MyDrive/dylanlrrb.github.io/portfolio/facial_keypoints"
-  - "--dataset_dir"
-  - "content/drive/MyDrive/datasets/facial_keypoints"
 method: random
 metric:
   goal: minimize
@@ -19,11 +15,11 @@ parameters:
   loss:
     values: ['mse', 'mae']
   batch_size:
-    value: 64
+    value: 32
   steps_per_epoch:
     value: 100
   validation_steps:
-    value: 20
+    value: 10
   optimizer:
     values: ["Adam", "SGD"]
   learning_rate:

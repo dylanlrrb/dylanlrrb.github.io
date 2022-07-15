@@ -6,6 +6,7 @@ from preprocess import dataGenerator, to_tf_dataset
 from callbacks import model_checkpoint_callback, CustomCallback, reduce_lr
 import tensorflow as tf
 from wandb.keras import WandbCallback
+import sys
 
 # 2 = Warn messages and below are not printed
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -109,8 +110,9 @@ if __name__ == '__main__':
 
   args = my_parser.parse_args()
 
-  PROJECT_DIR = args.project_dir if args.project_dir != None else 'tf/notebooks/portfolio/facial_keypoints'
-  DATASET_DIR = args.dataset_dir if args.dataset_dir != None else 'tf/notebooks/portfolio/facial_keypoints/data'
+  IN_COLAB = 'google.colab' in sys.modules
+  PROJECT_DIR = "content/drive/MyDrive/dylanlrrb.github.io/portfolio/facial_keypoints" if IN_COLAB else 'tf/notebooks/portfolio/facial_keypoints'
+  DATASET_DIR = "content/drive/MyDrive/datasets/facial_keypoints" if IN_COLAB else 'tf/notebooks/portfolio/facial_keypoints/data'
   SWEEP = args.sweep
 
   main(PROJECT_DIR, DATASET_DIR, SWEEP)
