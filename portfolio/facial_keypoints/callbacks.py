@@ -47,6 +47,12 @@ class CustomCallback(Callback):
       wandb.log({sample['description']: wandb.Image(img)})
     gc.collect()
 
+class GarbageCollection(Callback):
+  def __init__(self):
+    super().__init__()
+  def on_epoch_end(self, epoch, logs=None):
+    gc.collect()
+
 
 def create_plot(model, image, image_size, epoch):
   h, w = image.shape[:2]

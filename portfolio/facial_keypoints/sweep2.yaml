@@ -4,7 +4,7 @@ command:
   - ${interpreter}
   - ${program}
   - "--sweep"
-method: random
+method: grid
 metric:
   goal: minimize
   name: val_loss
@@ -13,7 +13,7 @@ parameters:
   epochs:
     value: 20
   loss:
-    values: ['mse', 'mae']
+    value: 'mse'
   batch_size:
     value: 32
   steps_per_epoch:
@@ -23,22 +23,22 @@ parameters:
   optimizer:
     values: ["Adam", "SGD"]
   learning_rate:
-    values: [5e-3, 1e-3, 5e-4, 1e-4]
+    values: [5e-3, 1e-3]
   blocks:
-    values: [1, 2, 3]
+    values: [1, 2]
   dense_layers:
-    values: [1, 2, 3]
+    value: 2
   conv_per_block:
-    values: [1, 2, 3]
+    values: [1, 2]
   kernal_size:
-    values: [2, 3, 4]
+    value: 4
   activation:
-    values: ["relu", "gelu", "sigmoid"]
+    values: ["relu", "sigmoid"]
   batch_norm:
     values: [1, 0]
   dropout:
-    values: [0., 0.1, 0.5]
+    value: 0.1
   depthwise_initializer:
-    values: ["glorot_uniform", "he_uniform", "random_uniform"]
+    value: "glorot_uniform"
   pointwise_initializer:
-    values: ["glorot_uniform", "he_uniform", "random_uniform"]
+    values: ["he_uniform", "random_uniform"]

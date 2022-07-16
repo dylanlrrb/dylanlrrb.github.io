@@ -3,7 +3,7 @@ import wandb
 import os
 from architectures import sep_conv_net
 from preprocess import dataGenerator, to_tf_dataset
-from callbacks import model_checkpoint_callback, CustomCallback, reduce_lr
+from callbacks import model_checkpoint_callback, CustomCallback, reduce_lr, GarbageCollection
 import tensorflow as tf
 from wandb.keras import WandbCallback
 import sys
@@ -17,22 +17,22 @@ IMAGE_SIZE = (256,256)
 OUTPUT_SIZE = 136
 
 hyperparameter_defaults = dict(
-    epochs = 20,
+    epochs = 100,
     loss = 'mse',
     batch_size = 32,
     steps_per_epoch = 100,
     validation_steps = 10,
-    optimizer = "Adam",
-    learning_rate = 1e-3,
-    blocks = 3,
-    dense_layers = 1,
+    optimizer = "SGD",
+    learning_rate = 5e-3,
+    blocks = 2,
+    dense_layers = 2,
     conv_per_block = 2,
-    kernal_size = 3,
+    kernal_size = 4,
     activation = 'relu',
     batch_norm = 1,
-    dropout = 0.5,
+    dropout = 0.1,
     depthwise_initializer = "glorot_uniform",
-    pointwise_initializer = "glorot_uniform",
+    pointwise_initializer = "random_uniform",
   )
 
 
@@ -85,7 +85,7 @@ def main(project_dir, dataset_dir, sweep):
             validation_data=test_dataset,
             callbacks=[ WandbCallback(save_model=False),
                         reduce_lr,
-                        *([model_checkpoint_callback(PROJECT_DIR, MODEL_NAME), CustomCallback(PROJECT_DIR, MODEL_NAME, IMAGE_SIZE)] if not sweep else [])
+                        *([model_checkpoint_callback(PROJECT_DIR, MODEL_NAME), CustomCallback(PROJECT_DIR, MODEL_NAME, IMAGE_SIZE)] if not sweep else [GarbageCollection()])
                       ])
 
 
