@@ -1,4 +1,5 @@
 import argparse
+from re import A
 import wandb
 import os
 from architectures import sep_conv_net
@@ -6,34 +7,49 @@ from preprocess import dataGenerator, to_tf_dataset
 from callbacks import model_checkpoint_callback, CustomCallback, reduce_lr, GarbageCollection
 import tensorflow as tf
 from wandb.keras import WandbCallback
-import sys
+import keras.backend as K
 
 # 2 = Warn messages and below are not printed
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
-MODEL_NAME = 'facial_keypoints'
+MODEL_NAME = 'facial_keypoints_last_conv'
 IMAGE_SIZE = (256,256)
 OUTPUT_SIZE = 136
 
 hyperparameter_defaults = dict(
-    epochs = 100,
-    loss = 'mse',
+    epochs = 50,
+    loss = 'custom',
     batch_size = 32,
     steps_per_epoch = 100,
     validation_steps = 10,
-    optimizer = "SGD",
-    learning_rate = 5e-3,
-    blocks = 2,
+    optimizer = "Adam",
+    learning_rate = 1e-4,
+    lr_decay_factor = 0.2,
+    lr_decay_patience = 30,
+    lr_decay_cooldown = 10,
+    blocks = 3,
     dense_layers = 2,
-    conv_per_block = 2,
-    kernal_size = 4,
+    conv_per_block = 1,
+    kernel_size = 4,
     activation = 'relu',
-    batch_norm = 1,
-    dropout = 0.1,
+    batch_norm = 0,
+    dropout = 0.5,
     depthwise_initializer = "glorot_uniform",
     pointwise_initializer = "random_uniform",
   )
+
+
+def custom_loss(y_true, y_pred):
+  # subtract true from pred
+  # square result
+  loss = K.square(y_pred - y_true)
+  # add adjacent values together
+  loss = K.reshape(loss, (-1, 68, 2))
+  loss = K.sum(loss, axis=-1)
+  # take the mean 
+  loss = K.mean(loss, axis=[1])
+  return loss
 
 
 def main(project_dir, dataset_dir, sweep):
@@ -67,14 +83,14 @@ def main(project_dir, dataset_dir, sweep):
                         blocks=config.blocks,
                         dense_layers=config.dense_layers,
                         conv_per_block=config.conv_per_block,
-                        kernal_size=config.kernal_size,
+                        kernel_size=config.kernel_size,
                         activation=config.activation,
                         batch_norm=bool(config.batch_norm),
                         dropout=config.dropout,
                         depthwise_initializer=config.depthwise_initializer,
                         pointwise_initializer=config.pointwise_initializer)
 
-  model.compile(loss=config.loss,
+  model.compile(loss=(custom_loss if config.loss == 'custom' else config.loss),
                 optimizer=getattr(tf.keras.optimizers, config.optimizer)(learning_rate=config.learning_rate))
 
   # model.summary()
@@ -84,7 +100,7 @@ def main(project_dir, dataset_dir, sweep):
             validation_steps=config.validation_steps,
             validation_data=test_dataset,
             callbacks=[ WandbCallback(save_model=False),
-                        reduce_lr,
+                        reduce_lr(config.lr_decay_factor, config.lr_decay_patience, config.lr_decay_cooldown),
                         *([model_checkpoint_callback(PROJECT_DIR, MODEL_NAME), CustomCallback(PROJECT_DIR, MODEL_NAME, IMAGE_SIZE)] if not sweep else [GarbageCollection()])
                       ])
 

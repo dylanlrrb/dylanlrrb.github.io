@@ -24,13 +24,19 @@ parameters:
     values: ["Adam", "SGD"]
   learning_rate:
     values: [5e-3, 1e-3, 5e-4, 1e-4]
+  lr_decay_factor:
+    value: 0.2
+  lr_decay_patience:
+    value: 5
+  lr_decay_cooldown:
+    value: 15
   blocks:
     values: [1, 2, 3]
   dense_layers:
     values: [1, 2, 3]
   conv_per_block:
     values: [1, 2, 3]
-  kernal_size:
+  kernel_size:
     values: [2, 3, 4]
   activation:
     values: ["relu", "gelu", "sigmoid"]

@@ -14,16 +14,18 @@ import os
 def model_checkpoint_callback(project_dir, model_name): 
   return ModelCheckpoint(
         filepath=f'{project_dir}/models/{model_name}.h5',
-        monitor='val_loss',
+        monitor='loss',
         mode='min',
         save_best_only=True)
 
 
-reduce_lr = ReduceLROnPlateau(
+def reduce_lr(lr_decay_factor, lr_decay_patience, lr_decay_cooldown):
+  return ReduceLROnPlateau(
     monitor='val_loss',
     mode='min',
-    factor=0.1,   
-    patience=10, 
+    factor=lr_decay_factor,   
+    patience=lr_decay_patience, 
+    cooldown=lr_decay_cooldown,
     min_lr=0,)
 
 

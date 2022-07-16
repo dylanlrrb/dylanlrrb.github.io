@@ -40,13 +40,15 @@ def sep_conv_block(layer_in, n_filters, kernel_size, activation, batch_norm, con
   x = Dropout(dropout)(x)
   return x
 
-def sep_conv_net(input_shape, output_size, blocks, dense_layers, conv_per_block, kernal_size, activation, batch_norm, dropout, depthwise_initializer, pointwise_initializer):
+def sep_conv_net(input_shape, output_size, blocks, dense_layers, conv_per_block, kernel_size, activation, batch_norm, dropout, depthwise_initializer, pointwise_initializer):
   in_image = Input(shape=(*input_shape,1))
   x = in_image
   n_filters = 32
   for _ in range(blocks):
-    x = sep_conv_block(layer_in=x, n_filters=n_filters, kernel_size=kernal_size, activation=activation, batch_norm=batch_norm, conv_per_block=conv_per_block, depthwise_initializer=depthwise_initializer, pointwise_initializer=pointwise_initializer, dropout=dropout)
+    x = sep_conv_block(layer_in=x, n_filters=n_filters, kernel_size=kernel_size, activation=activation, batch_norm=batch_norm, conv_per_block=conv_per_block, depthwise_initializer=depthwise_initializer, pointwise_initializer=pointwise_initializer, dropout=dropout)
     n_filters = min(n_filters * 2, 512)
+  # x = SeparableConv2D(1, kernel_size, padding='same', depthwise_initializer=depthwise_initializer, pointwise_initializer=pointwise_initializer)(x)
+  x = Conv2D(1, kernel_size, padding='same')(x)
   x = Flatten()(x)
   x = BatchNormalization()(x)
   for _ in range(dense_layers):
