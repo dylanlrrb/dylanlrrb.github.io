@@ -154,7 +154,7 @@ def generate_discriminator_patches(samples_in_batch, patch_shape):
   return discriminator_real, discriminator_fake
 
 # Training
-model_name = 'mobile_unet'
+model_name = 'mobile_unet_proper_preprocess'
 epochs = 50
 batches_per_epoch = 500
 iterations = epochs * batches_per_epoch
@@ -239,8 +239,8 @@ for i in range(iterations):
     for sample in samples:
       plot = create_comparison_plot(sr_gan.generator, f"{sample['name']}.{sample['extension']}", epoch_num-1)
       img = plot_to_img(plot)
-      sample['train_samples'].append(img)
-      pickle_img_seq(model_name, sample['train_samples'], sample['name'])
+      # sample['train_samples'].append(img)
+      # pickle_img_seq(model_name, sample['train_samples'], sample['name'])
       wandb.log({sample['description']: wandb.Image(img)})
 
     gc.collect()

@@ -24,7 +24,7 @@ def upsample_sep_block(layer_in, skip_in, n_filters, dropout=True, conv_per_bloc
   return g
 
 def define_mobile_unet(input_shape=(128,128), conv_per_block=2, num_classes=81, final_activation='softmax'):
-  base_model = tf.keras.applications.MobileNetV2(input_shape=(*input_shape,3), include_top=False, weights='imagenet')
+  base_model = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=(*input_shape,3), include_top=False, weights='imagenet')
   layer_names = [
       'block_1_expand_relu',   # 64x64
       'block_3_expand_relu',   # 32x32
@@ -37,7 +37,8 @@ def define_mobile_unet(input_shape=(128,128), conv_per_block=2, num_classes=81, 
   down_stack.trainable = False
   
   in_image = Input(shape=(*input_shape,3))
-  scaled_in_image = Rescaling(1./255)(in_image)
+  # scaled_in_image = Rescaling(1./255)(in_image)
+  scaled_in_image = tf.keras.applications.mobilenet_v2.preprocess_input(in_image)
   s1, s2, s3, s4, s5 = down_stack(scaled_in_image)
   d1 = SeparableConv2D(512, (3,3), strides=(1,1), padding='same', activation='relu')(s5)
   d2 = upsample_sep_block(d1, s4, 512, conv_per_block=conv_per_block)

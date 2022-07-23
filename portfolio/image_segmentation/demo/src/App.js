@@ -41,7 +41,8 @@ class App extends React.Component {
     super(props);
 
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/finetune_mobilnet_u_sep_1_tvl-gamma/model.json'
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/mobilnet_u_sep_1_tvl-gamma/model.json'// best so far
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/mobilnet_u_sep_1_tvl-gamma/model.json'
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/properly_preprocessed/model.json' // best so far
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_sep_1_fine/model.json' 
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_sep_1/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/image_segmentation/u_sep_2/model.json'

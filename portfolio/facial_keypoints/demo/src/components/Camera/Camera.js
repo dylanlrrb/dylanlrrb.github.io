@@ -1,7 +1,7 @@
 import React from 'react';
 import './Camera.css'
 import camera_flip from './icons/camera-flip.png';
-import camera from './icons/camera.png';
+// import camera from './icons/camera.png';
 import * as tf from "@tensorflow/tfjs"
 
 class Camera extends React.Component {
@@ -10,10 +10,12 @@ class Camera extends React.Component {
     this.state = {
       camera: undefined,
       canvas: undefined,
-      facingMode: 'environment',
+      ctx: undefined,
+      facingMode: 'user',
       loading: true,
       stopped: false,
       error: undefined,
+      viewportWidth: undefined
     }
   }
 
@@ -31,8 +33,7 @@ class Camera extends React.Component {
     setTimeout(async () => {
       let viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
       let canvas = document.querySelector('#webcam')
-      // canvas.setAttribute('height', viewportWidth)
-      // canvas.setAttribute('width', viewportWidth)
+      let ctx = canvas.getContext('2d')
       let camera = await tf.data
                           .webcam(null, {
                             facingMode: this.state.facingMode,
@@ -47,8 +48,10 @@ class Camera extends React.Component {
       })
 
       return this.setState({
+        viewportWidth,
         camera,
         canvas,
+        ctx,
         loading: false,
         stopped: false,
       }, this.tick)
@@ -75,11 +78,12 @@ class Camera extends React.Component {
   tick = () => {
     if (!this.state.stopped && this.state.camera){
       window.requestAnimationFrame(async () => {
-        let image = await this.state.camera.capture();
-        if (image) {
-          await tf.browser.toPixels(image, this.state.canvas);
-          this.props.predict(image)
-          image.dispose()
+        let imageTensor = await this.state.camera.capture();
+        if (imageTensor) {
+          await tf.browser.toPixels(imageTensor, this.state.canvas);
+          let imageData = this.state.ctx.getImageData(0,0,this.state.canvas.width,this.state.canvas.height)
+          this.props.predict(imageTensor, imageData, this.state.viewportWidth)
+          imageTensor.dispose()
         }
         this.props.debug.log(`num Tensors: ${tf.memory().numTensors}`)
         this.tick()

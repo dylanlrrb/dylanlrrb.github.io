@@ -56,7 +56,7 @@ def define_generator(image_shape=(224,224,3), conv_per_block=3):
 
 
 def define_vgg16_generator(input_shape=(224,224,3), conv_per_block=3):
-  base_model = tf.keras.applications.VGG16(input_shape=input_shape, include_top=False, weights='imagenet')
+  base_model = tf.keras.applications.vgg16.VGG16(input_shape=input_shape, include_top=False, weights='imagenet')
   layer_names = [
       'block1_pool',
       'block2_pool',
@@ -69,7 +69,8 @@ def define_vgg16_generator(input_shape=(224,224,3), conv_per_block=3):
   down_stack.trainable = False
 
   in_image = Input(shape=input_shape)
-  scaled_in_image = Rescaling(1./255)(in_image)
+  # scaled_in_image = Rescaling(1./255)(in_image)
+  scaled_in_image = tf.keras.applications.vgg16.preprocess_input(in_image)
   e1, e2, e3, e4, e5 = down_stack(scaled_in_image)
   b = Conv2D(512, (4,4), strides=(1,1), padding='same', kernel_initializer='random_normal', activation='relu')(e5)
   d1 = decoder_block(b, e4, 512, conv_per_block=conv_per_block)
@@ -95,7 +96,7 @@ def upsample_sep_block(layer_in, skip_in, n_filters, dropout=False, conv_per_blo
   return g
 
 def define_mobilenet_generator(input_shape=(224,224,3), conv_per_block=5):
-  base_model = tf.keras.applications.MobileNetV2(input_shape=input_shape, include_top=False, weights='imagenet')
+  base_model = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=input_shape, include_top=False, weights='imagenet')
   layer_names = [
       'block_1_expand_relu',
       'block_3_expand_relu',
@@ -108,7 +109,8 @@ def define_mobilenet_generator(input_shape=(224,224,3), conv_per_block=5):
   down_stack.trainable = False
   
   in_image = Input(shape=input_shape)
-  scaled_in_image = Rescaling(1./255)(in_image)
+  # scaled_in_image = Rescaling(1./255)(in_image)
+  scaled_in_image = tf.keras.applications.mobilenet_v2.preprocess_input(in_image)
   s1, s2, s3, s4, s5 = down_stack(scaled_in_image)
   d1 = SeparableConv2D(512, (4,4), strides=(1,1), padding='same', activation='relu')(s5)
   d2 = upsample_sep_block(d1, s4, 512, conv_per_block=conv_per_block)

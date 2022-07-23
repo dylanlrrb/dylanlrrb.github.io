@@ -8,6 +8,14 @@
   text-align: left;
 }
 
+.Results-points-container {
+  height: calc(var(--vw, 1vw) * 100);;
+  width: 100%;
+  position: absolute;
+  top: 95px;
+  opacity: 60%;
+}
+
 .Results-controls {
   position: absolute;
   height: calc(var(--vw, 1vw) * 100);

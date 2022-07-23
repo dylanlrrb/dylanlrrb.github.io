@@ -24,7 +24,7 @@ os.chdir('/')
 PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
 DATASET_DIR = 'root/datasets/coco2017'
 
-MODEL_NAME = 'dir_test'
+MODEL_NAME = 'properly_preprocessed'
 BATCH_SIZE = 4
 IMAGE_SIZE = (224,224)
 LR = 1e-3
@@ -147,8 +147,8 @@ class CustomCallback(Callback):
             img = plot_to_img(mask_plot)
             wandb.log({sample['description']: wandb.Image(img)})
             log_masks_to_wandb(sparse_masks, image, f"{sample['description']} Overlay", class_labels=class_labels)
-            sample['train_samples'].append(img)
-            pickle_img_seq(PROJECT_DIR, self.model_name, sample['train_samples'], sample['name'])
+            # sample['train_samples'].append(img)
+            # pickle_img_seq(PROJECT_DIR, self.model_name, sample['train_samples'], sample['name'])
         gc.collect()
 
 def sensitivity(y_true, y_pred):
@@ -200,7 +200,7 @@ def focal_tversky_loss(alpha=0.7, gamma=0.75):
 if __name__ == "__main__":
 
     conv_per_block = 1
-    epochs = 100
+    epochs = 50
     steps_per_epoch = 100
     validation_steps = 10
     alpha = 0.7
