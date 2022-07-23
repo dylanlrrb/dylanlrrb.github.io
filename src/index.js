@@ -11,6 +11,7 @@ project_ordered_list = [
   "conv_visualizer",
   "super_resolution",
   "image_segmentation",
+  "facial_keypoints",
   "yolo",
   // "mask_r_cnn",
 
@@ -27,11 +28,9 @@ demo_ordered_list = [
   "conv_visualizer",
   "super_resolution",
   "image_segmentation",
+  "facial_keypoints",
   "yolo",
-  "mask_r_cnn",
-  // View feature maps in a real time web app
-  // Multi box detector using mobile net + demo app (first exporation in pytorch then implementationin a web app)
-  // style transfter pt 3, arbitrary style transfer in browser (DEMO) 
+  // "mask_r_cnn",
 ]
 
 

@@ -194,6 +194,19 @@ window.projects = {
     ],
   }),
 
+  facial_keypoints: renderProject({
+    projectId: 'facial_keypoints',
+    tileImage: './portfolio/facial_keypoints/assets/portfolio_tile.png',
+    tileTitle: 'Facial Keypoint Mapping',
+    markdownUrl: './portfolio/facial_keypoints/README.md',
+    controls: [
+      `<a href="https://colab.research.google.com/github/dylanlrrb/dylanlrrb.github.io/blob/master/portfolio/facial_keypoints/notebook.ipynb" target="_blank">
+        <button class="secondary-action-button">Notebook</button></a>`,
+      `<a href="./portfolio/facial_keypoints/demo/build/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>`
+    ],
+    tags: [TAGS.DEEP_LEARNING, TAGS.COMPUTER_VISION],
+  }),
+
   landmark_classification: renderProject({
     projectId: 'landmark_classification',
     tileImage: './portfolio/landmark_classification/assets/portfolio_tile.png',
@@ -329,6 +342,12 @@ window.demos = {
     demoLink: 'https://github.com/dylanlrrb/Please-Contain-Yourself',
     demoImage: './portfolio/docker_tutorial/assets/demo_tile.png',
     demoDescription: 'Learn to Use Docker with Hands-on Projects',
+  }),
+
+  facial_keypoints: renderDemo({
+    demoLink: "./portfolio/facial_keypoints/demo/build/index.html",
+    demoImage: './portfolio/facial_keypoints/assets/demo_tile.png',
+    demoDescription: 'Real-time Facial Keypoint Mapping',
   }),
 
   mnist_nn: renderDemo({
