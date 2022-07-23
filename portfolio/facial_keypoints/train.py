@@ -12,13 +12,13 @@ import keras.backend as K
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
-MODEL_NAME = 'mobilenet_backbone_mae'
+MODEL_NAME = 'mobilenet_backbone_trainable_mse'
 
 hyperparameter_defaults = dict(
     image_size=224,
     output_size = 136,
     epochs = 200,
-    loss = 'mae',
+    loss = 'mse',
     batch_size = 32,
     steps_per_epoch = 100,
     validation_steps = 10,

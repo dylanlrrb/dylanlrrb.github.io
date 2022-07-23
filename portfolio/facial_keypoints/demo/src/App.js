@@ -38,6 +38,9 @@ class App extends React.Component {
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_30pct/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_30pct_all_points/model.json' // baseline
     this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_non_trainable/model.json' // actually does pretty good at not jumping around, not as tight tho
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_mae/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_non-trainable-mae/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_trainable_mse/model.json'
 
     this.state = {
       loading: true,

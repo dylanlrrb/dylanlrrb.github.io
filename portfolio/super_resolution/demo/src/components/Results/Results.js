@@ -45,8 +45,12 @@ class Results extends React.Component {
       createImageBitmap(this.props.originalImg).then(
         (img) => originalContext.drawImage(img, 0, 0)
       )
+      
       createImageBitmap(this.props.enhancedImg).then(
-        (img) => enhancedContext.drawImage(img, 0, 0)
+        (img) => {
+          enhancedContext.clearRect(0, 0, this.state.dimension / (dpr), this.state.dimension / (dpr))
+          enhancedContext.drawImage(img, 0, 0)
+        }
       )
     }
 
@@ -59,11 +63,18 @@ class Results extends React.Component {
           this.props.enhancedImg &&
           this.state.originalContext &&
           this.state.enhancedContext) {
+        
         createImageBitmap(this.props.originalImg).then(
           (img) => this.state.originalContext.drawImage(img, this.state.x, this.state.y, this.state.dimension / (dpr), this.state.dimension / (dpr))
         )
         createImageBitmap(this.props.enhancedImg).then(
-          (img) => this.state.enhancedContext.drawImage(img, this.state.x, this.state.y, this.state.dimension / (dpr), this.state.dimension / (dpr))
+          (img) => {
+            this.state.enhancedContext.clearRect(0, 0, this.state.dimension / (dpr), this.state.dimension / (dpr))
+            this.state.enhancedContext.drawImage(img, this.state.x, this.state.y, this.state.dimension / (dpr), this.state.dimension / (dpr))
+            createImageBitmap(this.props.offsetEnhancedImg).then(
+              (img) => this.state.enhancedContext.drawImage(img, this.state.x, this.state.y, this.state.dimension / (dpr), this.state.dimension / (dpr))
+            )
+          }
         )
       }
     }
