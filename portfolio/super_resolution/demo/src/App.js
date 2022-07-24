@@ -9,7 +9,7 @@ import Debug from './components/Debug/Debug';
 
 const wait = (ms) => new Promise((resolve) => {
   setTimeout(() => {
-    console.log('waited', ms, 'ms')
+    // console.log('waited', ms, 'ms')
     resolve()
   }, ms)
 })
@@ -298,7 +298,7 @@ class App extends React.Component {
         {this.state.step === 1 ? <Results originalImg={this.state.originalImg} enhancedImg={this.state.enhancedImg} offsetEnhancedImg={this.state.offsetEnhancedImg} retake={this.retake} debug={this.debug} /> : ''}
         <Info />
         <Debug debug={this.debug} logs={this.state.logs} paused={this.state.paused} />
-        {this.state.loading ? <div className="App-scrim"><div className='App-loader'></div></div> : null}
+        {this.state.loading ? <div className="App-scrim"><div className='App-loader'></div>{this.state.model ? "Super Resolving Image..." : "Loading Model..."}</div> : null}
       </div>
     )
   }

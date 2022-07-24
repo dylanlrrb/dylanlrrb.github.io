@@ -10,6 +10,7 @@ class Results extends React.Component {
     super(props);
     this.model_dim = 256
     this.state = {
+      showBboxes: false,
       context: undefined,
       viewportWidth: undefined,
     }
@@ -30,7 +31,9 @@ class Results extends React.Component {
 
   draw = () => {
     this.state.context.clearRect(0, 0, this.state.viewportWidth, this.state.viewportWidth);
-    // this.drawBBoxes()
+    if (this.state.showBboxes) {
+      this.drawBBoxes()
+    }
     this.drawKeypoints()
   }
 
@@ -74,12 +77,20 @@ class Results extends React.Component {
   }
 
 
-  // this.props.debug.log(`${}`)
+  toggleStateProp = (prop) => {
+    const state = {}
+    state[prop] = !this.state[prop]
+    this.setState(state)
+  }
 
   render() {
     return (
       <div className='Results'>
         <canvas className="Results-points-container" height={this.model_dim} width={this.model_dim}></canvas>
+        <label className="container">Show Face Bounding Boxes
+          <input type="checkbox" onChange={() => this.toggleStateProp('showBboxes')} checked={this.state.showBboxes} />
+          <span className="checkmark"></span>
+        </label>
       </div>
     )
   }

@@ -32,8 +32,6 @@ class Camera extends React.Component {
     setTimeout(async () => {
       let viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
       let canvas = document.querySelector('#webcam')
-      // canvas.setAttribute('height', viewportWidth)
-      // canvas.setAttribute('width', viewportWidth)
       let camera = await tf.data
                           .webcam(null, {
                             facingMode: this.state.facingMode,

@@ -41,6 +41,7 @@ class App extends React.Component {
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_mae/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_non-trainable-mae/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_trainable_mse/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/'mobilenet_backbone_non_trainable_mse/model.json'
 
     this.state = {
       loading: true,
@@ -190,6 +191,7 @@ class App extends React.Component {
         <canvas id="testCanvas"></canvas>
         <Info />
         <Debug debug={this.debug} logs={this.state.logs} paused={this.state.paused} />
+        {this.state.loading ? <div className="App-scrim"><div className='App-loader'></div>Loading Model...</div> : null}
       </div>
     )
   }

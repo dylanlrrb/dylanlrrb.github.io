@@ -12,7 +12,7 @@ import keras.backend as K
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
-MODEL_NAME = 'mobilenet_backbone_trainable_mse'
+MODEL_NAME = 'mobilenet_backbone_non_trainable_mse'
 
 hyperparameter_defaults = dict(
     image_size=224,
@@ -98,7 +98,7 @@ def main(project_dir, dataset_dir, sweep):
   model = mobile_net_backbone(input_shape=IMAGE_SIZE,
                               output_size=OUTPUT_SIZE,
                               dropout=config.dropout,
-                              trainable=True)
+                              trainable=False)
 
   # model = resnet_50_backbone(input_shape=IMAGE_SIZE,
   #                             output_size=OUTPUT_SIZE,
