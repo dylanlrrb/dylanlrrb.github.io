@@ -30,13 +30,14 @@ class Camera extends React.Component {
 
   setupCamera = () => {
     setTimeout(async () => {
-      let viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
+      // let viewportWidth = Math.floor(document.querySelector('.App').getBoundingClientRect().width)
       let canvas = document.querySelector('#webcam')
       let camera = await tf.data
                           .webcam(null, {
                             facingMode: this.state.facingMode,
-                            resizeHeight: viewportWidth,
-                            resizeWidth: viewportWidth
+                            resizeHeight: 448,
+                            resizeWidth: 448,
+                            centerCrop: true,
                           })
                           .catch((e) => {
                             this.setState({error: `There was an error initalizing the webcam:\n ${e}`})
@@ -63,12 +64,11 @@ class Camera extends React.Component {
   }
 
   captureFrame = async () => {
+    this.props.preventInteraction(true)
     let image = await this.state.camera.capture();
     this.state.camera.stop()
     this.setState({stopped: true})
-    this.props.preventInteraction(true)
     await this.props.enhance(image)
-    this.props.preventInteraction(false)
   }
 
   tick = () => {

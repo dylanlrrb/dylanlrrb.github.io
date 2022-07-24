@@ -92,6 +92,7 @@ class App extends React.Component {
 
   enhance = async (tensor) => {
     if (this.state.model) {
+      this.preventInteraction(true)
       const model_output_dim = 224
       const upscale_factor = 4
       const num_side_tiles = Math.trunc((tensor.shape[0] * upscale_factor) / model_output_dim)
@@ -131,7 +132,7 @@ class App extends React.Component {
         const expandedPred = this.state.model.predict(expandedCrop)
         await wait(10)
         let processedCrop = tf.squeeze(expandedPred)
-        processedCrop = tf.concat([processedCrop, this.radial_mask(224)], 2)
+        processedCrop = tf.concat([processedCrop, this.radial_mask(model_output_dim)], 2)
         console.log('patch:', i++, ', memory:', tf.memory())
         processedCrops.push(processedCrop)
         crop.dispose()
@@ -147,7 +148,7 @@ class App extends React.Component {
         const expandedPred = this.state.model.predict(expandedCrop)
         await wait(10)
         let processedCrop = tf.squeeze(expandedPred)
-        processedCrop = tf.concat([processedCrop, this.radial_mask(224)], 2)
+        processedCrop = tf.concat([processedCrop, this.radial_mask(model_output_dim)], 2)
         console.log('patch:', j++, ', memory:', tf.memory())
         offsetProcessedCrops.push(processedCrop)
         crop.dispose()
@@ -249,12 +250,6 @@ class App extends React.Component {
       console.log('FINISH CONVERTING TO IMAGE DATA', tf.memory())
       this.debug.log(`FINISH CONVERTING TO IMAGE DATA`)
 
-      this.setState({
-        step: 1,
-        originalImg: originalImageData,
-        enhancedImg: enhancedImageData,
-        offsetEnhancedImg: offsetEnhancedImageData})
-
       tensor.dispose()
       enhancedImg.dispose()
       offsetEnhancedImg.dispose()
@@ -263,16 +258,21 @@ class App extends React.Component {
       offsetEnhanced.dispose()
       original.dispose()
 
+      this.setState({
+        step: 1,
+        originalImg: originalImageData,
+        enhancedImg: enhancedImageData,
+        offsetEnhancedImg: offsetEnhancedImageData}, () => this.preventInteraction(false))
     }
   }
 
-  radial_mask = (updacale_dim) => {
-    if (this.radial_mask_memo[updacale_dim]) {
-      return this.radial_mask_memo[updacale_dim]
+  radial_mask = (dim) => {
+    if (this.radial_mask_memo[dim]) {
+      return this.radial_mask_memo[dim]
     }
-    const X = [[...range(0, updacale_dim)]]
-    const Y = [...range(0, updacale_dim)].map((i => [i]))
-    const center = [updacale_dim / 2, updacale_dim / 2]
+    const X = [[...range(0, dim)]]
+    const Y = [...range(0, dim)].map((i => [i]))
+    const center = [dim / 2, dim / 2]
 
     const a = (tf.sub(X, center[0])).pow(2)
 
@@ -280,13 +280,20 @@ class App extends React.Component {
 
     let dist_from_center = tf.sqrt(tf.add(a, b))
 
-    const max_dist = tf.max(dist_from_center)
+    const max_dist = tf.max(dist_from_center).sub(2)
+
+    // const max_dist = dim / 2
+    // dist_from_center = dist_from_center.clipByValue(0, max_dist)
+    
 
     dist_from_center = dist_from_center.sub(max_dist)
     dist_from_center = tf.abs(dist_from_center)
     dist_from_center = dist_from_center.div(max_dist)
     dist_from_center = tf.expandDims(dist_from_center, -1)
-    this.radial_mask_memo[updacale_dim] = dist_from_center
+    // needed for tanh scaling
+    dist_from_center = dist_from_center.mul(2)
+    dist_from_center = dist_from_center.sub(1)
+    this.radial_mask_memo[dim] = dist_from_center
 
     return dist_from_center
   }
@@ -295,7 +302,7 @@ class App extends React.Component {
     return (
       <div className="App">
         {this.state.step === 0 ? <Camera enhance={this.enhance} preventInteraction={this.preventInteraction} debug={this.debug} /> : ''}
-        {this.state.step === 1 ? <Results originalImg={this.state.originalImg} enhancedImg={this.state.enhancedImg} offsetEnhancedImg={this.state.offsetEnhancedImg} retake={this.retake} debug={this.debug} /> : ''}
+        {this.state.step === 1 ? <Results originalImg={this.state.originalImg} enhancedImg={this.state.enhancedImg} offsetEnhancedImg={this.state.offsetEnhancedImg} retake={this.retake} enhance={this.enhance} debug={this.debug} /> : ''}
         <Info />
         <Debug debug={this.debug} logs={this.state.logs} paused={this.state.paused} />
         {this.state.loading ? <div className="App-scrim"><div className='App-loader'></div>{this.state.model ? "Super Resolving Image..." : "Loading Model..."}</div> : null}

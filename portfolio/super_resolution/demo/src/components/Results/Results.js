@@ -1,4 +1,5 @@
 import React from "react";
+import * as tf from "@tensorflow/tfjs"
 import './Results.css'
 
 // const dpr = window.devicePixelRatio || 1
@@ -175,7 +176,21 @@ class Results extends React.Component {
     this.setState({isPinching: false, isPanning: false})
   }
 
-  // this.props.debug.log(`${}`)
+  re_enhance = async () => {
+    const tensor = tf.browser.fromPixels(document.querySelector('#Results-canvas-enhanced'))
+    await this.props.enhance(tensor)
+    tensor.dispose()
+    this.setState({
+      slideValue: 50,
+      // isPanning: false,
+      x: 0,
+      y: 0,
+      // isPinching: false,
+      // previousTouch: undefined,
+      // pinchDist: undefined,
+      dimension: this.state.viewportWidth,
+    })
+  }
 
   render() {
     return (
@@ -199,6 +214,10 @@ class Results extends React.Component {
             <canvas id="Results-canvas-enhanced"></canvas>
           </div>
           <input className="Results-slider" type="range" min="1" max="100" step="1" value={this.state.slideValue} onChange={this.onSlideChange}/>
+        </div>
+
+        <div className='Results-re_enhance-button'>
+          <button onClick={this.re_enhance}><h2>Enhance Again</h2></button> 
         </div>
 
         <div className='Results-retake-button'>

@@ -58,6 +58,23 @@
   justify-content: center;
 }
 
+.Results-re_enhance-button {
+  width: 100%;
+  position: absolute;
+  bottom: 100px;
+  display: flex;
+  justify-content: center;
+}
+.Results-re_enhance-button button {
+  width: 200px;
+  height: 45px;
+  border-radius: 50px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 .Results-icon {
