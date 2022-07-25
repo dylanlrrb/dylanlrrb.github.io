@@ -182,12 +182,8 @@ class Results extends React.Component {
     tensor.dispose()
     this.setState({
       slideValue: 50,
-      // isPanning: false,
       x: 0,
       y: 0,
-      // isPinching: false,
-      // previousTouch: undefined,
-      // pinchDist: undefined,
       dimension: this.state.viewportWidth,
     })
   }

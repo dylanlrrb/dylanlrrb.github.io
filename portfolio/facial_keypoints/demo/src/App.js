@@ -32,14 +32,14 @@ class App extends React.Component {
     this.model_dim = 224
     this.expand_factor = 1.3
 
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_2/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_3/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_30pct/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_30pct_all_points/model.json' // baseline
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_non_trainable/model.json' // actually does pretty good at not jumping around, not as tight tho
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_30pct_all_points/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_full_non_trainable/model.json' // actually does pretty good at not jumping around, not as tight tho
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/fine_tune_custom_loss-4/model.json'
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/fine_tune_custom_loss-5/model.json'
+
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_mae/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_non-trainable-mae/model.json'
+
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/mobilenet_backbone_trainable_mse/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/facial_keypoints/'mobilenet_backbone_non_trainable_mse/model.json'
 

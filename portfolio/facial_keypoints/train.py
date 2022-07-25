@@ -55,7 +55,7 @@ def custom_loss(y_true, y_pred):
 
 
 def main(project_dir, dataset_dir, sweep):
-  wandb.init(config=hyperparameter_defaults, project="facial_keypoints", dir=project_dir)
+  wandb.init(config=hyperparameter_defaults, name=MODEL_NAME, project="facial_keypoints", dir=project_dir)
   config = wandb.config
   print('configs for this sweep:', config)
 
