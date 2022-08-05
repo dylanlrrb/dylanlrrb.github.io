@@ -12,11 +12,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 PROJECT_DIR = '../tf/notebooks/portfolio/image_segmentation'
 ABS_PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
 
-BASE_MODEL_NAME = 'mobilnet_u_sep_1_tvl-gamma'
-MODEL_NAME = 'finetune_mobilnet_u_sep_1_tvl-gamma'
+BASE_MODEL_NAME = 'properly_preprocessed'
+MODEL_NAME = 'finetune_mobile_unet'
 BATCH_SIZE = 4
 IMAGE_SIZE = (224,224)
-LR = 1e-12
+LR = 1e-4
 alpha = 0.7
 gamma = 0.75
 epochs = 50
@@ -24,7 +24,7 @@ steps_per_epoch = 100
 validation_steps = 10
 
 model_checkpoint_callback = ModelCheckpoint(
-        filepath=f'{PROJECT_DIR}/models/{MODEL_NAME}.h5',
+        filepath=f'{PROJECT_DIR}/models/{MODEL_NAME}_min_val_loss.h5',
         monitor='val_loss',
         mode='min',
         save_best_only=True)
@@ -32,9 +32,8 @@ model_checkpoint_callback = ModelCheckpoint(
 reduce_lr = ReduceLROnPlateau(
     monitor='val_loss',
     mode='min',
-    factor=0.1,   
-    patience=10, 
-    min_lr=0,)
+    factor=0.2,   
+    patience=15,)
 
 
 wandb.init(project="image-segmentation", dir=ABS_PROJECT_DIR, name=MODEL_NAME, config={
@@ -66,3 +65,5 @@ model_history = model.fit(train_dataset, epochs=epochs,
                             model_checkpoint_callback,
                             WandbCallback(save_model=False),
                             CustomCallback(MODEL_NAME)])
+
+model.save(f'{PROJECT_DIR}/models/{MODEL_NAME}_final_epoch.h5')
