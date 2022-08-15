@@ -2,7 +2,6 @@ import os
 import io
 import gc
 from math import ceil, inf
-import pickle as pkl
 import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
@@ -22,7 +21,7 @@ import wandb
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 batch_size = 4
-image_size = 500
+image_size = 400
 patch_size = 224
 resolution_down_factor = 0.25
 
@@ -103,10 +102,6 @@ def plot_to_img(figure):
   image = tf.image.decode_png(buf.getvalue(), channels=4)
   return image
 
-def pickle_img_seq(model_name, img_seq, name):
-  with open(f'train_samples/{model_name}_{name}.pkl', 'wb') as f:
-    pkl.dump(img_seq, f)
-
 samples = [{'name': 'baboon', 'extension': 'jpg', 'description': 'Baboon', 'train_samples': []},
           {'name': 'butterfly', 'extension': 'jpg', 'description': 'Butterfly', 'train_samples': []},
           {'name': 'castle', 'extension': 'jpg', 'description': 'Castle', 'train_samples': []},
@@ -137,7 +132,7 @@ class GAN():
     self.composite_gan = Model(in_src, [dis_out, gen_out])
     generator_optimizer = tf.keras.optimizers.Adam(learning_rate=g_lr, beta_1=0.5)
     self.composite_gan.compile(optimizer=generator_optimizer,
-                              loss=['binary_crossentropy', PerceptualLoss()],
+                              loss=['binary_crossentropy', PerceptualLoss(prcpt_weight=1., gram_weight=0.1)],
                               metrics=['mse'])
 
 
@@ -154,7 +149,7 @@ def generate_discriminator_patches(samples_in_batch, patch_shape):
   return discriminator_real, discriminator_fake
 
 # Training
-model_name = 'mobile_unet_proper_preprocess'
+model_name = 'mobile_unet_ploss1_gram0-1'
 epochs = 50
 batches_per_epoch = 500
 iterations = epochs * batches_per_epoch
@@ -239,8 +234,6 @@ for i in range(iterations):
     for sample in samples:
       plot = create_comparison_plot(sr_gan.generator, f"{sample['name']}.{sample['extension']}", epoch_num-1)
       img = plot_to_img(plot)
-      # sample['train_samples'].append(img)
-      # pickle_img_seq(model_name, sample['train_samples'], sample['name'])
       wandb.log({sample['description']: wandb.Image(img)})
 
     gc.collect()

@@ -22,21 +22,14 @@ const range = (start, end, skip=1) => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_iteration_12719/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_50839/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_24148/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in512_4Xzoom_plossX0-1_iteration_12719/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in256_4Xzoom_plossX0-1_full_train_iteration_48297/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in224_4Xzoom_plossX0-1_monilenet_backbone_iteration_9999/model.json'
-
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/gan_in224_4Xzoom_plossX0-1_monilenet_backbone_conv5_lr_2e-4_iteration_17499/model.json' // best looking so far
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/4xzoom_mobilenet/model.json'
-    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/4xzoom_mobilenet-mse-test/model.json'
-
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_BEST-MSE/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_BEST-P/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_FINAL/model.json'
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_proper_preprocess_BEST-P/model.json'
+
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_proper_preprocess_BEST-P/model.json'
+
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_ploss1_gram0-1_BEST-P/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_ploss1_gram0-1_BEST-MSE/model.json'
     
     this.radial_mask_memo = {}
 
