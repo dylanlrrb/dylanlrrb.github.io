@@ -28,8 +28,11 @@ class App extends React.Component {
 
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_proper_preprocess_BEST-P/model.json'
 
-    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_ploss1_gram0-1_BEST-P/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_ploss1_gram0-1_BEST-P/model.json'
     // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_ploss1_gram0-1_BEST-MSE/model.json'
+
+    this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_ploss2_gram0-2_BEST-P/model.json'
+    // this.modelURL = 'https://built-model-repository.s3.us-west-2.amazonaws.com/super_resolution/mobile_unet_ploss2_gram0-2_BEST-MSE/model.json'
     
     this.radial_mask_memo = {}
 

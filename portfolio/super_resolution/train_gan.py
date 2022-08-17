@@ -132,7 +132,7 @@ class GAN():
     self.composite_gan = Model(in_src, [dis_out, gen_out])
     generator_optimizer = tf.keras.optimizers.Adam(learning_rate=g_lr, beta_1=0.5)
     self.composite_gan.compile(optimizer=generator_optimizer,
-                              loss=['binary_crossentropy', PerceptualLoss(prcpt_weight=1., gram_weight=0.1)],
+                              loss=['binary_crossentropy', PerceptualLoss(prcpt_weight=2., gram_weight=0.2)],
                               metrics=['mse'])
 
 
@@ -149,7 +149,7 @@ def generate_discriminator_patches(samples_in_batch, patch_shape):
   return discriminator_real, discriminator_fake
 
 # Training
-model_name = 'mobile_unet_ploss1_gram0-1'
+model_name = 'mobile_unet_ploss2_gram0-2'
 epochs = 50
 batches_per_epoch = 500
 iterations = epochs * batches_per_epoch
@@ -230,6 +230,8 @@ for i in range(iterations):
     epoch_num = ceil((i+1) / batches_per_epoch) + 1
     print('' if epoch_num > epochs else f'\nEpoch {epoch_num} / {epochs}')
     progbar = tf.keras.utils.Progbar(batches_per_epoch)
+
+    sr_gan.generator.save(f'models/{model_name}_LATEST-EPOCH.h5')
   
     for sample in samples:
       plot = create_comparison_plot(sr_gan.generator, f"{sample['name']}.{sample['extension']}", epoch_num-1)
@@ -237,6 +239,4 @@ for i in range(iterations):
       wandb.log({sample['description']: wandb.Image(img)})
 
     gc.collect()
-
-sr_gan.generator.save(f'models/{model_name}_FINAL.h5')
     
