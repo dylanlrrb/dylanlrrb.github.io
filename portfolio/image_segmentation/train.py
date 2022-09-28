@@ -24,7 +24,8 @@ os.chdir('/')
 PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
 DATASET_DIR = 'root/datasets/coco2017'
 
-MODEL_NAME = 'properly_preprocessed'
+MODEL_NAME = 'attn_mobile_unet'
+# MODEL_NAME = 'inverse_attn_mobile_unet'
 BATCH_SIZE = 4
 IMAGE_SIZE = (224,224)
 LR = 1e-3
@@ -123,6 +124,29 @@ def create_mask_plot(epoch, sparse_masks, image):
     
     return figure, class_labels
 
+def create_attention_heatmap_plot(model, image, epoch):
+    X = np.array([cv2.resize(image, IMAGE_SIZE)])
+    a1, a2, a3, a4 = model.predict(X)
+
+    figure, (ax1, ax2, ax3, ax4) = plt.subplots(1, 4)
+    ax1.text(0., 1., f'{epoch}'.zfill(2),
+        horizontalalignment='center',
+        verticalalignment='center',
+        transform=ax1.transAxes,
+        fontsize=15,
+        bbox=dict(facecolor='white', edgecolor='none'))
+    ax1.imshow(X.squeeze())
+    ax1.axis('off')
+    ax2.imshow(np.squeeze(a4), cmap='rainbow')
+    ax2.axis('off')
+    ax3.imshow(np.squeeze(a3), cmap='rainbow')
+    ax3.axis('off')
+    ax4.imshow(np.squeeze(a2), cmap='rainbow')
+    ax4.axis('off')
+    plt.subplots_adjust(wspace=0, hspace=0)
+    
+    return figure
+
 def plot_to_img(figure):
   buf = io.BytesIO()
   plt.savefig(buf, format='png', bbox_inches='tight')
@@ -131,24 +155,23 @@ def plot_to_img(figure):
   image = tf.image.decode_png(buf.getvalue(), channels=4)
   return image
 
-def pickle_img_seq(dir, model_name, img_seq, name):
-    with open(f'{dir}/train_samples/{model_name}_{name}.pkl', 'wb') as f:
-        pkl.dump(img_seq, f)
-
 class CustomCallback(Callback):
-    def __init__(self, model_name):
+    def __init__(self, model_name, attention_model=None):
         self.model_name = model_name
+        self.attention_model = attention_model
         super().__init__()
     def on_epoch_end(self, epoch, logs=None):
         for sample in samples:
             image = np.asarray(Image.open(f'{PROJECT_DIR}/assets/{sample["name"]}.{sample["extension"]}'))
             sparse_masks = create_sparse_masks(self.model, image)
             mask_plot, class_labels = create_mask_plot(epoch, sparse_masks, image)
-            img = plot_to_img(mask_plot)
-            wandb.log({sample['description']: wandb.Image(img)})
+            mask_img = plot_to_img(mask_plot)
+            if self.attention_model:
+                attention_heatmap_plot = create_attention_heatmap_plot(self.attention_model, image, epoch)
+                attention_heatmap_img = plot_to_img(attention_heatmap_plot)
+                wandb.log({f"{sample['description']} Attention Heatmap": wandb.Image(attention_heatmap_img)})
+            wandb.log({sample['description']: wandb.Image(mask_img)})
             log_masks_to_wandb(sparse_masks, image, f"{sample['description']} Overlay", class_labels=class_labels)
-            # sample['train_samples'].append(img)
-            # pickle_img_seq(PROJECT_DIR, self.model_name, sample['train_samples'], sample['name'])
         gc.collect()
 
 def sensitivity(y_true, y_pred):
@@ -181,27 +204,12 @@ def focal_tversky_loss(alpha=0.7, gamma=0.75):
         return K.pow((1 - tvi), gamma)
     return loss
 
-# def class_tversky(y_true, y_pred, alpha, smooth):
-#     true_pos = tf.reduce_sum(y_true * y_pred, axis=(0, 1, 2))
-#     false_neg = tf.reduce_sum(y_true * (1-y_pred), axis=(0, 1, 2))
-#     false_pos = tf.reduce_sum((1-y_true) * y_pred, axis=(0, 1, 2))
-
-#     T = (true_pos + smooth)/(true_pos + alpha*false_neg + (1-alpha)*false_pos + smooth)
-#     Ncl = K.cast(K.shape(y_true)[-1], 'float32') 
-#     return T/Ncl 
-
-# def focal_tversky_loss(alpha=0.7, gamma=0.75, smooth=1):
-#     def loss(y_true, y_pred):
-#         tv = class_tversky(y_true, y_pred, alpha, smooth)
-#         return tf.reduce_sum((1-tv)**gamma)
-#     return loss
-
 
 if __name__ == "__main__":
 
     conv_per_block = 1
-    epochs = 50
-    steps_per_epoch = 100
+    epochs = 100
+    steps_per_epoch = 100 if BATCH_SIZE >= 4 else 200
     validation_steps = 10
     alpha = 0.7
     gamma = 0.75
@@ -220,12 +228,17 @@ if __name__ == "__main__":
         "final_activation": final_activation,
     })
 
-    model = u_net.define_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
+    # model = u_net.define_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
+    model, attention_model = u_net.define_attention_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
     # model = u_net.define_vgg_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes)
 
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=LR),
                     loss=focal_tversky_loss(alpha=alpha, gamma=gamma),
                     metrics=['accuracy', sensitivity, specificity])
+    
+    attention_model.compile()
+
+    model.summary()
 
     model_history = model.fit(train_dataset, epochs=epochs,
                             steps_per_epoch=steps_per_epoch,
@@ -234,4 +247,4 @@ if __name__ == "__main__":
                             callbacks=[reduce_lr,
                                 model_checkpoint_callback,
                                 WandbCallback(save_model=False),
-                                CustomCallback(MODEL_NAME)])
+                                CustomCallback(MODEL_NAME, attention_model)])

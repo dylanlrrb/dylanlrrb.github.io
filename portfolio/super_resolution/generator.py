@@ -11,6 +11,8 @@ from keras.layers import UpSampling2D
 from keras.layers import LeakyReLU
 from keras.layers import Activation
 from keras.layers import Concatenate
+from keras.layers import Add
+from keras.layers import Multiply
 from keras.layers import Dropout
 from keras.layers import BatchNormalization
 from keras.layers import MaxPool2D
@@ -117,6 +119,57 @@ def define_mobilenet_generator(input_shape=(224,224,3), conv_per_block=5):
   d3 = upsample_sep_block(d2, s3, 256, conv_per_block=conv_per_block)
   d4 = upsample_sep_block(d3, s2, 128, conv_per_block=conv_per_block)
   d5 = upsample_sep_block(d4, s1, 64, conv_per_block=conv_per_block)
+  g = UpSampling2D()(d5)
+  g = SeparableConv2D(32, (4,4), strides=(1,1), padding='same')(g)
+  g = SeparableConv2D(3, (4,4), strides=(1,1), padding='same')(g)
+  out_image = Activation('tanh')(g)
+  return Model(in_image, out_image)
+
+def upsample_attn_sep_block(layer_in, skip_in, n_filters, dropout=False, conv_per_block=1):
+  g = SeparableConv2D(layer_in.shape[-1], (1,1), strides=(1,1), padding='same', activation='relu')(layer_in)
+  x = SeparableConv2D(layer_in.shape[-1], (1,1), strides=(2,2), padding='same', activation='relu')(skip_in)
+
+  a = Add()([g, x])
+
+  a = Activation('relu')(a)
+
+  a = SeparableConv2D(1, (1,1), strides=(1,1), padding='same', activation='sigmoid')(a)
+
+  a = UpSampling2D()(a)
+
+  a = Multiply()([a, skip_in])
+
+  l_in = UpSampling2D()(layer_in)
+  b = Concatenate()([l_in, a])
+
+  b = BatchNormalization()(b)
+  b = SeparableConv2D(n_filters, (3,3), strides=(1,1), padding='same', activation='relu')(b)
+  if dropout:
+    b = Dropout(0.5)(b)
+  return b
+
+
+def define_attention_generator(input_shape=(224,224,3), conv_per_block=5):
+  base_model = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=input_shape, include_top=False, weights='imagenet')
+  layer_names = [
+      'block_1_expand_relu',
+      'block_3_expand_relu',
+      'block_6_expand_relu',
+      'block_13_expand_relu',
+      'block_16_project',
+  ]
+  base_model_outputs = [base_model.get_layer(name).output for name in layer_names]
+  down_stack = tf.keras.Model(inputs=base_model.input, outputs=base_model_outputs)
+  down_stack.trainable = False
+  
+  in_image = Input(shape=input_shape)
+  scaled_in_image = tf.keras.applications.mobilenet_v2.preprocess_input(in_image)
+  s1, s2, s3, s4, s5 = down_stack(scaled_in_image)
+  d1 = SeparableConv2D(512, (4,4), strides=(1,1), padding='same', activation='relu')(s5)
+  d2 = upsample_attn_sep_block(d1, s4, 512, conv_per_block=conv_per_block)
+  d3 = upsample_attn_sep_block(d2, s3, 256, conv_per_block=conv_per_block)
+  d4 = upsample_attn_sep_block(d3, s2, 128, conv_per_block=conv_per_block)
+  d5 = upsample_attn_sep_block(d4, s1, 64, conv_per_block=conv_per_block)
   g = UpSampling2D()(d5)
   g = SeparableConv2D(32, (4,4), strides=(1,1), padding='same')(g)
   g = SeparableConv2D(3, (4,4), strides=(1,1), padding='same')(g)

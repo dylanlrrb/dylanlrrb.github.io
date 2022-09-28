@@ -10,7 +10,7 @@ import tensorflow as tf
 from keras.layers import RandomFlip, RandomRotation, Resizing, RandomCrop, Rescaling, BatchNormalization, Input
 from keras.models import Model
 from dataset_helpers import split_training_image_dataset
-from generator import define_generator, define_mobilenet_generator, define_vgg16_generator
+from generator import define_generator, define_mobilenet_generator, define_vgg16_generator, define_attention_generator
 from discriminator import define_discriminator
 from perceptual_loss import PerceptualLoss
 import wandb
@@ -113,7 +113,8 @@ class GAN():
   def __init__(self, image_shape, d_lr=2e-4, g_lr=2e-4):
     # Build Models
 
-    self.generator = define_mobilenet_generator(image_shape)
+    # self.generator = define_mobilenet_generator(image_shape)
+    self.generator = define_attention_generator(image_shape)
     # self.generator = define_vgg16_generator(image_shape)
     # self.generator = define_generator(image_shape)
 
@@ -149,7 +150,7 @@ def generate_discriminator_patches(samples_in_batch, patch_shape):
   return discriminator_real, discriminator_fake
 
 # Training
-model_name = 'mobile_unet_ploss2_gram0-2'
+model_name = 'attn_mobile_unet_ploss2_gram0-2'
 epochs = 50
 batches_per_epoch = 500
 iterations = epochs * batches_per_epoch

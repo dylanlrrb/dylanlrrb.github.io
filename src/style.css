@@ -9,6 +9,15 @@ body {
   margin: 0;
 }
 
+.bg {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(0 94 255 / 0%)), to(rgb(0 94 255 / 5%)));
+  background-image: -o-linear-gradient(rgb(0 94 255 / 0%), rgb(0 94 255 / 5%));
+  background-image: linear-gradient(rgb(0 94 255 / 0%), rgb(0 94 255 / 5%));
+}
+
 .loading-scrim {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -433,6 +442,7 @@ section {
   cursor: pointer;
   border-radius: 3px 15px;
   overflow: hidden;
+  background-color: white;
 }
 
 .tile-placeholder {
