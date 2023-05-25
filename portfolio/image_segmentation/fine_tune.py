@@ -12,14 +12,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 PROJECT_DIR = '../tf/notebooks/portfolio/image_segmentation'
 ABS_PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
 
-BASE_MODEL_NAME = 'properly_preprocessed'
-MODEL_NAME = 'finetune_mobile_unet'
+BASE_MODEL_NAME = 'tanh_attn_mobile_unet'
+MODEL_NAME = 'tanh_attn_mobile_unet_finetune'
 BATCH_SIZE = 4
 IMAGE_SIZE = (224,224)
 LR = 1e-4
 alpha = 0.7
 gamma = 0.75
-epochs = 50
+epochs = 100
 steps_per_epoch = 100
 validation_steps = 10
 

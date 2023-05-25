@@ -2,6 +2,7 @@ boto3
 numpy
 torch
 torchvision
+keras-tqdm
 matplotlib
 seaborn
 scikit-learn

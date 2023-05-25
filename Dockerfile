@@ -1,7 +1,9 @@
 FROM tensorflow/tensorflow:latest-gpu-jupyter
 
-
 WORKDIR /../root
+
+RUN rm /etc/apt/sources.list.d/cuda.list
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
 
 RUN apt-get -y update
 RUN apt-get -y install nodejs
@@ -18,13 +20,9 @@ RUN touch ~/.tmux.conf
 RUN echo "set -g mouse on" >> ~/.tmux.conf
 
 COPY ./requirements.txt .
+RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 # need cython installed for cocoapi to install correctly
 RUN pip3 install -U 'git+https://github.com/dylanlrrb/cocoapi.git#subdirectory=PythonAPI'
 
 # chown -R root /tf/notebooks/
-
-# ~/projects/dylanlrrb.github.io:/tf/notebooks
-# ~/projects/dylanlrrb.github.io/extensions:/root/.vscode-server/extensions
-# ~/.cache/torch/checkpoints:/root/.cache/torch/hub/checkpoints
-# :/tmp/tfhub_modules

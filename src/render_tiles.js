@@ -408,7 +408,7 @@ window.projects = {
         <button class="secondary-action-button">Notebook</button></a>`,
       `<a href="./portfolio/mnist_nn/demo/index.html" target="_blank"><button class="primary-action-button">Demo</button></a>`
     ],
-    tags: [TAGS.DEEP_LEARNING],
+    tags: [TAGS.DEEP_LEARNING, TAGS.DEPLOYMENT],
   }),
 
   nerf: renderProject({

@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/bash -eux
 
-docker run --name portfolio \
+docker run --name dylanlrrbio \
   -v ~/projects/dylanlrrb.github.io:/tf/notebooks \
   -v ~/projects/dylanlrrb.github.io/extensions:/root/.vscode-server/extensions \
   -v ~/.cache/torch/checkpoints:/root/.cache/torch/hub/checkpoints \
@@ -11,5 +11,4 @@ docker run --name portfolio \
   -v ~/.aws:/root/.aws \
   --env-file ~/.docker-env \
   --gpus all -it -d \
-  --name portfolio \
   --rm gpu-image

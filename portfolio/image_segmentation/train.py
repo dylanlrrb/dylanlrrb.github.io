@@ -24,8 +24,9 @@ os.chdir('/')
 PROJECT_DIR = 'tf/notebooks/portfolio/image_segmentation'
 DATASET_DIR = 'root/datasets/coco2017'
 
-MODEL_NAME = 'attn_mobile_unet'
-# MODEL_NAME = 'inverse_attn_mobile_unet'
+MODEL_NAME = 'mobile_unet'
+# MODEL_NAME = 'attn_mobile_unet'
+# MODEL_NAME = 'tanh_attn_mobile_unet'
 BATCH_SIZE = 4
 IMAGE_SIZE = (224,224)
 LR = 1e-3
@@ -66,12 +67,13 @@ reduce_lr = ReduceLROnPlateau(
     patience=10, 
     min_lr=0,)
 
-samples = [{'name': 'dog', 'extension': 'jpg', 'description': 'Dog', 'train_samples': []},
-        {'name': 'frisbee', 'extension': 'jpg', 'description': 'Person with Frisbee', 'train_samples': []},
-        {'name': 'tennis', 'extension': 'jpg', 'description': 'Person with Racket', 'train_samples': []},
-        {'name': 'hot_dog', 'extension': 'jpg', 'description': 'People with Hotdogs', 'train_samples': []},
-        {'name': 'cat', 'extension': 'jpg', 'description': 'Cat with Computer', 'train_samples': []},
-        {'name': 'ducks', 'extension': 'jpg', 'description': 'Ducks', 'train_samples': []},]
+samples = [ {'name': 'dog', 'extension': 'jpg', 'description': 'Dog'},
+            {'name': 'frisbee', 'extension': 'jpg', 'description': 'Person with Frisbee'},
+            {'name': 'tennis', 'extension': 'jpg', 'description': 'Person with Racket'},
+            {'name': 'hot_dog', 'extension': 'jpg', 'description': 'People with Hotdogs'},
+            {'name': 'cat', 'extension': 'jpg', 'description': 'Cat with Computer'},
+            {'name': 'ducks', 'extension': 'jpg', 'description': 'Ducks'},
+        ]
 
 def create_sparse_masks(model, image):
     X = np.array([cv2.resize(image, IMAGE_SIZE)])
@@ -228,15 +230,15 @@ if __name__ == "__main__":
         "final_activation": final_activation,
     })
 
-    # model = u_net.define_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
-    model, attention_model = u_net.define_attention_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
+    model = u_net.define_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
+    # model, attention_model = u_net.define_attention_mobile_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes, final_activation=final_activation)
     # model = u_net.define_vgg_unet(input_shape=IMAGE_SIZE, conv_per_block=conv_per_block, num_classes=num_classes)
 
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=LR),
                     loss=focal_tversky_loss(alpha=alpha, gamma=gamma),
                     metrics=['accuracy', sensitivity, specificity])
     
-    attention_model.compile()
+    # attention_model.compile()
 
     model.summary()
 
@@ -247,4 +249,5 @@ if __name__ == "__main__":
                             callbacks=[reduce_lr,
                                 model_checkpoint_callback,
                                 WandbCallback(save_model=False),
-                                CustomCallback(MODEL_NAME, attention_model)])
+                                CustomCallback(MODEL_NAME)])
+                                # CustomCallback(MODEL_NAME, attention_model)])
